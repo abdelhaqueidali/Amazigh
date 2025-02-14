@@ -245,30 +245,45 @@
 
         let activeGrammar = null;
         // Function to load and display a grammar topic
-        function loadGrammarTopic(filename) {
-            if (activeGrammar) {
-                activeGrammar.classList.remove('active');
-            }
-            fetch(`grammar/${filename}.txt`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(text => {
-                    grammarContent.innerHTML =  `<h2>${filename}</h2>${text}`;
-					const currentGrammar = document.getElementById(filename);
-                    if(currentGrammar){
-                        currentGrammar.classList.add('active');
-                        activeGrammar = currentGrammar;
-                    }
-                })
-                .catch(error => {
-                    grammarContent.innerHTML = `<p>Error loading grammar topic: ${error.message}</p>`;
-                });
-        }
+      function loadGrammarTopic(filename) {
+    if (activeGrammar) {
+        activeGrammar.classList.remove('active');
+    }
 
+    fetch(`grammar/${filename}.html`) // Change .txt to .html
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.text(); // Still fetch as text
+        })
+        .then(htmlString => {
+            // Create a temporary DOM element to parse the HTML string
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlString;
+
+            // Extract the title (assuming it's in an h2 tag)
+            const titleElement = tempDiv.querySelector('h2');
+            const title = titleElement ? titleElement.textContent : filename; // Fallback to filename if no h2
+
+            // Remove the title element from the temporary div (optional, but cleaner)
+            if (titleElement) {
+              titleElement.remove();
+            }
+
+            // Set the grammarContent, including the title
+            grammarContent.innerHTML = `<h2>${title}</h2>${tempDiv.innerHTML}`;
+
+            const currentGrammar = document.getElementById(filename);
+            if (currentGrammar) {
+                currentGrammar.classList.add('active');
+                activeGrammar = currentGrammar;
+            }
+        })
+        .catch(error => {
+            grammarContent.innerHTML = `<p>Error loading grammar topic: ${error.message}</p>`;
+        });
+}
         // Create list items for each grammar topic
         grammarTopics.forEach(topic => {
             const listItem = document.createElement('li');
