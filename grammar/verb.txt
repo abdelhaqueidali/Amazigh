@@ -1,349 +1,289 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grammar Viewer</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-	<header>تصريف الأفعال<br>ⴰⵙⴼⵜⵉ ⵏ ⵉⵎⵢⴰⴳⵏ</header>
-    <footer>
-        
-    </footer>
-<body>
-            <h2 class="lesson-title">صيغ الفعل<br></h2>
-        <div class="container" 
-id="grammarContent">
-- كل فعل يتوفر على 4 صيغ، كل صيغة حسب الزمن المناسب.
-<p id="ltr">
-		    <table>
-        <tr>
-        	<td>ⵓⵔⵎⵉⵔ<br>المجرد</td>
-            <td>ⵓⵙⵎⵉⴷ<br>التام</td>
-            <td>ⵓⵙⵎⵉⴷ ⴰⵏⴰⴱⴰⵡ<br>التام المنفي</td>
-            <td>ⴰⵔⵓⵙⵎⵉⴷ<br>غير التام</td>
-        </tr> 
-             <tr>
-        	<td rowspan="2">ⵖⵔ</td>
-            <td rowspan="2">ⵖⵔⵉ\ⵖⵔⴰ</td>
-            <td rowspan="2">ⵖⵔⵉ</td>
-            <td rowspan="1">ⵇⵇⴰⵔ</td>
-            </tr>
-            <tr>
-            <td>ⴰⵇⵇⵔⴰ</td>
-        </tr>  
-        </table>
-    </p>
-    - بعض الأفعال مثل ⵖⵔ تتوفر على شكلين في صيغة التام، شكل (ⵖⵔⵉ) للتصريف مع ⵏⴽⴽ، ⴽⵢⵢ، ⴽⵎⵎ وشكل (ⵖⵔⴰ) للضمائر الأخرى. بحيث يتغير الصائت ⵉ إلى ⴰ.
-<br>
-بالنسبة لصيغة غير التام فهناك شكلين ⴰⵇⵇⵔⴰ و ⵇⵇⴰⵔ، يمكن إستعمال أي منهما كصيغة تامة.
-<br>
-ⵏⴽⴽ ⴰⵔ <b>ⵇⵇⴰⵔⵖ</b> = ⵏⴽⴽ ⴰⵔ <b>ⴰⵇⵇⵔⴰⵖ</b>.
-</div>
-        <h2 class="lesson-title">التصريف<br>ⴰⵙⴼⵜⵉ</h2>
-    <div class="container" 
-id="grammarContent">
-	<br>
-- لتصريف فعل معين مع الضمائر نستعمل العلامات الفعلية التي تدل على كل ضمير. يتم إضافتها قبل أو بعد أو كليهما للفعل. والعلامات الفعلية تنقسم لثلاثة أشكال، علامات خاصة بالصيغ غير الأمرية، وعلامات خاصة بالأمر وعلامات خاصة بالصيغة المشبهة.
-<p id="ltr">
-		    <table>
-			<tr>
-			            <td colspan="2"><b>العلامات الفعلية للصيغ غير أمرية</b></td>
-		</tr>
-        <tr>
-        	<td>الضمائر <br>ⵉⵎⵇⵇⵉⵎⵏ</td>
-            <td>العلامات الفعلية<br>ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵏ ⵓⵎⵢⴰⴳ</td>
-        </tr>
-        <tr>
-        	<td>ⵏⴽⴽ</td>
-            <td>----<span style="color:red">ⵖ</span></td>
-        </tr>
-        <tr>
-            <td>ⴽⵢⵢ</td>
-            <td><span style="color:red">ⵜ</span>----<span style="color:red">ⴷ</span> </td>
-          
-        </tr>
-        <tr>
-            <td>ⴽⵎⵎ</td>
-            <td><span style="color:red">ⵜ</span>----<span style="color:red">ⴷ</span> </td>
-        </tr>
-        <tr>
-            <td>ⵏⵜⵜⴰ</td>
-            <td><span style="color:red">ⵉ</span>----</td>
-        </tr>
-        <tr>
-            <td>ⵏⵜⵜⴰⵜ</td>
-            <td><span style="color:red">ⵜ</span>----</td>
-        </tr>
-        <tr>
-            <td>ⵏⴽⴽⵏⵉ</td>
-            <td><span style="color:red">ⵏ</span>----</td>
-        </tr>
-        <tr>
-            <td>ⵏⴽⴽⵏⵜⵉ</td>
-            <td><span style="color:red">ⵏ</span>----</td>
-        </tr>
-        <tr>
-            <td>ⴽⵏⵏⵉ</td>
-            <td><span style="color:red">ⵜ</span>----<span style="color:red">ⵎ</span></td>
-        </tr>
-        <tr>
-            <td>ⴽⵏⵏⵉⵏⵜⵉ</td>
-            <td><span style="color:red">ⵜ</span>----<span style="color:red">ⵎⵜ</span></td>
-        </tr>
-        <tr>
-            <td>ⵏⵉⵜⵏⵉ</td>
-            <td>----<span style="color:red">ⵏ</span></td>
-        </tr>
-         <tr>
-            <td>ⵏⵉⵜⵏⵜⵉ</td>
-            <td>----<span style="color:red">ⵏⵜ</span></td>
-        </tr>
-    </table>
-	</p>
-- الصيغ غير الأمرية:
-<br>
-• الصيغة المجردة ⵓⵔⵎⵉⵔ
-<br>
-• التام ⵓⵙⵎⵉⴷ
-<br>
-• التام المنفي ⵓⵙⵎⵉⴷ ⴰⵏⴰⴱⴰⵡ
-<br>
-• غير التام ⴰⵔⵓⵙⵎⵉⴷ.
-<br>
-وكل صيغة تستعمل مع الزمن المناسب.
-<br>
-	<br>
-<p id="ltr">
-		    <table>
-			<tr>
-			            <td colspan="2"><b>العلامات الفعلية للصيغ الأمرية</b></td>
-		</tr>
-        <tr>
-        	<td>الضمائر <br>ⵉⵎⵇⵇⵉⵎⵏ</td>
-            <td>العلامات الفعلية<br>ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵏ ⵓⵎⵢⴰⴳ</td>
-            <tr>
-            <td>ⴽⵢⵢ</td>
-            <td>----</td>
-          </tr>
-        </tr>
-        <tr>
-            <td>ⴽⵎⵎ</td>
-            <td>----</td>
-        </tr>
-        <tr>
-        <tr>
-            <td rowspan="2">ⴽⵏⵏⵉ</td>
-            <td><span style="color:red"></span>----<span style="color:red">ⴰⵜ</span></td>
-        </tr>
-        <tr>
-            <td><span style="color:red"></span>----<span style="color:red">ⵎ</span></td>
-        </tr>
-                <tr>
-            <td rowspan="2">ⴽⵏⵏⵉⵏⵜⵉ</td>
-            <td><span style="color:red"></span>----<span style="color:red">ⴰⵎⵜ</span></td>
-        </tr>
-                <tr>
-            <td><span style="color:red"></span>----<span style="color:red">ⵎⵜ</span></td>
-        </tr>
-    </table>
-	</p>
-	<br>
-- الصيغ الأمرية ليس لهم صيغ للفعل خاصة بهم بل يستعملون الصيغ المتوفرة كما يلي:
-<br>
-• الأمر ⴰⵏⴰⴹ يستعمل صيغة المجرد ⵓⵔⵎⵉⵔ
-<br>
-• الأمر التوكيدي ⴰⵏⴰⴹ ⵓⵙⵙⵉⴷ يستعمل صيغة غير التام ⴰⵔⵓⵙⵎⵉⴷ.
-<br>
-	- الفعل في تصريف الصيغ الأمرية في ضمائر المفرد المذكر والمفرد المؤنث لا يحملان أي علامات فعلية.
-	<br>
-	-الصيغة الأمرية لا تتوفر على جميع الضمائر، تتوفر فقط على أنتَ، أنتِ، أنتم، وأنتن.
+<h1>Verb Conjugation (Asfti n Yimyagn)</h1>
 
-<br><br><b>
-- الصيغة المشبهة تستعمل مع كل الصيغ الفعلية، ما عدا الصيغة المجردة المسبوقة بالأداة ⵔⴰⴷ.
-<br>
-تتحقق الصيغة المشبهة بالعلامات الفعلية ⵉ----ⵏ.
-</b><br><p id="ltr">
-	ⵉⴷⴷⴰ ("ⴷⴷⵓ" ⴳ ⵓⵙⵎⵉⴷ) => ⴰⵔⴳⴰⵣ ⵍⵍⵉ <span style="color:red">ⵉ</span>ⴷⴷⴰ<span style="color:red">ⵏ</span>
-</p><br>
-<p><b>
-	- تصريف فعل ⵖⵔ في الصيغة المجردة مع علامات الفعل الغير أمرية:
-	</b></p>
-<p id="ltr">
-		    <table>
-			<tr>
-			            <td colspan="2"><b>الصيغة المجردة<br>ⵓⵔⵎⵉⵔ</b></td>
-		</tr>
-        <tr>
-        	<td>الضمائر <br>ⵉⵎⵇⵇⵉⵎⵏ</td>
-            <td>التصريف<br>ⴰⵙⴼⵜⵉ</td>
-        </tr>
-        <tr>
-        	<td>ⵏⴽⴽ</td>
-            <td> ⵖⵔ<span style="color:red">ⵖ</span></td>
-        </tr>
-        <tr>
-            <td>ⴽⵢⵢ</td>
-            <td><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⴷ</span> </td>
-          
-        </tr>
-        <tr>
-            <td>ⴽⵎⵎ</td>
-            <td><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⴷ</span> </td>
-        </tr>
-        <tr>
-            <td>ⵏⵜⵜⴰ</td>
-            <td><span style="color:red">ⵉ</span>ⵖⵔ</td>
-        </tr>
-        <tr>
-            <td>ⵏⵜⵜⴰⵜ</td>
-            <td><span style="color:red">ⵜ</span>ⵖⵔ</td>
-        </tr>
-        <tr>
-            <td>ⵏⴽⴽⵏⵉ</td>
-            <td><span style="color:red">ⵏ</span>ⵖⵔ</td>
-        </tr>
-        <tr>
-            <td>ⵏⴽⴽⵏⵜⵉ</td>
-            <td><span style="color:red">ⵏ</span>ⵖⵔ</td>
-        </tr>
-        <tr>
-            <td>ⴽⵏⵏⵉ</td>
-            <td><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⵎ</span></td>
-        </tr>
-        <tr>
-            <td>ⴽⵏⵏⵉⵏⵜⵉ</td>
-            <td><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⵎⵜ</span></td>
-        </tr>
-        <tr>
-            <td>ⵏⵉⵜⵏⵉ</td>
-            <td>ⵖⵔ<span style="color:red">ⵏ</span></td>
-        </tr>
-         <tr>
-            <td>ⵏⵉⵜⵏⵜⵉ</td>
-            <td>ⵖⵔ<span style="color:red">ⵏⵜ</span></td>
-        </tr>
-    </table>
-    </p>
-    - الصيغة المجردة ⵓⵔⵎⵉⵔ يمكن إستعمالها للحاضر والمستقبل.
-    <br>- مثال في الحاضر: 
-<span style="color:red">ⴰⴷ ⵖⵔⵖ</span> ⵜⴰⵏⴼⵓⵙⵜ ⴰⴷ.
-    <br>- مثال في المستقبل: 
-<span style="color:red">ⵔⴰⴷ ⵖⵔⵖ</span> ⵜⴰⵏⴼⵓⵙⵜ ⴰⴷ.
-	</div>
-	        <h2 class="lesson-title">تغييرات<br>ⴰⵙⵏⴼⵍ</h2>
-	<div class="container" 
-id="grammarContent">
-	<p>
-<br>
-- إذا كان الفعل يملك أحد الحروف الصائتة ⴰ, ⵉ, ⵓ في بدايته فإن العلامة الفعلية للضمير ⵏⵜⵜⴰ تتحول من ⵉ إلى ⵢ.
-<br>
-	<p id="ltr">
-ⵓⵎⵥ ("ⴰⵎⵥ" ⴳ ⵓⵙⵎⵉⴷ) => ⵏⵜⵜⴰ <span style="color:red">ⵉ</span>ⵓⵎⵥ => ⵏⵜⵜⴰ <span style="color:red">ⵢ</span>ⵓⵎⵥ.
-<br>
-ⴰⵡⵉ => ⴰⴷ <span style="color:red">ⵉ</span>ⴰⵡⵉ ⵏⵜⵜⴰ => ⴰⴷ <span style="color:red">ⵢ</span>ⴰⵡⵉ.
-</p>
-<br>
-	<br>
-- إذا كان الفعل يملك ⵜⵜ في بدايته فإن العلامات الفعلية للضمائر ⴽⵢⵢ, ⴽⵎⵎ, ⴽⵏⵏⵉ, ⴽⵏⵏⵉⵏⵜⵉ تتحول من ⵜ إلى ⵜⴻ.
-<br>
-	<p id="ltr">
-• ⵜⵜⵓ => ⴽⵢⵢ <span style="color:red">ⵜ</span>ⵜⵜⵓ<span style="color:red">ⴷ</span> => ⴽⵢⵢ <span style="color:red">ⵜⴻ</span>ⵜⵜⵓ<span style="color:red">ⴷ</span>.
-<br>
-• ⵜⵜⵉⵏⵉ => ⴰⴷ <span style="color:red">ⵜ</span>ⵜⵜⵉⵏⵉ<span style="color:red">ⴷ</span> => ⴰⴷ <span style="color:red">ⵜⴻ</span>ⵜⵜⵉⵏⵉⴷ.
-</p>
-<br>
-- إذا كان الفعل يملك ⵜⵜⴻⵜⵜ في بدايته فإن العلامات الفعلية السابقة ⵜ للضمائر ⴽⵢⵢ, ⴽⵎⵎ, ⴽⵏⵏⵉ, ⴽⵏⵏⵉⵏⵜⵉ لا يتم إضافتها. هذه المسألة تخص ⵜⵜⵓ في صيغة غير التام ⵜⵜⴻⵜⵜⵓ.
-<br>
-	<p id="ltr">
-ⵜⵜⴻⵜⵜⵓ ("ⵜⵜⵓ" ⴳ ⴰⵔⵓⵙⵎⵉⴷ) => ⴽⵢⵢ <span style="color:red"></span>ⵜⵜⴻⵜⵜⵓ<span style="color:red">ⴷ</span>.
-</p>
-- إذا كان الفعل يبدأ بـ ⵏ‌ⵏ فإننا نضيف ⵏⴻ بدل ⵏ فقط في تصرف الفعل للضمير ⵏⴽⴽⵏⵉ.
-<p id="ltr">
-- ⵏⵏⵉ\ⵏⵏⴰ ("ⵉⵏⵉ" ⴳ ⵓⵙⵎⵉⴷ) => ⵏⴽⴽⵏⵉ <span style="color:red">ⵏ‌</span>ⵏⵏⴰ => ⵏⴽⴽⵏⵉ <span style="color:red">ⵏⴻ</span>ⵏⵏⴰ
-</p>
+<div class="example">
+  <p>Every verb has 4 forms, each form according to the appropriate tense.</p>
+  <table>
+      <tr>
+          <td><span class="latin-transliteration-word">Urmir</span><br>Bare form</td>
+          <td><span class="latin-transliteration-word">Usmid</span><br>Perfective</td>
+          <td><span class="latin-transliteration-word">Usmid Anabaw</span><br>Negative Perfective</td>
+          <td><span class="latin-transliteration-word">Arusmid</span><br>Imperfective</td>
+      </tr>
+      <tr>
+          <td rowspan="2"><span class="tifinagh">ⵖⵔ</span></td>
+          <td rowspan="2"><span class="tifinagh">ⵖⵔⵉ</span>/<span class="tifinagh">ⵖⵔⴰ</span></td>
+          <td rowspan="2"><span class="tifinagh">ⵖⵔⵉ</span></td>
+          <td><span class="tifinagh">ⵇⵇⴰⵔ</span></td>
+      </tr>
+      <tr>
+          <td><span class="tifinagh">ⴰⵇⵇⵔⴰ</span></td>
+      </tr>
+  </table>
+
+  <p>Some verbs, like <span class="tifinagh">ⵖⵔ</span>, have two forms in the perfective aspect: <span class="latin-transliteration-word">ɣri</span> (used with <span class="latin-transliteration-word">nekk</span>, <span class="latin-transliteration-word">keyy</span>, <span class="latin-transliteration-word">kemm</span>) and <span class="latin-transliteration-word">ɣra</span> (used with other pronouns). The vowel <span class="tifinagh">ⵉ</span> changes to <span class="tifinagh">ⴰ</span>.</p>
+  <p>For the imperfective aspect, there are two forms, <span class="tifinagh">ⴰⵇⵇⵔⴰ</span> and <span class="tifinagh">ⵇⵇⴰⵔ</span>. Either can be used as a perfective form.</p>
+  <p><span class="latin-transliteration-word">Nekk ar </span><span class="tifinagh"><b>ⵇⵇⴰⵔⵖ</b></span> = <span class="latin-transliteration-word">Nekk ar </span><span class="tifinagh"><b>ⴰⵇⵇⵔⴰⵖ</b></span>.</p>
 </div>
-        <h2 class="lesson-title">الأزمنة<br></h2>
-	<div class="container" 
-id="grammarContent">
-	<p>
-	<p>
-		<b>الماضي</b>
-		<br>
-			- تستعمل صيغة التام والتام المنفي للحديث عن فعل حدث في الماضي، من الاسم، التام، يشير للإنتهاء والإتمام.
-			<br>
-				أمثلة:
-				<br>
-					<span style="color:red">ⵖⵔⵉⵖ</span> ⴰⴷⵍⵉⵙ ⴰⴷ ⵉⴹⴳⴰⵎ.
-				<br>
-					<b>ⵓⵔ</b> <span style="color:red">ⵖⵔⵉⵖ</span> ⴰⴷⵍⵉⵙ ⴰⴷ.
-				<br>
-					كل الصيغ الأخرى يتم نفيها بإضافة أداة ⵓⵔ مع الإستعانة بنفس الصيغ، ما عدا التام، هناك تام منفي لإسعمال مع أداة النفي ⵓⵔ.
-		</p>
-		<p>
-		<b>الحاضر</b>
-		<br>
-		- تستعمل صيغة المجرد وصيغة غير التام مع الحاضر.
-		<br>
-			أمثلة:
-			<br>
-			ⵔⵉⵖ ⴰⴷ <span style="color:red">ⵖⵔⵖ</span> ⴰⴷⵍⵉⵙ ⴰⴷ.
-			<br>
-			ⴷⴰ <span style="color:red">ⵇⵇⴰⵔⵖ</span> ⴽⵔⴰ ⵙⴳ ⵓⴷⵍⵉⵙ ⴰⴷ ⴽⵔⴰⵢⴳⴰⵜ ⴰⵙⵙ.
-		</p>
-		<p>
-		<b>المستقبل</b>
-		<br>
-		- تستعمل صيغة المجرد وغير التام مع المستقبل.
-		<br>
-		ⵔⴰⴷ <span style="color:red">ⵖⵔⵖ</span> ⴰⴷⵍⵉⵙ ⴰⴷ.
-		<br>
-		ⵔⴰⴷ <span style="color:red">ⵇⵇⴰⵔⵖ</span> ⵉⵎⵉⴽⴽ ⵙⴳ ⵓⴷⵍⵉⵙ ⴰⴷ ⴽⵔⴰⵢⴳⴰⵜ ⴰⵙⵙ.
-		</p>
-		<p>
-		<b>الأمر</b>
-		<br>
-			- تستعمل صيغ الأمر لإعطاء أمر. وهناك أمر عادي وأمر توكيدي.
-			<br>
-				<span style="color:red">ⵖⵔ</span> ⴰⴷⵍⵉⵙ ⴰⴷ!
-				<br>
-					<span style="color:red">ⵇⵇⴰⵔ</span> ⴰⴷⵍⵉⵙ ⴰⴷ!
-		</p>
-		<p>
-		<b>سياقات الصيغة المشبهة</b>
-		<br>
-		- تظهر هذه الصيغة في أماكن مختلفة، مثل إستعمال الأدوات ⵍⵍⵉ, ⴷⴰ, ⵏⵏⴰ.
-		<p id="ltr">
-ⵓⵙⵎⵉⴷ التام: ⴰⴼⵔⵓⵅ <b>ⵍⵍⵉ</b> <span style="color:red">ⵉ</span>ⵖⵔⴰ<span style="color:red">ⵏ</span>
-<br>
-ⵓⵙⵎⵉⴷ ⴰⵏⴰⴱⴰⵡ التام المنفي: ⴰⴼⵔⵓⵅ <b>ⴷⴰ</b> ⵓⵔ <span style="color:red">ⵉ</span>ⵖⵔⵉ<span style="color:red">ⵏ</span>
-<br>
-ⴰⵔⵓⵙⵎⵉⴷ غير التام: ⴰⴼⵔⵓⵅ <b>ⵏⵏⴰ</b> <span style="color:red">ⵢ</span>ⴰⵇⵇⵔⴰ<span style="color:red">ⵏ</span>
-		</br>
-	</p>
-	</div>
-	
-	        <h2 class="lesson-title">إنتباه!<br></h2>
-	<div class="container" 
-id="grammarContent">
-		- عندما يكون أحد العلامات الفعلية نفس الحرف الذي يبدأ به الفعل، عادة ما ينسى الشخص إضافة العلامة الفعلية دون الإنتباه لكون الحرف الذي في الفعل مجرد حرف أصلي في الفعل وليس علامة فعلية:
-		<h3>أمثلة</h3>
-		<div id="ltr">
-			<p>
-			- ⵉⵙⵙⴰⵏ => ⴰⴷ ⵉⵙⵙⴰⵏ‌<span style="color:red">ⵏ</span> (ⵏⵉⵜⵏⵉ) ✅
-			<br>
-			- ⴰⴷ ⵉⵙⵙⴰⵏ (ⵏⵉⵜⵏⵉ) ❌
-			</p>
-			<p>
-				- ⵉⵍⵉ => ⵔⴰⴷ <span style="color:red">ⵢ</span>ⵉⵍⵉ (ⵏⵜⵜⴰ). ✅
-				<br>
-			- ⵉⵍⵉ => ⴰⴷ ⵉⵍⵉ ⵏⵜⵜⴰ ❌
-			</p>
-			<p>
-			- ⴼⴼⵖ => ⵏⴽⴽ ⵔⴰⴷ ⴼⴼⵖ<span style="color:red">ⵖ</span> ✅
-			<br>
-			- ⵏⴽⴽ ⵔⴰⴷ ⴼⴼⵖ ❌
-			</p>
-	</div>
-</body>
-</html>
+
+<h2>Conjugation (Asfti)</h2>
+<div class="example">
+    <p>To conjugate a verb with pronouns, we use verbal markers that indicate each pronoun.  These are added before, after, or both to the verb.  Verbal markers are divided into three forms: markers for non-imperative forms, markers for the imperative, and markers for the subjunctive form.</p>
+  <table>
+      <tr>
+          <td colspan="2"><b>Verbal Markers for Non-Imperative Forms</b></td>
+      </tr>
+      <tr>
+          <td>Pronouns<br><span class="tifinagh">ⵉⵎⵇⵇⵉⵎⵏ</span></td>
+          <td>Verbal Markers<br><span class="tifinagh">ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵏ ⵓⵎⵢⴰⴳ</span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Nekk</span></td>
+          <td>----<span style="color:red">ɣ</span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Keyy</span></td>
+          <td><span style="color:red">ⵜ</span>----<span style="color:red">ⴷ</span> </td>
+
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Kemm</span></td>
+          <td><span style="color:red">ⵜ</span>----<span style="color:red">ⴷ</span> </td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Netta</span></td>
+          <td><span style="color:red">ⵉ</span>----</td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Nettat</span></td>
+          <td><span style="color:red">ⵜ</span>----</td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Nekkni</span></td>
+          <td><span style="color:red">ⵏ</span>----</td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Nekkenti</span></td>
+          <td><span style="color:red">ⵏ</span>----</td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Kenni</span></td>
+          <td><span style="color:red">ⵜ</span>----<span style="color:red">ⵎ</span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Kenninti</span></td>
+          <td><span style="color:red">ⵜ</span>----<span style="color:red">ⵎⵜ</span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Nitni</span></td>
+          <td>----<span style="color:red">ⵏ</span></td>
+      </tr>
+       <tr>
+          <td><span class="latin-transliteration-word">Nitenti</span></td>
+          <td>----<span style="color:red">ⵏⵜ</span></td>
+      </tr>
+  </table>
+
+<p>Non-imperative forms:</p>
+  <ul>
+    <li>Bare form (<span class="latin-transliteration-word">urmir</span>) <span class="tifinagh">ⵓⵔⵎⵉⵔ</span></li>
+    <li>Perfective (<span class="latin-transliteration-word">usmid</span>) <span class="tifinagh">ⵓⵙⵎⵉⴷ</span></li>
+    <li>Negative Perfective (<span class="latin-transliteration-word">usmid anabaw</span>) <span class="tifinagh">ⵓⵙⵎⵉⴷ ⴰⵏⴰⴱⴰⵡ</span></li>
+    <li>Imperfective (<span class="latin-transliteration-word">arusmid</span>) <span class="tifinagh">ⴰⵔⵓⵙⵎⵉⴷ</span>.</li>
+  </ul>
+<p>Each form is used with the appropriate tense.</p>
+
+  <table>
+      <tr>
+          <td colspan="2"><b>Verbal Markers for Imperative Forms</b></td>
+      </tr>
+      <tr>
+          <td>Pronouns<br><span class="tifinagh">ⵉⵎⵇⵇⵉⵎⵏ</span></td>
+          <td>Verbal Markers<br><span class="tifinagh">ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵏ ⵓⵎⵢⴰⴳ</span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Keyy</span></td>
+          <td>----</td>
+        </tr>
+
+      <tr>
+          <td><span class="latin-transliteration-word">Kemm</span></td>
+          <td>----</td>
+      </tr>
+      <tr>
+          <td rowspan="2"><span class="latin-transliteration-word">Kenni</span></td>
+          <td>----<span style="color:red">ⴰⵜ</span></td>
+      </tr>
+      <tr>
+          <td>----<span style="color:red">ⵎ</span></td>
+      </tr>
+      <tr>
+          <td rowspan="2"><span class="latin-transliteration-word">Kenninti</span></td>
+          <td>----<span style="color:red">ⴰⵎⵜ</span></td>
+      </tr>
+      <tr>
+          <td>----<span style="color:red">ⵎⵜ</span></td>
+      </tr>
+  </table>
+
+  <p>Imperative forms do not have their own verb forms, but use the available forms as follows:</p>
+  <ul>
+      <li>Imperative (<span class="latin-transliteration-word">anaḍ</span>) <span class="tifinagh">ⴰⵏⴰⴹ</span> uses the bare form (<span class="latin-transliteration-word">urmir</span>) <span class="tifinagh">ⵓⵔⵎⵉⵔ</span></li>
+      <li>Emphatic Imperative (<span class="latin-transliteration-word">anaḍ ussid</span>) <span class="tifinagh">ⴰⵏⴰⴹ ⵓⵙⵙⵉⴷ</span> uses the imperfective form (<span class="latin-transliteration-word">arusmid</span>) <span class="tifinagh">ⴰⵔⵓⵙⵎⵉⴷ</span>.</li>
+  </ul>
+  <p>The verb in the imperative form for the singular masculine and singular feminine pronouns does not carry any verbal markers.</p>
+  <p>The imperative form is not available for all pronouns; it is only available for "you" (singular masculine), "you" (singular feminine), "you" (plural masculine), and "you" (plural feminine).</p>
+</div>
+
+<p><b>The subjunctive form is used with all verb forms, except for the bare form preceded by the particle <span class="latin-transliteration-word">rad</span>.  The subjunctive form is achieved with the verbal markers <span class="tifinagh">ⵉ----ⵏ</span>.</b></p>
+  <p><span class="tifinagh">ⵉⴷⴷⴰ</span> (<span class="latin-transliteration-word">"ddu"</span> <span class="tifinagh">ⴳ ⵓⵙⵎⵉⴷ</span>)  => <span class="latin-transliteration-word">argaz lli </span><span class="tifinagh"><span style="color:red">ⵉ</span>ⴷⴷⴰ<span style="color:red">ⵏ</span></span></p>
+
+<p><b>Conjugation of the verb <span class="tifinagh">ⵖⵔ</span> in the bare form with non-imperative verbal markers:</b></p>
+<div class="example">
+  <table>
+      <tr>
+          <td colspan="2"><b>Bare Form<br><span class="tifinagh">ⵓⵔⵎⵉⵔ</span></b></td>
+      </tr>
+      <tr>
+          <td>Pronouns<br><span class="tifinagh">ⵉⵎⵇⵇⵉⵎⵏ</span></td>
+          <td>Conjugation<br><span class="tifinagh">ⴰⵙⴼⵜⵉ</span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Nekk</span></td>
+          <td><span class="tifinagh">ⵖⵔ<span style="color:red">ⵖ</span></span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Keyy</span></td>
+          <td><span class="tifinagh"><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⴷ</span></span> </td>
+
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Kemm</span></td>
+          <td><span class="tifinagh"><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⴷ</span></span> </td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Netta</span></td>
+          <td><span class="tifinagh"><span style="color:red">ⵉ</span>ⵖⵔ</span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Nettat</span></td>
+          <td><span class="tifinagh"><span style="color:red">ⵜ</span>ⵖⵔ</span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Nekkni</span></td>
+          <td><span class="tifinagh"><span style="color:red">ⵏ</span>ⵖⵔ</span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Nekkenti</span></td>
+          <td><span class="tifinagh"><span style="color:red">ⵏ</span>ⵖⵔ</span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Kenni</span></td>
+          <td><span class="tifinagh"><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⵎ</span></span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Kenninti</span></td>
+          <td><span class="tifinagh"><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⵎⵜ</span></span></td>
+      </tr>
+      <tr>
+          <td><span class="latin-transliteration-word">Nitni</span></td>
+          <td><span class="tifinagh">ⵖⵔ<span style="color:red">ⵏ</span></span></td>
+      </tr>
+       <tr>
+          <td><span class="latin-transliteration-word">Nitenti</span></td>
+          <td><span  class="tifinagh">ⵖⵔ<span style="color:red">ⵏⵜ</span></span></td>
+      </tr>
+  </table>
+
+  <p>The bare form (<span class="latin-transliteration-word">urmir</span>) <span class="tifinagh">ⵓⵔⵎⵉⵔ</span> can be used for the present and the future.</p>
+  <p>Example in the present: <span class="tifinagh"><span style="color:red">ⴰⴷ ⵖⵔⵖ</span> ⵜⴰⵏⴼⵓⵙⵜ ⴰⴷ</span>.</p>
+  <p>Example in the future: <span class="tifinagh"><span style="color:red">ⵔⴰⴷ ⵖⵔⵖ</span> ⵜⴰⵏⴼⵓⵙⵜ ⴰⴷ</span>.</p>
+</div>
+<h2>Changes (Asnfel)</h2>
+<div class="example">
+
+<p>If the verb has one of the vowels <span class="tifinagh">ⴰ</span>, <span class="tifinagh">ⵉ</span>, <span class="tifinagh">ⵓ</span> at its beginning, the verbal marker for the pronoun <span class="latin-transliteration-word">netta</span> changes from <span class="tifinagh">ⵉ</span> to <span class="tifinagh">ⵢ</span>.</p>
+
+  <p><span class="tifinagh">ⵓⵎⵥ</span> (<span class="latin-transliteration-word">"amẓ"</span> <span class="tifinagh">ⴳ ⵓⵙⵎⵉⴷ</span>) => <span class="latin-transliteration-word">netta </span><span class="tifinagh"><span style="color:red">ⵉ</span>ⵓⵎⵥ</span> => <span class="latin-transliteration-word">netta </span><span class="tifinagh"><span style="color:red">ⵢ</span>ⵓⵎⵥ</span>.</p>
+  <p><span class="tifinagh">ⴰⵡⵉ</span> => <span class="tifinagh">ⴰⴷ <span style="color:red">ⵉ</span>ⴰⵡⵉ ⵏⵜⵜⴰ</span> => <span class="tifinagh">ⴰⴷ <span style="color:red">ⵢ</span>ⴰⵡⵉ</span>.</p>
+
+
+<p>If the verb has <span class="tifinagh">ⵜⵜ</span> at its beginning, the verbal markers for the pronouns <span class="latin-transliteration-word">keyy</span>, <span class="latin-transliteration-word">kemm</span>, <span class="latin-transliteration-word">kenni</span>, <span class="latin-transliteration-word">kenninti</span> change from <span class="tifinagh">ⵜ</span> to <span class="tifinagh">ⵜⴻ</span>.</p>
+
+  <p><span class="tifinagh">ⵜⵜⵓ</span> => <span class="latin-transliteration-word">keyy </span><span class="tifinagh"><span style="color:red">ⵜ</span>ⵜⵜⵓ<span style="color:red">ⴷ</span></span> => <span class="latin-transliteration-word">keyy </span><span class="tifinagh"><span style="color:red">ⵜⴻ</span>ⵜⵜⵓ<span style="color:red">ⴷ</span></span>.</p>
+  <p><span class="tifinagh">ⵜⵜⵉⵏⵉ</span> => <span class="tifinagh">ⴰⴷ <span style="color:red">ⵜ</span>ⵜⵜⵉⵏⵉ<span style="color:red">ⴷ</span></span> => <span class="tifinagh">ⴰⴷ <span style="color:red">ⵜⴻ</span>ⵜⵜⵉⵏⵉⴷ</span>.</p>
+
+
+<p>If the verb has <span class="tifinagh">ⵜⵜⴻⵜⵜ</span> at its beginning, the previous verbal markers <span class="tifinagh">ⵜ</span> for the pronouns <span class="latin-transliteration-word">keyy</span>, <span class="latin-transliteration-word">kemm</span>, <span class="latin-transliteration-word">kenni</span>, <span class="latin-transliteration-word">kenninti</span> are not added. This issue concerns <span class="tifinagh">ⵜⵜⵓ</span> in the imperfective form <span class="tifinagh">ⵜⵜⴻⵜⵜⵓ</span>.</p>
+
+ <p><span class="tifinagh">ⵜⵜⴻⵜⵜⵓ</span> (<span class="latin-transliteration-word">"ttu"</span> <span class="tifinagh">ⴳ ⴰⵔⵓⵙⵎⵉⴷ</span>) => <span class="latin-transliteration-word">keyy </span><span class="tifinagh"><span style="color:red"></span>ⵜⵜⴻⵜⵜⵓ<span style="color:red">ⴷ</span></span>.</p>
+
+<p>If the verb begins with <span class="tifinagh">ⵏⵏ</span>, we add <span class="tifinagh">ⵏⴻ</span> instead of <span class="tifinagh">ⵏ</span> only when conjugating the verb for the pronoun <span class="latin-transliteration-word">nekkni</span>.</p>
+<p><span class="tifinagh">ⵏⵏⵉ</span>/<span class="tifinagh">ⵏⵏⴰ</span> (<span class="latin-transliteration-word">"ini"</span> <span class="tifinagh">ⴳ ⵓⵙⵎⵉⴷ</span>) => <span class="latin-transliteration-word">nekkni </span><span class="tifinagh"><span style="color:red">ⵏ</span>ⵏⵏⴰ</span> => <span class="latin-transliteration-word">nekkni </span><span class="tifinagh"><span style="color:red">ⵏⴻ</span>ⵏⵏⴰ</span></p>
+</div>
+
+<h2>Tenses</h2>
+<div class="example">
+
+<p><b>Past</b></p>
+  <p>The perfective and negative perfective forms are used to talk about an action that happened in the past.  The name "perfective" indicates completion and finishing.</p>
+  <p>Examples:</p>
+  <p><span class="tifinagh"><span style="color:red">ⵖⵔⵉⵖ</span> ⴰⴷⵍⵉⵙ ⴰⴷ ⵉⴹⴳⴰⵎ</span>.</p>
+  <p><b><span class="latin-transliteration-word">Ur</span></b> <span class="tifinagh"><span style="color:red">ⵖⵔⵉⵖ</span> ⴰⴷⵍⵉⵙ ⴰⴷ</span>.</p>
+  <p>All other forms are negated by adding the particle <span class="latin-transliteration-word">ur</span> and using the same forms, except for the perfective, which has a negative perfective form to use with the negation particle <span class="latin-transliteration-word">ur</span>.</p>
+
+
+<p><b>Present</b></p>
+    <p>The bare form and the imperfective form are used with the present.</p>
+      <p>Examples:</p>
+      
+      <p><span class="latin-transliteration-word">Righ ad </span><span class="tifinagh"><span style="color:red">ɣrɣ</span> adlis ad</span>.</p>
+      
+      <p><span class="latin-transliteration-word">Da </span><span class="tifinagh"><span style="color:red">qqarɣ</span> kra seg udlis ad kraygat ass</span>.</p>
+    
+
+<p><b>Future</b></p>
+  
+    <p>The bare and imperfective forms are used with the future.</p>
+    <p><span class="latin-transliteration-word">Rad </span><span class="tifinagh"><span style="color:red">ɣrɣ</span> adlis ad</span>.</p>
+    
+    <p><span class="latin-transliteration-word">Rad </span><span class="tifinagh"><span style="color:red">qqarɣ</span> imikk seg udlis ad kraygat ass</span>.</p>
+  
+
+<p><b>Imperative</b></p>
+  
+    <p>Imperative forms are used to give a command. There is a regular imperative and an emphatic imperative.</p>
+      
+      <p><span class="tifinagh"><span style="color:red">Ɣr</span> adlis ad</span>!</p>
+      
+      <p><span class="tifinagh"><span style="color:red">Qqar</span> adlis ad</span>!</p>
+    
+<p><b>Contexts of the Subjunctive Form</b></p>
+  
+    <p>This form appears in different places, such as when using the particles <span class="latin-transliteration-word">lli</span>, <span class="latin-transliteration-word">da</span>, <span class="latin-transliteration-word">nna</span>.</p>
+      <p>Perfective <span class="latin-transliteration-word">usmid</span>: <span class="tifinagh">afrux <b>lli</b> <span style="color:red">i</span>ɣra<span style="color:red">n</span></span></p>
+      
+      <p>Negative Perfective <span class="latin-transliteration-word">usmid anabaw</span>: <span class="tifinagh">afrux <b>da</b> ur <span style="color:red">i</span>ɣri<span style="color:red">n</span></span></p>
+      
+      <p>Imperfective <span class="latin-transliteration-word">arusmid</span>: <span class="tifinagh">afrux <b>nna</b> <span style="color:red">y</span>aqqra<span style="color:red">n</span></span></p>
+    
+</div>
+
+<h2>Attention!</h2>
+<div class="example">
+    <p>When one of the verbal markers is the same letter as the one the verb begins with, a person often forgets to add the verbal marker without realizing that the letter in the verb is just an original letter in the verb and not a verbal marker:</p>
+    <h3>Examples</h3>
+      
+      <p><span class="tifinagh">ⵉⵙⵙⴰⵏ</span> => <span class="tifinagh">ad issan<span style="color:red">n</span></span> (<span class="latin-transliteration-word">nitni</span>) ✅</p>
+      <p> <span class="tifinagh">ad issan</span> (<span class="latin-transliteration-word">nitni</span>) ❌</p>
+      
+      
+      <p><span class="tifinagh">ⵉⵍⵉ</span> => <span class="latin-transliteration-word">rad </span><span class="tifinagh"><span style="color:red">y</span>ili</span> (<span class="latin-transliteration-word">netta</span>). ✅</p>
+      
+      <p><span class="tifinagh">ⵉⵍⵉ</span> => <span class="tifinagh">ad ili netta</span> ❌</p>
+      
+      <p><span class="tifinagh">ⴼⴼⵖ</span> => <span class="latin-transliteration-word">nekk rad ffɣ<span style="color:red">ɣ</span></span> ✅</p>
+      
+      <p><span class="latin-transliteration-word">nekk rad ffɣ</span> ❌</p>
+      
+  
+</div>
