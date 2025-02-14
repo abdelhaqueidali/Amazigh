@@ -226,7 +226,7 @@
                     return response.text();
                 })
                 .then(text => {
-                    storyContent.innerHTML = `<h2>${filename}</h2><p>${text}</p>`;
+                    storyContent.innerHTML = `<h2>${filename}</h2>${text}`;
 					// Add 'active' class to the current story
                     const currentStory = document.getElementById(filename);
                     if(currentStory){
