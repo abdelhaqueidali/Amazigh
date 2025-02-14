@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tifinagh Alphabet - Learn Amazigh</title>
+    <!-- Google Fonts - Noto Sans Tifinagh -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <style>
+        /*  PASTE THE ENTIRE CSS CODE FROM PREVIOUS RESPONSE HERE */
+        body {
+            font-family: 'Arial', sans-serif; /* A common, readable font.  Consider a more "handwritten" font for the child theme */
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8; /* Light background */
+            color: #333; /* Dark text for readability */
+            line-height: 1.6;  /* Improve readability */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the content fills at least the viewport height */
+        }
+
+        /*  Container for the entire page content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto; /* Center the content */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            flex: 1; /* Allow the container to grow and fill available space */
+        }
+
+        /*  Header Styles */
+        header {
+            background-color: #4CAF50; /*  Green, a lively color */
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0; /* Round top corners */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /*  Navigation Menu Styles */
+        .nav-toggle {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px; /* Space between the button and the list */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            /*  Initially hide the list */
+            display: none; 
+            background-color: #eee;
+            border-radius: 5px;
+        }
+
+        nav ul.show {
+            display: block; /*  Show the list when the 'show' class is added */
+        }
+
+        nav li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav li:last-child {
+            border-bottom: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            display: block; /*  Make the whole list item clickable */
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+        /* Current Page Style in Navigation */
+        nav .current-page {
+            font-weight: bold;
+            color: #4CAF50; /* Highlight current page */
+        }
+
+        /*  Tifinagh Table Styles */
+        .tifinagh-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .tifinagh-table th, .tifinagh-table td {
+            border: 2px solid #4CAF50; /*  Green borders */
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2em; /*  Larger font size */
+        }
+
+        .tifinagh-table th {
+            background-color: #4CAF50;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .tifinagh-table td {
+            background-color: #f0f8f1; /*  Light green background for cells */
+        }
+
+        .tifinagh-character {
+            font-size: 2em; /* Even larger for the Tifinagh character */
+            color: #007bff; /*  Blue for the character */
+            font-family: 'Noto Sans Tifinagh', sans-serif; /*  Use a Tifinagh-specific font! */
+            cursor: pointer; /* Indicate that it's clickable */
+        }
+
+        .latin-transliteration {
+            font-style: italic;
+            color: #666;
+        }
+
+        .sound-example, .image-example {
+            margin-top: 5px;
+            font-style: italic;
+            color: #666;
+        }
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px; /* Round bottom corners */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Learn Tifinagh!</h1>
+        </header>
+
+        <button class="nav-toggle">Show/Hide Menu</button>
+        <nav>
+            <ul id="menu">
+                <li><a href="learn_tifinagh.html" class="current-page">ⴰⴳⵯⵎⵎⴰⵢ - Alphabet</a></li>
+                <li><a href="learn_number.html">ⵓⵟⵟⵓⵏⵏ - Numbers</a></li>
+                <li><a href="learn_color.html">ⵉⴽⵯⵍⴰⵏ - Colors</a></li>
+                <li><a href="read_story.html">ⵜⵓⵍⵍⵉⵙⵉⵏ - Stories</a></li>
+                <li><a href="tifinagh_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ - Alphabet Game</a></li>
+                <li><a href="learn_word.html">ⵜⵉⴳⵓⵔⵉⵡⵉⵏ - Words</a></li>
+                <li><a href="number_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ - Number Game</a></li>
+                <li><a href="color_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ - Color Game</a></li>
+                <li><a href="learn_grammar.html">ⵜⴰⵊⵕⵕⵓⵎⵜ - Grammar</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <table class="tifinagh-table">
+                <thead>
+                    <tr>
+                        <th>Character</th>
+                        <th>Latin Transliteration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="a">ⴰ</span></td>
+                        <td><span class="latin-transliteration">a</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="b">ⴱ</span></td>
+                        <td><span class="latin-transliteration">b</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="c">ⵛ</span></td>
+                        <td><span class="latin-transliteration">c</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="d">ⴷ</span></td>
+                        <td><span class="latin-transliteration">d</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="ḍ">ⴹ</span></td>
+                        <td><span class="latin-transliteration">ḍ</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="e">ⴻ</span></td>
+                        <td><span class="latin-transliteration">e</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="f">ⴼ</span></td>
+                        <td><span class="latin-transliteration">f</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="g">ⴳ</span></td>
+                        <td><span class="latin-transliteration">g</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="gw">ⴳⵯ</span></td>
+                        <td><span class="latin-transliteration">gw</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="h">ⵀ</span></td>
+                        <td><span class="latin-transliteration">h</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="ḥ">ⵃ</span></td>
+                        <td><span class="latin-transliteration">ḥ</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="ⵁ">ⵁ</span></td>
+                        <td><span class="latin-transliteration">...</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="i">ⵉ</span></td>
+                        <td><span class="latin-transliteration">i</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="j">ⵊ</span></td>
+                        <td><span class="latin-transliteration">j</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="k">ⴽ</span></td>
+                        <td><span class="latin-transliteration">k</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="kw">ⴽⵯ</span></td>
+                        <td><span class="latin-transliteration">kw</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="l">ⵍ</span></td>
+                        <td><span class="latin-transliteration">l</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="m">ⵎ</span></td>
+                        <td><span class="latin-transliteration">m</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="n">ⵏ</span></td>
+                        <td><span class="latin-transliteration">n</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="u">ⵓ</span></td>
+                        <td><span class="latin-transliteration">u</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="ʕ">ⵄ</span></td>
+                        <td><span class="latin-transliteration">ʕ</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tifinagh-character" data-sound="gh">ⵖ</span></td>
+                        <td><span class="latin-transliteration">gh</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="q">ⵇ</span></td>
+                        <td><span class="latin-transliteration">q</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="r">ⵔ</span></td>
+                        <td><span class="latin-transliteration">r</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="ṛ">ⵕ</span></td>
+                        <td><span class="latin-transliteration">ṛ</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="s">ⵙ</span></td>
+                        <td><span class="latin-transliteration">s</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="ṣ">ⵚ</span></td>
+                        <td><span class="latin-transliteration">ṣ</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="t">ⵜ</span></td>
+                        <td><span class="latin-transliteration">t</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="ṭ">ⵟ</span></td>
+                        <td><span class="latin-transliteration">ṭ</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="w">ⵡ</span></td>
+                        <td><span class="latin-transliteration">w</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="kh">ⵅ</span></td>
+                        <td><span class="latin-transliteration">kh</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="y">ⵢ</span></td>
+                        <td><span class="latin-transliteration">y</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="z">ⵣ</span></td>
+                        <td><span class="latin-transliteration">z</span></td>
+                      </tr>
+                      <tr>
+                        <td><span class="tifinagh-character" data-sound="ẓ">ⵥ</span></td>
+                        <td><span class="latin-transliteration">ẓ</span></td>
+                      </tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Learn Amazigh</p>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript for the show/hide menu
+        const navToggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('#menu');
+
+        navToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+
+        // JavaScript for playing audio on click
+        const characters = document.querySelectorAll('.tifinagh-character');
+
+        characters.forEach(char => {
+            char.addEventListener('click', () => {
+                const soundFile = char.dataset.sound;
+				if(soundFile != '...'){
+					const audio = new Audio(`audio/${soundFile}.mp3`);
+                	audio.play();
+				}
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbers - Learn Amazigh</title>
+    <!-- Google Fonts - Noto Sans Tifinagh -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <style>
+        /*  PASTE THE ENTIRE CSS CODE FROM PART 1 HERE (the original CSS) */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Container for the entire page content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Navigation Menu Styles */
+        .nav-toggle {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none; /* Initially hidden */
+            background-color: #eee;
+            border-radius: 5px;
+        }
+
+        nav ul.show {
+            display: block;
+        }
+
+        nav li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav li:last-child {
+            border-bottom: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+
+        nav .current-page {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+         /* --- NUMBERS TABLE STYLES --- */
+
+        .numbers-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .numbers-table th, .numbers-table td {
+            border: 2px solid #4CAF50;
+            padding: 12px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .numbers-table th {
+            background-color: #4CAF50;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .numbers-table td {
+            background-color: #f0f8f1;
+        }
+
+        .amazigh-number-word {
+            font-family: 'Noto Sans Tifinagh', sans-serif;
+            font-size: 1.3em;
+            color: #007bff;
+            cursor: pointer; /* Indicate clickable */
+        }
+
+        .latin-number-word {
+            font-style: italic;
+			cursor: pointer;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Amazigh Numbers</h1>
+        </header>
+
+        <button class="nav-toggle">Show/Hide Menu</button>
+        <nav>
+            <ul id="menu">
+                <li><a href="learn_tifinagh.html">ⴰⴳⵯⵎⵎⴰⵢ - Alphabet</a></li>
+                <li><a href="learn_number.html" class="current-page">ⵓⵟⵟⵓⵏⵏ - Numbers</a></li>
+                <li><a href="learn_color.html">ⵉⴽⵯⵍⴰⵏ - Colors</a></li>
+                <li><a href="read_story.html">ⵜⵓⵍⵍⵉⵙⵉⵏ - Stories</a></li>
+                <li><a href="tifinagh_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ - Alphabet Game</a></li>
+                <li><a href="learn_word.html">ⵜⵉⴳⵓⵔⵉⵡⵉⵏ - Words</a></li>
+                <li><a href="number_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ - Number Game</a></li>
+                <li><a href="color_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ - Color Game</a></li>
+                <li><a href="learn_grammar.html">ⵜⴰⵊⵕⵕⵓⵎⵜ - Grammar</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <table class="numbers-table">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Amazigh (Tifinagh)</th>
+                        <th>Amazigh (Latin)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><span class="amazigh-number-word" data-sound="yan">ⵢⴰⵏ</span></td>
+                        <td><span class="latin-number-word" data-sound="yan">Yan</span></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><span class="amazigh-number-word" data-sound="sin">ⵙⵉⵏ</span></td>
+                        <td><span class="latin-number-word" data-sound="sin">Sin</span></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><span class="amazigh-number-word" data-sound="krad">ⴽⵕⴰⴹ</span></td>
+                        <td><span class="latin-number-word" data-sound="krad">Kraḍ</span></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><span class="amazigh-number-word" data-sound="kuz">ⴽⵓⵥ</span></td>
+                        <td><span class="latin-number-word" data-sound="kuz">Kuẓ</span></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><span class="amazigh-number-word" data-sound="smus">ⵙⵎⵎⵓⵙ</span></td>
+                        <td><span class="latin-number-word" data-sound="smus">Smmus</span></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><span class="amazigh-number-word" data-sound="sḍis">ⵙⴹⵉⵙ</span></td>
+                        <td><span class="latin-number-word" data-sound="sḍis">Sḍis</span></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><span class="amazigh-number-word" data-sound="sa">ⵙⴰ</span></td>
+                        <td><span class="latin-number-word" data-sound="sa">Sa</span></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><span class="amazigh-number-word" data-sound="tam">ⵜⴰⵎ</span></td>
+                        <td><span class="latin-number-word" data-sound="tam">Tam</span></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><span class="amazigh-number-word" data-sound="tẓa">ⵜⵥⴰ</span></td>
+                        <td><span class="latin-number-word" data-sound="tẓa">Tẓa</span></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td><span class="amazigh-number-word" data-sound="mraw">ⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="mraw">Mraw</span></td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><span class="amazigh-number-word" data-sound="yan_d_mraw">ⵢⴰⵏ ⴷ ⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="yan_d_mraw">Yan d mraw</span></td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td><span class="amazigh-number-word" data-sound="sin_d_mraw">ⵙⵉⵏ ⴷ ⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="sin_d_mraw">Sin d mraw</span></td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td><span class="amazigh-number-word" data-sound="simraw">ⵙⵉⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="simraw">Simraw</span></td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td><span class="amazigh-number-word" data-sound="kradmraw">ⴽⵕⴰⴹⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="kradmraw">Kradmraw</span></td>
+                    </tr>
+                   <tr>
+                        <td>40</td>
+                        <td><span class="amazigh-number-word" data-sound="kuzmraw">ⴽⵓⵥⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="kuzmraw">Kuzmraw</span></td>
+                    </tr>
+                    <tr>
+                        <td>50</td>
+                        <td><span class="amazigh-number-word" data-sound="smusmraw">ⵙⵎⵎⵓⵙⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="smusmraw">Smmusmraw</span></td>
+                    </tr>
+                    <tr>
+                        <td>60</td>
+                        <td><span class="amazigh-number-word" data-sound="sḍismraw">ⵙⴹⵉⵙⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="sḍismraw">Sḍismraw</span></td>
+                    </tr>
+					 <tr>
+                        <td>70</td>
+                        <td><span class="amazigh-number-word" data-sound="samraw">ⵙⴰⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="samraw">Samraw</span></td>
+                    </tr>
+                    <tr>
+                        <td>80</td>
+                        <td><span class="amazigh-number-word" data-sound="tammraw">ⵜⴰⵎⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="tammraw">Tammraw</span></td>
+                    </tr>
+                    <tr>
+                        <td>90</td>
+                        <td><span class="amazigh-number-word" data-sound="tẓamraw">ⵜⵥⴰⵎⵔⴰⵡ</span></td>
+                        <td><span class="latin-number-word" data-sound="tẓamraw">Tẓamraw</span></td>
+                    </tr>
+					<tr>
+                        <td>100</td>
+                        <td><span class="amazigh-number-word" data-sound="timiḍi">ⵜⵉⵎⵉⴹⵉ</span></td>
+                        <td><span class="latin-number-word" data-sound="timiḍi">Timiḍi</span></td>
+                    </tr>
+					<tr>
+                        <td>1000</td>
+                        <td><span class="amazigh-number-word" data-sound="agim">ⴰⴳⵉⵎ</span></td>
+                        <td><span class="latin-number-word" data-sound="agim">Agim</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Learn Amazigh</p>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript for the show/hide menu
+        const navToggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('#menu');
+
+        navToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+		// JavaScript for playing audio on click
+        const numberWords = document.querySelectorAll('.amazigh-number-word, .latin-number-word');
+
+        numberWords.forEach(word => {
+            word.addEventListener('click', () => {
+                const soundFile = word.dataset.sound;
+                const audio = new Audio(`audio/${soundFile}.mp3`);
+                audio.play();
+            });
+        });
+    </script>
+</body>
+</html>

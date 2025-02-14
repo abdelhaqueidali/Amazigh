@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Words - Learn Amazigh</title>
+    <!-- Google Fonts - Noto Sans Tifinagh -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <style>
+        /*  PASTE THE ENTIRE CSS CODE FROM PART 1 HERE (the original CSS) */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Container for the entire page content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Navigation Menu Styles */
+        .nav-toggle {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none; /* Initially hidden */
+            background-color: #eee;
+            border-radius: 5px;
+        }
+
+        nav ul.show {
+            display: block;
+        }
+
+        nav li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav li:last-child {
+            border-bottom: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+
+        nav .current-page {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        /* --- COMMON WORDS TABLE STYLES --- */
+
+        .common-words-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .common-words-table th, .common-words-table td {
+            border: 2px solid #4CAF50;
+            padding: 12px; /* Slightly less padding */
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .common-words-table th {
+            background-color: #4CAF50;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .common-words-table td {
+            background-color: #f0f8f1;
+        }
+
+        .amazigh-word {
+          font-family: 'Noto Sans Tifinagh', sans-serif;
+          font-size: 1.3em;
+          color: #007bff; /* Blue, like the Tifinagh characters */
+
+        }
+        .latin-transliteration-word {
+            font-style: italic;
+        }
+		.arabic-word {
+			direction: rtl;
+		}
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Common Amazigh Words</h1>
+        </header>
+
+        <button class="nav-toggle">Show/Hide Menu</button>
+        <nav>
+              <ul id="menu">
+                <li><a href="learn_tifinagh.html">ⴰⴳⵯⵎⵎⴰⵢ - Alphabet</a></li>
+                <li><a href="learn_number.html">ⵓⵟⵟⵓⵏⵏ - Numbers</a></li>
+                <li><a href="learn_color.html">ⵉⴽⵯⵍⴰⵏ - Colors</a></li>
+                <li><a href="read_story.html">ⵜⵓⵍⵍⵉⵙⵉⵏ - Stories</a></li>
+                <li><a href="tifinagh_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ - Alphabet Game</a></li>
+                <li><a href="learn_word.html" class="current-page">ⵜⵉⴳⵓⵔⵉⵡⵉⵏ - Words</a></li>
+                <li><a href="number_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ - Number Game</a></li>
+                <li><a href="color_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ - Color Game</a></li>
+                <li><a href="learn_grammar.html">ⵜⴰⵊⵕⵕⵓⵎⵜ - Grammar</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <table class="common-words-table">
+                <thead>
+                    <tr>
+                        <th>Amazigh (Tifinagh)</th>
+                        <th>Amazigh (Latin)</th>
+                        <th>Arabic</th>
+                        <th>French</th>
+                        <th>English</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⵢⵢⵓⵣ</span></td>
+                        <td><span class="latin-transliteration-word">Ayyuz</span></td>
+                        <td><span class="arabic-word">مرحبا</span></td>
+                        <td>Bonjour</td>
+                        <td>Hello</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵎⴰⵅⴼ</span></td>
+                        <td><span class="latin-transliteration-word">Maxf</span></td>
+                        <td><span class="arabic-word">لماذا</span></td>
+                        <td>Pourquoi</td>
+                        <td>Why</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵎⴰⵎⴽ</span></td>
+                        <td><span class="latin-transliteration-word">Mamk</span></td>
+                        <td><span class="arabic-word">كيف</span></td>
+                        <td>Comment</td>
+                        <td>How</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵎⴰⵏⵉ</span></td>
+                        <td><span class="latin-transliteration-word">Mani</span></td>
+                        <td><span class="arabic-word">أين</span></td>
+                        <td>Où</td>
+                        <td>Where</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵎⴰⵍⵎⵉ</span></td>
+                        <td><span class="latin-transliteration-word">Malmi</span></td>
+                        <td><span class="arabic-word">متى</span></td>
+                        <td>Quand</td>
+                        <td>When</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵎⴰⵏⵡ</span></td>
+                        <td><span class="latin-transliteration-word">Manw</span></td>
+                        <td><span class="arabic-word">من</span></td>
+                        <td>Qui</td>
+                        <td>Who</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵎⴰⵜⵜⴰ</span></td>
+                        <td><span class="latin-transliteration-word">Matta</span></td>
+                        <td><span class="arabic-word">ماذا</span></td>
+                        <td>Quoi</td>
+                        <td>What</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵉⵙⵎ</span></td>
+                        <td><span class="latin-transliteration-word">Ism</span></td>
+                        <td><span class="arabic-word">اسم</span></td>
+                        <td>Nom</td>
+                        <td>Name</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⵎⴰⵏ</span></td>
+                        <td><span class="latin-transliteration-word">Aman</span></td>
+                        <td><span class="arabic-word">ماء</span></td>
+                        <td>Eau</td>
+                        <td>Water</td>
+                    </tr>
+					 <tr>
+                        <td><span class="amazigh-word">ⴰⵖⵔⵓⵎ</span></td>
+                        <td><span class="latin-transliteration-word">Aɣrum</span></td>
+                        <td><span class="arabic-word">خبز</span></td>
+                        <td>Pain</td>
+                        <td>Bread</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵜⴰⴼⵓⴽⵜ</span></td>
+                        <td><span class="latin-transliteration-word">Tafukt</span></td>
+                        <td><span class="arabic-word">شمس</span></td>
+                        <td>Soleil</td>
+                        <td>Sun</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⵢⵢⵓⵔ</span></td>
+                        <td><span class="latin-transliteration-word">Ayyur</span></td>
+                        <td><span class="arabic-word">قمر</span></td>
+                        <td>Lune</td>
+                        <td>Moon</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵉⵜⵔⵉ</span></td>
+                        <td><span class="latin-transliteration-word">Itri</span></td>
+                        <td><span class="arabic-word">نجمة</span></td>
+                        <td>Étoile</td>
+                        <td>Star</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⵙⴰ</span></td>
+                        <td><span class="latin-transliteration-word">Asa</span></td>
+                        <td><span class="arabic-word">يوم</span></td>
+                        <td>Jour</td>
+                        <td>Day</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵉⴹ</span></td>
+                        <td><span class="latin-transliteration-word">Iḍ</span></td>
+                        <td><span class="arabic-word">ليل</span></td>
+                        <td>Nuit</td>
+                        <td>Night</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⴰⵙⴳⴳⵯⴰⵙ</span></td>
+                        <td><span class="latin-transliteration-word">Asggⵯas</span></td>
+                        <td><span class="arabic-word">سنة</span></td>
+                        <td>An</td>
+                        <td>Year</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵜⴰⵙⴷⴰⵡⵉⵜ</span></td>
+                        <td><span class="latin-transliteration-word">Tasdawit</span></td>
+                        <td><span class="arabic-word">جامعة</span></td>
+                        <td>Université</td>
+                        <td>University</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⴷⵍⵉⵙ</span></td>
+                        <td><span class="latin-transliteration-word">Adlis</span></td>
+                        <td><span class="arabic-word">كتاب</span></td>
+                        <td>Livre</td>
+                        <td>Book</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵜⴰⴷⴷⴰⵔⵜ</span></td>
+                        <td><span class="latin-transliteration-word">Taddart</span></td>
+                        <td><span class="arabic-word">منزل</span></td>
+                        <td>Maison</td>
+                        <td>House</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⵎⵓⴷ</span></td>
+                        <td><span class="latin-transliteration-word">Amud</span></td>
+                        <td><span class="arabic-word">بذرة</span></td>
+                        <td>Graine</td>
+                        <td>Seed</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⴰⴼⵓⵍⴽⵉ</span></td>
+                        <td><span class="latin-transliteration-word">Afulki</span></td>
+                        <td><span class="arabic-word">جمال</span></td>
+                        <td>Beauté</td>
+                        <td>Beauty</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵉⵅⴼ</span></td>
+                        <td><span class="latin-transliteration-word">Ixf</span></td>
+                        <td><span class="arabic-word">رأس</span></td>
+                        <td>Tête</td>
+                        <td>Head</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵜⵉⵟⵟ</span></td>
+                        <td><span class="latin-transliteration-word">Tiṭṭ</span></td>
+                        <td><span class="arabic-word">عين</span></td>
+                        <td>Oeil</td>
+                        <td>Eye</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⵜⵉⵏⵣⴰⵔ</span></td>
+                        <td><span class="latin-transliteration-word">Tinzar</span></td>
+                        <td><span class="arabic-word">أنف</span></td>
+                        <td>Nez</td>
+                        <td>Nose</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⴰⴳⵎⴰⴹ</span></td>
+                        <td><span class="latin-transliteration-word">Agmaḍ</span></td>
+                        <td><span class="arabic-word">فم</span></td>
+                        <td>Bouche</td>
+                        <td>Mouth</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⵉⵍⵙ</span></td>
+                        <td><span class="latin-transliteration-word">Ils</span></td>
+                        <td><span class="arabic-word">لسان</span></td>
+                        <td>Langue</td>
+                        <td>Tongue</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵜⵓⴳⵎⴰⵙ</span></td>
+                        <td><span class="latin-transliteration-word">Tugmas</span></td>
+                        <td><span class="arabic-word">سن</span></td>
+                        <td>Dent</td>
+                        <td>Tooth</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⴼⵓⵙ</span></td>
+                        <td><span class="latin-transliteration-word">Afus</span></td>
+                        <td><span class="arabic-word">يد</span></td>
+                        <td>Main</td>
+                        <td>Hand</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⴰⴹⴰⵔ</span></td>
+                        <td><span class="latin-transliteration-word">Aḍar</span></td>
+                        <td><span class="arabic-word">رجل</span></td>
+                        <td>Pied</td>
+                        <td>Foot</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⵜⴰⵔⵡⴰ</span></td>
+                        <td><span class="latin-transliteration-word">Tarwa</span></td>
+                        <td><span class="arabic-word">أطفال</span></td>
+                        <td>Enfants</td>
+                        <td>Children</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⴰⵢⵜⵎⴰ</span></td>
+                        <td><span class="latin-transliteration-word">Aytma</span></td>
+                        <td><span class="arabic-word">إخوة</span></td>
+                        <td>Frères</td>
+                        <td>Brothers</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵉⵙⵜⵎⴰ</span></td>
+                        <td><span class="latin-transliteration-word">Istma</span></td>
+                        <td><span class="arabic-word">أخوات</span></td>
+                        <td>Soeurs</td>
+                        <td>Sisters</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⵜⴰⵎⵖⴰⵔⵜ</span></td>
+                        <td><span class="latin-transliteration-word">Tamɣart</span></td>
+                        <td><span class="arabic-word">إمرأة</span></td>
+                        <td>Femme</td>
+                        <td>Woman</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⴰⵔⴳⴰⵣ</span></td>
+                        <td><span class="latin-transliteration-word">Argaz</span></td>
+                        <td><span class="arabic-word">رجل</span></td>
+                        <td>Homme</td>
+                        <td>Man</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⵜⴰⵎⴰⵣⵉⵔⵜ</span></td>
+                        <td><span class="latin-transliteration-word">Tamazirt</span></td>
+                        <td><span class="arabic-word">بلد</span></td>
+                        <td>Pays</td>
+                        <td>Country</td>
+                    </tr>
+					<tr>
+						<td><span class="amazigh-word">ⵜⴰⵎⴷⵉⵏⵜ</span></td>
+                        <td><span class="latin-transliteration-word">Tamdint</span></td>
+                        <td><span class="arabic-word">مدينة</span></td>
+                        <td>Ville</td>
+                        <td>City</td>
+                    </tr>
+                    <tr>
+						<td><span class="amazigh-word">ⵉⵖⵔⵎ</span></td>
+                        <td><span class="latin-transliteration-word">Iɣrm</span></td>
+                        <td><span class="arabic-word">قرية</span></td>
+                        <td>Village</td>
+                        <td>Village</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⵙⵉⴼ</span></td>
+                        <td><span class="latin-transliteration-word">Asif</span></td>
+                        <td><span class="arabic-word">نهر</span></td>
+                        <td>Rivière</td>
+                        <td>River</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵉⵍⵍ</span></td>
+                        <td><span class="latin-transliteration-word">Ill</span></td>
+                        <td><span class="arabic-word">بحر</span></td>
+                        <td>Mer</td>
+                        <td>Sea</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⴷⵔⴰⵔ</span></td>
+                        <td><span class="latin-transliteration-word">Adrar</span></td>
+                        <td><span class="arabic-word">جبل</span></td>
+                        <td>Montagne</td>
+                        <td>Mountain</td>
+                    </tr>
+					 <tr>
+                        <td><span class="amazigh-word">ⵜⴰⵏⵣⵔⵓⴼⵜ</span></td>
+                        <td><span class="latin-transliteration-word">Tanzruft</span></td>
+                        <td><span class="arabic-word">صحراء</span></td>
+                        <td>Désert</td>
+                        <td>Desert</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⴳⵍⵎⴰⵎ</span></td>
+                        <td><span class="latin-transliteration-word">Aglmam</span></td>
+                        <td><span class="arabic-word">بحيرة</span></td>
+                        <td>Lac</td>
+                        <td>Lake</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⴳⵏⵡⴰⵏ</span></td>
+                        <td><span class="latin-transliteration-word">Agnwan</span></td>
+                        <td><span class="arabic-word">سماء</span></td>
+                        <td>Ciel</td>
+                        <td>Sky</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵜⴰⵥⴹⴰ</span></td>
+                        <td><span class="latin-transliteration-word">Taẓḍa</span></td>
+                        <td><span class="arabic-word">غابة</span></td>
+                        <td>Forêt</td>
+                        <td>Forest</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⵥⵔⵓ</span></td>
+                        <td><span class="latin-transliteration-word">Aẓru</span></td>
+                        <td><span class="arabic-word">حجر</span></td>
+                        <td>Pierre</td>
+                        <td>Stone</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⵉⵣⵉ</span></td>
+                        <td><span class="latin-transliteration-word">Izi</span></td>
+                        <td><span class="arabic-word">ذبابة</span></td>
+                        <td>Mouche</td>
+                        <td>Fly</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⵢⵢⵉⵙ</span></td>
+                        <td><span class="latin-transliteration-word">Ayyis</span></td>
+                        <td><span class="arabic-word">حصان</span></td>
+                        <td>Cheval</td>
+                        <td>Horse</td>
+                    </tr>
+                    <tr>
+                        <td><span class="amazigh-word">ⴰⵖⵢⵓⵍ</span></td>
+                        <td><span class="latin-transliteration-word">Aɣyul</span></td>
+                        <td><span class="arabic-word">حمار</span></td>
+                        <td>Âne</td>
+                        <td>Donkey</td>
+                    </tr>
+					<tr>
+                        <td><span class="amazigh-word">ⵉⵣⵎ</span></td>
+                        <td><span class="latin-transliteration-word">Izem</span></td>
+                        <td><span class="arabic-word">أسد</span></td>
+                        <td>Lion</td>
+                        <td>Lion</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Learn Amazigh</p>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript for the show/hide menu (same as before)
+        const navToggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('#menu');
+
+        navToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

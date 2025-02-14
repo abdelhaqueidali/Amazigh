@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stories - Learn Amazigh</title>
+    <!-- Google Fonts - Noto Sans Tifinagh -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <style>
+        /*  PASTE THE ENTIRE CSS CODE FROM PART 1 HERE (the original CSS) */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Container for the entire page content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            /* Removed display: flex and flex-direction from here */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Navigation Menu Styles */
+        .nav-toggle {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none; /* Initially hidden */
+            background-color: #eee;
+            border-radius: 5px;
+        }
+
+        nav ul.show {
+            display: block;
+        }
+
+        nav li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav li:last-child {
+            border-bottom: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+
+        nav .current-page {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /* --- STORY-SPECIFIC STYLES --- */
+        /* Add a wrapper for the main content (story list and content) */
+        .main-content {
+            display: flex; /* Now apply flexbox here */
+            flex-direction: row;
+        }
+
+        #story-list-container {
+            width: 25%; /* Adjust as needed */
+            padding-right: 20px; /* Add some spacing */
+            border-right: 1px solid #ddd; /* Separator */
+        }
+
+        #story-list {
+            list-style: none; /* Remove bullets */
+            padding: 0;
+            margin: 0;
+        }
+
+        #story-list li {
+            padding: 8px 12px; /* Add padding */
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+        #story-list li:hover {
+            background-color: #f0f8f1; /* Light green on hover */
+        }
+        #story-list li.active {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        #story-content {
+            flex: 1; /* Take up remaining space */
+            padding-left: 20px; /* Add some spacing */
+            font-size: 1.1em; /* Slightly larger font */
+            line-height: 1.8; /* More line spacing */
+            white-space: pre-wrap; /* Preserve line breaks and spaces from the TXT */
+        }
+        #story-content h2{
+             color: #4CAF50;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Amazigh Stories</h1>
+        </header>
+
+        <button class="nav-toggle">Show/Hide Menu</button>
+        <nav>
+              <ul id="menu">
+                <li><a href="learn_tifinagh.html">ⴰⴳⵯⵎⵎⴰⵢ - Alphabet</a></li>
+                <li><a href="learn_number.html">ⵓⵟⵟⵓⵏⵏ - Numbers</a></li>
+                <li><a href="learn_color.html">ⵉⴽⵯⵍⴰⵏ - Colors</a></li>
+                <li><a href="read_story.html" class="current-page">ⵜⵓⵍⵍⵉⵙⵉⵏ - Stories</a></li>
+                <li><a href="tifinagh_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ - Alphabet Game</a></li>
+                <li><a href="learn_word.html">ⵜⵉⴳⵓⵔⵉⵡⵉⵏ - Words</a></li>
+                <li><a href="number_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ - Number Game</a></li>
+                <li><a href="color_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ - Color Game</a></li>
+                <li><a href="learn_grammar.html">ⵜⴰⵊⵕⵕⵓⵎⵜ - Grammar</a></li>
+            </ul>
+        </nav>
+        <!-- Wrap the main content in a div -->
+        <div class="main-content">
+            <div id="story-list-container">
+                <h2>Stories</h2>
+                <ul id="story-list">
+                    <!-- Story list items will be added here by JavaScript -->
+                </ul>
+            </div>
+
+            <div id="story-content">
+                <!-- Story content will be displayed here -->
+                <h2>Select a story to begin.</h2>
+            </div>
+        </div>
+        <footer>
+            <p>&copy; 2023 Learn Amazigh</p>
+        </footer>
+    </div>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('#menu');
+        const storyList = document.getElementById('story-list');
+        const storyContent = document.getElementById('story-content');
+
+        navToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+
+        // Array of story file names (without the .txt extension)
+        const stories = [
+            "story1",
+            "story2",
+            "story3"
+        ];
+        let activeStory = null;
+
+        // Function to load and display a story
+        function loadStory(filename) {
+			// Remove the 'active' class from the previously active story
+            if (activeStory) {
+                activeStory.classList.remove('active');
+            }
+            fetch(`story/${filename}.txt`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    storyContent.innerHTML = `<h2>${filename}</h2><p>${text}</p>`;
+					// Add 'active' class to the current story
+                    const currentStory = document.getElementById(filename);
+                    if(currentStory){
+                        currentStory.classList.add('active');
+                        activeStory = currentStory;
+                    }
+                })
+                .catch(error => {
+                    storyContent.innerHTML = `<p>Error loading story: ${error.message}</p>`;
+                });
+        }
+
+        // Create list items for each story
+        stories.forEach(story => {
+            const listItem = document.createElement('li');
+            listItem.textContent = story; // Use the filename as the title for now
+            listItem.id = story;
+            listItem.addEventListener('click', () => {
+                loadStory(story);
+            });
+            storyList.appendChild(listItem);
+        });
+		// Load the first story by default
+        if (stories.length > 0) {
+            loadStory(stories[0]);
+        }
+
+    </script>
+</body>
+</html>

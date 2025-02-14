@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colors - Learn Amazigh</title>
+    <!-- Google Fonts - Noto Sans Tifinagh -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <style>
+        /*  PASTE THE ENTIRE CSS CODE FROM PART 1 HERE (the original CSS) */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Container for the entire page content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Navigation Menu Styles */
+        .nav-toggle {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none; /* Initially hidden */
+            background-color: #eee;
+            border-radius: 5px;
+        }
+
+        nav ul.show {
+            display: block;
+        }
+
+        nav li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav li:last-child {
+            border-bottom: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+
+        nav .current-page {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /* --- COLORS TABLE STYLES --- */
+
+        .colors-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .colors-table th, .colors-table td {
+            border: 2px solid #4CAF50;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        .colors-table th {
+            background-color: #4CAF50;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .colors-table td {
+            background-color: #f0f8f1;
+        }
+
+        .color-display {
+            width: 50px; /* Adjust size as needed */
+            height: 50px; /* Make it square */
+            border: 1px solid #ccc;
+            display: inline-block; /* Important for centering */
+            vertical-align: middle; /* Center vertically */
+            margin-right: 10px;
+        }
+
+        .amazigh-color-word {
+            font-family: 'Noto Sans Tifinagh', sans-serif;
+            font-size: 1.3em;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .latin-color-word {
+            font-style: italic;
+			cursor: pointer;
+        }
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Amazigh Colors</h1>
+        </header>
+
+        <button class="nav-toggle">Show/Hide Menu</button>
+        <nav>
+              <ul id="menu">
+                <li><a href="learn_tifinagh.html">ⴰⴳⵯⵎⵎⴰⵢ - Alphabet</a></li>
+                <li><a href="learn_number.html">ⵓⵟⵟⵓⵏⵏ - Numbers</a></li>
+                <li><a href="learn_color.html" class="current-page">ⵉⴽⵯⵍⴰⵏ - Colors</a></li>
+                <li><a href="read_story.html">ⵜⵓⵍⵍⵉⵙⵉⵏ - Stories</a></li>
+                <li><a href="tifinagh_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ - Alphabet Game</a></li>
+                <li><a href="learn_word.html">ⵜⵉⴳⵓⵔⵉⵡⵉⵏ - Words</a></li>
+                <li><a href="number_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ - Number Game</a></li>
+                <li><a href="color_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ - Color Game</a></li>
+                <li><a href="learn_grammar.html">ⵜⴰⵊⵕⵕⵓⵎⵜ - Grammar</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <table class="colors-table">
+                <thead>
+                    <tr>
+                        <th>Color</th>
+                        <th>Amazigh (Tifinagh)</th>
+                        <th>Amazigh (Latin)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="color-display" style="background-color: red;"></span></td>
+                        <td><span class="amazigh-color-word" data-sound="azgzaw">ⴰⵣⴳⴳⵯⴰⵖ</span></td>
+                        <td><span class="latin-color-word" data-sound="azgzaw">Azeggwaɣ</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="color-display" style="background-color: blue;"></span></td>
+                        <td><span class="amazigh-color-word" data-sound="azرقan">ⴰⵥⵔⵇⴰⵏ</span></td>
+                        <td><span class="latin-color-word" data-sound="azرقan">Aẓerqan</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="color-display" style="background-color: green;"></span></td>
+                        <td><span class="amazigh-color-word" data-sound="aziza">ⴰⵣⵉⵣⴰ</span></td>
+                        <td><span class="latin-color-word" data-sound="aziza">Aziza</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="color-display" style="background-color: yellow;"></span></td>
+                        <td><span class="amazigh-color-word" data-sound="awraɣ">ⴰⵡⵔⴰⵖ</span></td>
+                        <td><span class="latin-color-word" data-sound="awraɣ">Awraɣ</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="color-display" style="background-color: black;"></span></td>
+                        <td><span class="amazigh-color-word" data-sound="abrcan">ⴰⴱⵔⵛⴰⵏ</span></td>
+                        <td><span class="latin-color-word" data-sound="abrcan">Abercan</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="color-display" style="background-color: white;"></span></td>
+                        <td><span class="amazigh-color-word" data-sound="amllal">ⴰⵎⵍⵍⴰⵍ</span></td>
+                        <td><span class="latin-color-word" data-sound="amllal">Amellal</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="color-display" style="background-color: orange;"></span></td>
+                        <td><span class="amazigh-color-word" data-sound="acinawi">ⴰⵛⵉⵏⴰⵡⵉ</span></td>
+                        <td><span class="latin-color-word" data-sound="acinawi">Acinawi</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="color-display" style="background-color: pink;"></span></td>
+                        <td><span class="amazigh-color-word" data-sound="azgzaw_anmlal">ⴰⵣⴳⴳⵯⴰⵖ ⴰⵏⵎⵍⴰⵍ</span></td>
+                        <td><span class="latin-color-word" data-sound="azgzaw_anmlal">Azeggwaɣ anmellal</span></td>
+                    </tr>
+                    <tr>
+                         <td><span class="color-display" style="background-color: purple;"></span></td>
+                         <td><span class="amazigh-color-word" data-sound=" بنفسجي">ⴰⴱⵏⴼⵙⴰⵊⵉ</span></td>
+                         <td><span class="latin-color-word" data-sound=" بنفسجي">Abanafsaji</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="color-display" style="background-color: brown;"></span></td>
+                        <td><span class="amazigh-color-word" data-sound="aqهwawi">ⴰﻗﻬⵡⴰⵡⵉ</span></td>
+                        <td><span class="latin-color-word" data-sound="aqهwawi">Aqehwawi</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="color-display" style="background-color: gray;"></span></td>
+                        <td><span class="amazigh-color-word" data-sound="رمادي">ⴰⴳⵔⵉⵙⴰⵡ</span></td>
+                        <td><span class="latin-color-word" data-sound="رمادي">Agrisaw</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Learn Amazigh</p>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript for the show/hide menu
+        const navToggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('#menu');
+
+        navToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+
+        // JavaScript for playing audio on click (same as before)
+        const colorWords = document.querySelectorAll('.amazigh-color-word, .latin-color-word');
+
+        colorWords.forEach(word => {
+            word.addEventListener('click', () => {
+                const soundFile = word.dataset.sound;
+                const audio = new Audio(`audio/${soundFile}.mp3`);
+                audio.play();
+            });
+        });
+    </script>
+</body>
+</html>

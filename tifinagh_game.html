@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tifinagh Game - Learn Amazigh</title>
+    <!-- Google Fonts - Noto Sans Tifinagh -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <style>
+        /*  PASTE THE ENTIRE CSS CODE FROM PART 1 HERE (the original CSS, not the game CSS) */
+        body {
+            font-family: 'Arial', sans-serif; /* A common, readable font. */
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /*  Container for the entire page content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1; /* Allow to grow */
+        }
+
+        /*  Header Styles */
+        header {
+            background-color: #4CAF50; /*  Green */
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /*  Navigation Menu Styles */
+        .nav-toggle {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none; /* Initially hidden */
+            background-color: #eee;
+            border-radius: 5px;
+        }
+
+        nav ul.show {
+            display: block;
+        }
+
+        nav li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav li:last-child {
+            border-bottom: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+
+        nav .current-page {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /*  --- GAME-SPECIFIC STYLES (Modified to fit the overall design) --- */
+
+        #game-container {
+            /*  Use the .container styles as a base, then override */
+            width: 90%;
+            max-width: 600px; /*  Limit width for better readability on larger screens */
+            margin: 20px auto; /* Center */
+            background-color: #fff;
+            padding: 2em; /* More padding */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Ensure text is centered */
+        }
+
+        #game-container h1 {
+            color: #4CAF50; /* Consistent green */
+            margin-bottom: 1em;
+            border-bottom: 2px solid #4CAF50; /* Simpler underline */
+            padding-bottom: 0.5em;
+            font-size: 2em; /* Slightly smaller */
+        }
+
+        #question {
+            font-size: 3em;
+            margin-bottom: 1em;
+            min-height: 1.5em;
+            color: #007bff; /* Blue for the question */
+        }
+
+        #choices {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            gap: 1em;
+            margin-bottom: 1em;
+        }
+
+        .choice {
+            background-color: #f0f8f1; /* Light green from the table */
+            color: #333; /* Dark text */
+            padding: 1em;
+            border: 2px solid #4CAF50; /* Green border */
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: background-color 0.3s ease, transform 0.1s ease; /* Add transform */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            outline: none;
+        }
+
+        .choice:hover:not(:disabled),
+        .choice:focus:not(:disabled) {
+            background-color: #c8e6c9; /* Slightly darker green on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        .choice:focus {
+            outline: none;
+             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .correct {
+            background-color: #4CAF50 !important; /* Green, and use !important */
+            color: white !important; /* White text for contrast */
+            border-color: #388e3c !important; /* Darker green border */
+        }
+
+        .incorrect {
+            background-color: #f44336 !important; /* Red */
+            color: white !important;
+            border-color: #d32f2f !important; /* Darker red border */
+        }
+        .correct-container {
+            background-color: #a5d6a7; /* Light green background */
+            transition: background-color 0.3s ease; /* Add transition here */
+        }
+
+        #feedback {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 1em;
+            min-height: 1.5em;
+        }
+
+        #score {
+            font-size: 1.2em;
+            margin-bottom: 1em;
+        }
+
+
+        #next-button {
+            background-color: #4CAF50; /* Consistent green */
+            color: #fff;
+            padding: 0.8em 1.5em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        #next-button:hover {
+            background-color: #388e3c; /* Darker green on hover */
+        }
+
+        .tifinagh {
+            font-family: 'Noto Sans Tifinagh', sans-serif;
+            font-size: 1.5em;
+        }
+
+        /*  You might not need this, as monospace isn't ideal for the Latin transliteration */
+        .latin {
+           font-style: italic;
+            color: #666;
+        }
+
+        /* Footer Styles (consistent with other pages) */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+    </style>
+</head>
+<body>
+    <!--  Use the same header and navigation as the other page -->
+    <div class="container">
+    <header>
+        <h1>Tifinagh Game!</h1>
+    </header>
+
+    <button class="nav-toggle">Show/Hide Menu</button>
+    <nav>
+              <ul id="menu">
+                <li><a href="learn_tifinagh.html">ⴰⴳⵯⵎⵎⴰⵢ - Alphabet</a></li>
+                <li><a href="learn_number.html">ⵓⵟⵟⵓⵏⵏ - Numbers</a></li>
+                <li><a href="learn_color.html">ⵉⴽⵯⵍⴰⵏ - Colors</a></li>
+                <li><a href="read_story.html">ⵜⵓⵍⵍⵉⵙⵉⵏ - Stories</a></li>
+                <li><a href="tifinagh_game.html" class="current-page">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ - Alphabet Game</a></li>
+                <li><a href="learn_word.html">ⵜⵉⴳⵓⵔⵉⵡⵉⵏ - Words</a></li>
+                <li><a href="number_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ - Number Game</a></li>
+                <li><a href="color_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ - Color Game</a></li>
+                <li><a href="learn_grammar.html">ⵜⴰⵊⵕⵕⵓⵎⵜ - Grammar</a></li>
+            </ul>
+    </nav>
+
+    <main>
+    <div id="game-container">
+        <h1>Tifinagh Letter Game!</h1>
+
+        <div id="question"></div>
+        <div id="choices"></div>
+        <div id="feedback"></div>
+        <div id="score">Score: <span id="score-value">0</span></div>
+        <button id="next-button">Next Question</button>
+    </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Learn Amazigh</p>
+    </footer>
+    </div>
+    <script>
+        const letters = [
+            { tifinagh: 'ⴰ', latin: 'a', ipa: '/a/' },
+            { tifinagh: 'ⴱ', latin: 'b', ipa: '/b/' },
+            { tifinagh: 'ⴳ', latin: 'g', ipa: '/ɡ/' },
+            { tifinagh: 'ⴷ', latin: 'd', ipa: '/d/' },
+            { tifinagh: 'ⴹ', latin: 'ḍ', ipa: '/dˤ/' },
+            { tifinagh: 'ⴻ', latin: 'e', ipa: '/ə/' },
+            { tifinagh: 'ⴼ', latin: 'f', ipa: '/f/' },
+            { tifinagh: 'ⴽ', latin: 'k', ipa: '/k/' },
+            { tifinagh: 'ⵀ', latin: 'h', ipa: '/h/' },
+            { tifinagh: 'ⵃ', latin: 'ḥ', ipa: '/ħ/' },
+            { tifinagh: 'ⵄ', latin: 'ɛ', ipa: '/ʕ/' },
+            { tifinagh: 'ⵅ', latin: 'x', ipa: '/χ/' },
+            { tifinagh: 'ⵇ', latin: 'q', ipa: '/q/' },
+            { tifinagh: 'ⵉ', latin: 'i', ipa: '/i/' },
+            { tifinagh: 'ⵊ', latin: 'j', ipa: '/ʒ/' },
+            { tifinagh: 'ⵍ', latin: 'l', ipa: '/l/' },
+            { tifinagh: 'ⵎ', latin: 'm', ipa: '/m/' },
+            { tifinagh: 'ⵏ', latin: 'n', ipa: '/n/' },
+            { tifinagh: 'ⵓ', latin: 'u', ipa: '/u/' },
+            { tifinagh: 'ⵔ', latin: 'r', ipa: '/r/' },
+            { tifinagh: 'ⵕ', latin: 'ṛ', ipa: '/rˤ/' },
+            { tifinagh: 'ⵖ', latin: 'ɣ', ipa: '/ɣ/' },
+            { tifinagh: 'ⵙ', latin: 's', ipa: '/s/' },
+            { tifinagh: 'ⵚ', latin: 'ṣ', ipa: '/sˤ/' },
+            { tifinagh: 'ⵛ', latin: 'c', ipa: '/ʃ/' },
+            { tifinagh: 'ⵜ', latin: 't', ipa: '/t/' },
+            { tifinagh: 'ⵟ', latin: 'ṭ', ipa: '/tˤ/' },
+            { tifinagh: 'ⵡ', latin: 'w', ipa: '/w/' },
+            { tifinagh: 'ⵢ', latin: 'y', ipa: '/j/' },
+            { tifinagh: 'ⵣ', latin: 'z', ipa: '/z/' },
+            { tifinagh: 'ⵥ', latin: 'ẓ', ipa: '/zˤ/' }
+        ];
+
+        let currentQuestion = {};
+        let score = 0;
+        let questionTimeout;
+
+        const gameContainer = document.getElementById('game-container');
+        const questionEl = document.getElementById('question');
+        const choicesEl = document.getElementById('choices');
+        const feedbackEl = document.getElementById('feedback');
+        const scoreEl = document.getElementById('score-value');
+        const nextButton = document.getElementById('next-button');
+
+        function generateQuestion() {
+            clearTimeout(questionTimeout);
+            gameContainer.classList.remove('correct-container');
+
+            const correctLetterIndex = Math.floor(Math.random() * letters.length);
+            currentQuestion = letters[correctLetterIndex];
+            const useTifinagh = Math.random() < 0.5;
+
+            questionEl.textContent = useTifinagh ? currentQuestion.tifinagh : currentQuestion.latin;
+            questionEl.className = useTifinagh ? 'tifinagh' : 'latin';
+
+            const choices = [];
+            const correctChoice = useTifinagh ? currentQuestion.latin : currentQuestion.tifinagh;
+            choices.push(correctChoice);
+
+            while (choices.length < 4) {
+                const randomLetterIndex = Math.floor(Math.random() * letters.length);
+                const randomLetter = letters[randomLetterIndex];
+                const choiceText = useTifinagh ? randomLetter.latin : randomLetter.tifinagh;
+
+                if (!choices.includes(choiceText) && randomLetterIndex !== correctLetterIndex) {
+                    choices.push(choiceText);
+                }
+            }
+
+            choices.sort(() => Math.random() - 0.5);
+
+            choicesEl.innerHTML = '';
+            choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.textContent = choice;
+                button.classList.add('choice');
+                if (!useTifinagh) {
+                    button.classList.add('tifinagh');
+                }
+                button.addEventListener('click', () => checkAnswer(choice, correctChoice, button));
+                choicesEl.appendChild(button);
+            });
+
+            feedbackEl.textContent = '';
+            nextButton.style.display = 'none';
+        }
+
+        function checkAnswer(selectedChoice, correctChoice, button) {
+            const allChoices = document.querySelectorAll('.choice');
+            allChoices.forEach(btn => btn.disabled = true); // Disable buttons
+
+            if (selectedChoice === correctChoice) {
+                score++;
+                feedbackEl.textContent = 'Correct!';
+                feedbackEl.style.color = '#4caf50';
+                button.classList.add('correct');
+                gameContainer.classList.add('correct-container'); // Apply green background
+
+                questionTimeout = setTimeout(() => {
+                    gameContainer.classList.remove('correct-container');
+                    generateQuestion();
+                }, 2000);
+
+            } else {
+                feedbackEl.textContent = 'Incorrect. Try again!';
+                feedbackEl.style.color = '#f44336';
+                button.classList.add('incorrect');
+
+                const correctButton = Array.from(allChoices).find(btn => btn.textContent === correctChoice);
+                if (correctButton) {
+                    correctButton.classList.add('correct');
+                }
+                nextButton.style.display = 'block';
+            }
+
+            scoreEl.textContent = score;
+        }
+
+        nextButton.addEventListener('click', generateQuestion);
+		const navToggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('#menu');
+
+        navToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+        generateQuestion();
+
+    </script>
+</body>
+</html>
