@@ -30,7 +30,6 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             flex: 1;
-            /* Removed display: flex and flex-direction from here */
         }
 
         /* Header Styles */
@@ -48,7 +47,7 @@
         }
 
         /* Navigation Menu Styles */
-        .nav-toggle {
+        .nav-toggle, .grammar-toggle { /* Added .grammar-toggle */
             display: block;
             width: 100%;
             padding: 10px;
@@ -60,8 +59,11 @@
             border-radius: 5px;
             margin-bottom: 10px;
         }
+        .grammar-toggle{
+            background-color: #007bff; /* Different color for grammar toggle */
+        }
 
-        nav ul {
+        nav ul, #grammar-list-container ul {  /* Style both menus similarly */
             list-style: none;
             padding: 0;
             margin: 0;
@@ -70,62 +72,71 @@
             border-radius: 5px;
         }
 
-        nav ul.show {
+        nav ul.show, #grammar-list-container ul.show { /* Use .show for both */
             display: block;
         }
 
-        nav li {
+        nav li, #grammar-list-container li { /* Style list items */
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
 
-        nav li:last-child {
+        nav li:last-child,  #grammar-list-container li:last-child{
             border-bottom: none;
         }
 
-        nav a {
+        nav a, #grammar-list-container a { /* Style links (and list items for grammar as links)*/
             text-decoration: none;
             color: #333;
             display: block;
+            cursor: pointer; /* Make sure grammar list items have a pointer */
         }
-
-        nav a:hover {
-            background-color: #ddd;
+        nav a:hover, #grammar-list-container li:hover { /* Hover effect for both */
+           background-color: #ddd;
+        }
+        #grammar-list-container li:hover {
+              background-color: #f0f8f1; /* Light green on hover */
         }
 
         nav .current-page {
             font-weight: bold;
             color: #4CAF50;
         }
+        #grammar-list li.active {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
 
         /* --- GRAMMAR-SPECIFIC STYLES --- */
-        /* Add a wrapper for the main content (grammar list and content) */
         .main-content {
-            display: flex; /* Now apply flexbox here */
-            flex-direction: row;
+            /*display: flex;  Removed flexbox layout */
+            /*flex-direction: row;*/
+            margin-top: 10px; /* Add some spacing */
         }
 
         #grammar-list-container {
-            width: 25%; /* Adjust as needed */
-            padding-right: 20px; /* Add some spacing */
-            border-right: 1px solid #ddd; /* Separator */
+            /*width: 25%; Removed width */
+            /*padding-right: 20px; Removed padding */
+            /*border-right: 1px solid #ddd; Removed border */
         }
 
+        /* No longer needed for horizontal layout
         #grammar-list {
-            list-style: none; /* Remove bullets */
+            list-style: none;
             padding: 0;
             margin: 0;
         }
 
         #grammar-list li {
-            padding: 8px 12px; /* Add padding */
+            padding: 8px 12px;
             cursor: pointer;
             border-bottom: 1px solid #eee;
             transition: background-color 0.2s;
         }
 
         #grammar-list li:hover {
-            background-color: #f0f8f1; /* Light green on hover */
+            background-color: #f0f8f1;
         }
 
         #grammar-list li.active {
@@ -133,14 +144,16 @@
             color: white;
             font-weight: bold;
         }
+        */
 
 
         #grammar-content {
-            flex: 1; /* Take up remaining space */
-            padding-left: 20px; /* Add some spacing */
-            font-size: 1.1em; /* Slightly larger font */
-            line-height: 1.8; /* More line spacing */
-            white-space: pre-wrap; /* Preserve line breaks and spaces */
+            /*flex: 1; Removed flex property*/
+            /*padding-left: 20px;  Removed padding*/
+            font-size: 1.1em;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            margin-top: 20px; /* Space below the grammar list */
         }
 
         #grammar-content h2 {
@@ -155,6 +168,12 @@
             color: #fff;
             border-radius: 0 0 8px 8px;
         }
+
+        /* Responsive Design - Optional, but good practice */
+        @media (max-width: 768px) {
+             /* Adjust styles for smaller screens if needed */
+        }
+
     </style>
 </head>
 <body>
@@ -179,15 +198,15 @@
             </ul>
         </nav>
 
-        <!-- Wrap the main content in a div -->
-        <div class="main-content">
-            <div id="grammar-list-container">
-                <h2>Grammar Topics</h2>
+        <button class="grammar-toggle">Show/Hide Grammar Topics</button>
+        <div id="grammar-list-container">
+                <!--<h2>Grammar Topics</h2> removed heading-->
                 <ul id="grammar-list">
                     <!-- Grammar topic list items will be added here by JavaScript -->
                 </ul>
-            </div>
+        </div>
 
+        <div class="main-content">
             <div id="grammar-content">
                 <!-- Grammar content will be displayed here -->
                 <h2>Select a topic to begin.</h2>
@@ -204,9 +223,16 @@
         const menu = document.querySelector('#menu');
         const grammarList = document.getElementById('grammar-list');
         const grammarContent = document.getElementById('grammar-content');
+        const grammarToggle = document.querySelector('.grammar-toggle'); // Get the grammar toggle
+        const grammarListContainer = document.getElementById('grammar-list-container');
 
         navToggle.addEventListener('click', () => {
             menu.classList.toggle('show');
+        });
+
+        // Toggle for grammar list
+        grammarToggle.addEventListener('click', () => {
+            grammarListContainer.querySelector('ul').classList.toggle('show'); // Toggle the UL inside
         });
 
         // Array of grammar file names (without the .txt extension)
