@@ -231,7 +231,7 @@
                     return response.text();
                 })
                 .then(text => {
-                    grammarContent.innerHTML =  `<h2>${filename}</h2><p>${text}</p>`;
+                    grammarContent.innerHTML =  `<h2>${filename}</h2>${text}`;
 					const currentGrammar = document.getElementById(filename);
                     if(currentGrammar){
                         currentGrammar.classList.add('active');
