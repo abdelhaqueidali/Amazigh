@@ -7,14 +7,13 @@
     <!-- Google Fonts - Noto Sans Tifinagh -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
     <style>
-        /*  PASTE THE ENTIRE CSS CODE FROM PART 1 HERE (the original CSS) */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f8f8f8;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.6; /* Default line-height */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -47,7 +46,7 @@
         }
 
         /* Navigation Menu Styles */
-        .nav-toggle, .grammar-toggle { /* Added .grammar-toggle */
+        .nav-toggle, .grammar-toggle {
             display: block;
             width: 100%;
             padding: 10px;
@@ -60,23 +59,23 @@
             margin-bottom: 10px;
         }
         .grammar-toggle{
-            background-color: #007bff; /* Different color for grammar toggle */
+            background-color: #007bff;
         }
 
-        nav ul, #grammar-list-container ul {  /* Style both menus similarly */
+        nav ul, #grammar-list-container ul {
             list-style: none;
             padding: 0;
             margin: 0;
-            display: none; /* Initially hidden */
+            display: none;
             background-color: #eee;
             border-radius: 5px;
         }
 
-        nav ul.show, #grammar-list-container ul.show { /* Use .show for both */
+        nav ul.show, #grammar-list-container ul.show {
             display: block;
         }
 
-        nav li, #grammar-list-container li { /* Style list items */
+        nav li, #grammar-list-container li {
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
@@ -85,17 +84,17 @@
             border-bottom: none;
         }
 
-        nav a, #grammar-list-container a { /* Style links (and list items for grammar as links)*/
+        nav a, #grammar-list-container a {
             text-decoration: none;
             color: #333;
             display: block;
-            cursor: pointer; /* Make sure grammar list items have a pointer */
+            cursor: pointer;
         }
-        nav a:hover, #grammar-list-container li:hover { /* Hover effect for both */
+        nav a:hover, #grammar-list-container li:hover {
            background-color: #ddd;
         }
         #grammar-list-container li:hover {
-              background-color: #f0f8f1; /* Light green on hover */
+              background-color: #f0f8f1;
         }
 
         nav .current-page {
@@ -110,54 +109,35 @@
 
         /* --- GRAMMAR-SPECIFIC STYLES --- */
         .main-content {
-            /*display: flex;  Removed flexbox layout */
-            /*flex-direction: row;*/
-            margin-top: 10px; /* Add some spacing */
+            margin-top: 10px;
         }
 
         #grammar-list-container {
-            /*width: 25%; Removed width */
-            /*padding-right: 20px; Removed padding */
-            /*border-right: 1px solid #ddd; Removed border */
         }
-
-        /* No longer needed for horizontal layout
-        #grammar-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #grammar-list li {
-            padding: 8px 12px;
-            cursor: pointer;
-            border-bottom: 1px solid #eee;
-            transition: background-color 0.2s;
-        }
-
-        #grammar-list li:hover {
-            background-color: #f0f8f1;
-        }
-
-        #grammar-list li.active {
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
-        }
-        */
-
 
         #grammar-content {
-            /*flex: 1; Removed flex property*/
-            /*padding-left: 20px;  Removed padding*/
             font-size: 1.1em;
-            line-height: 1.8;
+            line-height: 1.4; /* Reduced line-height for grammar content */
             white-space: pre-wrap;
-            margin-top: 20px; /* Space below the grammar list */
+            margin-top: 0px;
         }
 
         #grammar-content h2 {
             color: #4CAF50;
+            margin-top: 1em;  /* Reduced top margin for h2 */
+            margin-bottom: 0.5em; /* Reduced bottom margin for h2 */
+        }
+        #grammar-content h3 {
+            margin-top: 0.8em; /* Reduced top margin for h3 */
+            margin-bottom: 0.4em;/* Reduced bottom margin for h3 */
+        }
+        #grammar-content p {
+            margin-top: 0.5em; /* Reduced top margin for paragraphs */
+            margin-bottom: 0.5em;/* Reduced bottom margin for paragraphs */
+        }
+        #grammar-content ul {
+           margin-top: 0.5em; /* Reduced top margin for paragraphs */
+            margin-bottom: 0.5em;/* Reduced bottom margin for paragraphs */
         }
 
         /* Footer Styles */
@@ -172,6 +152,31 @@
         /* Responsive Design - Optional, but good practice */
         @media (max-width: 768px) {
              /* Adjust styles for smaller screens if needed */
+        }
+        .lesson-title {
+            color: #4CAF50;
+            margin-top: 1.2em;  /* Adjusted top margin */
+            margin-bottom: 0.4em; /* Adjusted bottom margin */
+        }
+         table {
+            width: 100%;
+            border-collapse: collapse; /* Important for borders */
+            margin-bottom: 1em;
+        }
+        th, td {
+            border: 1px solid #000; /* Black borders */
+            padding: 6px; /* Reduced padding */
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #ltr {
+            direction: ltr;
+            text-align:center;
+        }
+        .container p{
+             text-align: justify;
         }
 
     </style>
@@ -200,7 +205,6 @@
 
         <button class="grammar-toggle">Show/Hide Grammar Topics</button>
         <div id="grammar-list-container">
-                <!--<h2>Grammar Topics</h2> removed heading-->
                 <ul id="grammar-list">
                     <!-- Grammar topic list items will be added here by JavaScript -->
                 </ul>
@@ -235,69 +239,611 @@
             grammarListContainer.querySelector('ul').classList.toggle('show'); // Toggle the UL inside
         });
 
-        // Array of grammar file names (without the .txt extension)
-        const grammarTopics = [
-            "noun",
-            "pronoun",
-            "verb",
-            "noun state"
-        ];
+      // Array of grammar file names (without the .txt extension)
+const grammarTopics = [
+    "verb",          // Added comma here
+    "noun",
+    "pronoun",
+    "noun state"
+];
 
-        let activeGrammar = null;
-        // Function to load and display a grammar topic
-      function loadGrammarTopic(filename) {
+let activeGrammar = null;
+
+// Function to load and display a grammar topic, modified for direct content
+function loadGrammarTopic(topic) {
     if (activeGrammar) {
         activeGrammar.classList.remove('active');
     }
 
-    fetch(`grammar/${filename}.html`) // Change .txt to .html
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.text(); // Still fetch as text
-        })
-        .then(htmlString => {
-            // Create a temporary DOM element to parse the HTML string
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = htmlString;
+    let content = "";
 
-            // Extract the title (assuming it's in an h2 tag)
-            const titleElement = tempDiv.querySelector('h2');
-            const title = titleElement ? titleElement.textContent : filename; // Fallback to filename if no h2
+    // Verb Conjugation Content
+    if (topic === "verb") {
+        content = `
+            <header>Verb Conjugation<br>ⴰⵙⴼⵜⵉ ⵏ ⵉⵎⵢⴰⴳⵏ</header>
+           <h2 class="lesson-title">Verb Forms</h2>
+            <div class="container" id="grammarContent">
+                <p>- Every verb has 4 forms, each according to the appropriate tense.</p>
+                <p id="ltr">
+                    <table>
+                        <tr>
+                            <td>ⵓⵔⵎⵉⵔ<br>Aorist</td>
+                            <td>ⵓⵙⵎⵉⴷ<br>Perfective</td>
+                            <td>ⵓⵙⵎⵉⴷ ⴰⵏⴰⴱⴰⵡ<br>Negative Perfective</td>
+                            <td>ⴰⵔⵓⵙⵎⵉⴷ<br>Imperfective</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">ⵖⵔ</td>
+                            <td rowspan="2">ⵖⵔⵉ\ⵖⵔⴰ</td>
+                            <td rowspan="2">ⵖⵔⵉ</td>
+                            <td>ⵇⵇⴰⵔ</td>
+                        </tr>
+                        <tr>
+                            <td>ⴰⵇⵇⵔⴰ</td>
+                        </tr>
+                    </table>
+                </p>
+                <p>- Some verbs like ⵖⵔ have two forms in the perfective tense, one form (ⵖⵔⵉ) for conjugation with ⵏⴽⴽ, ⴽⵢⵢ, ⴽⵎⵎ and another form (ⵖⵔⴰ) for other pronouns. The vowel ⵉ changes to ⴰ.</p>
+                <p>For the imperfective tense, there are two forms ⴰⵇⵇⵔⴰ and ⵇⵇⴰⵔ, either of which can be used as the perfective form.</p>
+                <p>ⵏⴽⴽ ⴰⵔ <b>ⵇⵇⴰⵔⵖ</b> = ⵏⴽⴽ ⴰⵔ <b>ⴰⵇⵇⵔⴰⵖ</b>.</p>
+            </div>
 
-            // Remove the title element from the temporary div (optional, but cleaner)
-            if (titleElement) {
-              titleElement.remove();
-            }
+            <h2 class="lesson-title">Conjugation<br>ⴰⵙⴼⵜⵉ</h2>
+            <div class="container" id="grammarContent">
+                <p>- To conjugate a verb with pronouns, we use verb markers that indicate each pronoun.  These are added before, after, or both to the verb. The verb markers are divided into three forms: markers for non-imperative forms, markers for imperative, and markers for the participial form.</p>
+                <p id="ltr">
+                    <table>
+                        <tr>
+                            <td colspan="2"><b>Verb Markers for Non-Imperative Forms</b></td>
+                        </tr>
+                        <tr>
+                            <td>Pronouns<br>ⵉⵎⵇⵇⵉⵎⵏ</td>
+                            <td>Verb Markers<br>ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵏ ⵓⵎⵢⴰⴳ</td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⴽⴽ</td>
+                            <td>----<span style="color:red">ⵖ</span></td>
+                        </tr>
+                        <tr>
+                            <td>ⴽⵢⵢ</td>
+                            <td><span style="color:red">ⵜ</span>----<span style="color:red">ⴷ</span> </td>
+                        </tr>
+                        <tr>
+                            <td>ⴽⵎⵎ</td>
+                            <td><span style="color:red">ⵜ</span>----<span style="color:red">ⴷ</span> </td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⵜⵜⴰ</td>
+                            <td><span style="color:red">ⵉ</span>----</td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⵜⵜⴰⵜ</td>
+                            <td><span style="color:red">ⵜ</span>----</td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⴽⴽⵏⵉ</td>
+                            <td><span style="color:red">ⵏ</span>----</td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⴽⴽⵏⵜⵉ</td>
+                            <td><span style="color:red">ⵏ</span>----</td>
+                        </tr>
+                        <tr>
+                            <td>ⴽⵏⵏⵉ</td>
+                            <td><span style="color:red">ⵜ</span>----<span style="color:red">ⵎ</span></td>
+                        </tr>
+                        <tr>
+                            <td>ⴽⵏⵏⵉⵏⵜⵉ</td>
+                            <td><span style="color:red">ⵜ</span>----<span style="color:red">ⵎⵜ</span></td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⵉⵜⵏⵉ</td>
+                            <td>----<span style="color:red">ⵏ</span></td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⵉⵜⵏⵜⵉ</td>
+                            <td>----<span style="color:red">ⵏⵜ</span></td>
+                        </tr>
+                    </table>
+                </p>
+                <p>- Non-imperative forms:</p>
+                <p>• Aorist ⵓⵔⵎⵉⵔ</p>
+                <p>• Perfective ⵓⵙⵎⵉⴷ</p>
+                <p>• Negative Perfective ⵓⵙⵎⵉⴷ ⴰⵏⴰⴱⴰⵡ</p>
+                <p>• Imperfective ⴰⵔⵓⵙⵎⵉⴷ.</p>
+                <p>Each form is used with the appropriate tense.</p>
 
-            // Set the grammarContent, including the title
-            grammarContent.innerHTML = `<h2>${title}</h2>${tempDiv.innerHTML}`;
+                <p id="ltr">
+                    <table>
+                        <tr>
+                            <td colspan="2"><b>Verb Markers for Imperative Forms</b></td>
+                        </tr>
+                        <tr>
+                            <td>Pronouns<br>ⵉⵎⵇⵇⵉⵎⵏ</td>
+                            <td>Verb Markers<br>ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵏ ⵓⵎⵢⴰⴳ</td>
+                        </tr>
+                        <tr>
+                            <td>ⴽⵢⵢ</td>
+                            <td>----</td>
+                        </tr>
+                        <tr>
+                            <td>ⴽⵎⵎ</td>
+                            <td>----</td>
+                        </tr>
+                         <tr>
+                            <td rowspan="2">ⴽⵏⵏⵉ</td>
+                            <td><span style="color:red"></span>----<span style="color:red">ⴰⵜ</span></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color:red"></span>----<span style="color:red">ⵎ</span></td>
+                        </tr>
+                                <tr>
+                            <td rowspan="2">ⴽⵏⵏⵉⵏⵜⵉ</td>
+                            <td><span style="color:red"></span>----<span style="color:red">ⴰⵎⵜ</span></td>
+                        </tr>
+                                <tr>
+                            <td><span style="color:red"></span>----<span style="color:red">ⵎⵜ</span></td>
+                        </tr>
 
-            const currentGrammar = document.getElementById(filename);
-            if (currentGrammar) {
-                currentGrammar.classList.add('active');
-                activeGrammar = currentGrammar;
-            }
-        })
-        .catch(error => {
-            grammarContent.innerHTML = `<p>Error loading grammar topic: ${error.message}</p>`;
-        });
+                    </table>
+                </p>
+
+                <p>- Imperative forms do not have their own verb forms, but use the available forms as follows:</p>
+                <p>• Imperative ⴰⵏⴰⴹ uses the Aorist form ⵓⵔⵎⵉⵔ</p>
+                <p>• Emphatic Imperative ⴰⵏⴰⴹ ⵓⵙⵙⵉⴷ uses the Imperfective form ⴰⵔⵓⵙⵎⵉⴷ.</p>
+                <p>- The verb in the imperative form conjugation for the singular masculine and singular feminine pronouns does not carry any verb markers.</p>
+                <p>- The imperative form is not available for all pronouns, it is only available for you (masculine singular), you (feminine singular), you (masculine plural), and you (feminine plural).</p>
+
+                <p><b>- The participial form is used with all verb forms, except for the aorist form preceded by the particle ⵔⴰⴷ.
+                <br>
+                The participial form is achieved with the verb markers ⵉ----ⵏ.</b></p>
+                <p id="ltr">
+                ⵉⴷⴷⴰ ("ⴷⴷⵓ" ⴳ ⵓⵙⵎⵉⴷ) => ⴰⵔⴳⴰⵣ ⵍⵍⵉ <span style="color:red">ⵉ</span>ⴷⴷⴰ<span style="color:red">ⵏ</span>
+                </p>
+
+                <p><b>- Conjugation of the verb ⵖⵔ in the aorist form with non-imperative verb markers:</b></p>
+                <p id="ltr">
+                    <table>
+                        <tr>
+                            <td colspan="2"><b>Aorist Form<br>ⵓⵔⵎⵉⵔ</b></td>
+                        </tr>
+                        <tr>
+                            <td>Pronouns<br>ⵉⵎⵇⵇⵉⵎⵏ</td>
+                            <td>Conjugation<br>ⴰⵙⴼⵜⵉ</td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⴽⴽ</td>
+                            <td> ⵖⵔ<span style="color:red">ⵖ</span></td>
+                        </tr>
+                        <tr>
+                            <td>ⴽⵢⵢ</td>
+                            <td><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⴷ</span> </td>
+                        </tr>
+                        <tr>
+                            <td>ⴽⵎⵎ</td>
+                            <td><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⴷ</span> </td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⵜⵜⴰ</td>
+                            <td><span style="color:red">ⵉ</span>ⵖⵔ</td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⵜⵜⴰⵜ</td>
+                            <td><span style="color:red">ⵜ</span>ⵖⵔ</td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⴽⴽⵏⵉ</td>
+                            <td><span style="color:red">ⵏ</span>ⵖⵔ</td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⴽⴽⵏⵜⵉ</td>
+                            <td><span style="color:red">ⵏ</span>ⵖⵔ</td>
+                        </tr>
+                        <tr>
+                            <td>ⴽⵏⵏⵉ</td>
+                            <td><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⵎ</span></td>
+                        </tr>
+                        <tr>
+                            <td>ⴽⵏⵏⵉⵏⵜⵉ</td>
+                            <td><span style="color:red">ⵜ</span>ⵖⵔ<span style="color:red">ⵎⵜ</span></td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⵉⵜⵏⵉ</td>
+                            <td>ⵖⵔ<span style="color:red">ⵏ</span></td>
+                        </tr>
+                        <tr>
+                            <td>ⵏⵉⵜⵏⵜⵉ</td>
+                            <td>ⵖⵔ<span style="color:red">ⵏⵜ</span></td>
+                        </tr>
+                    </table>
+                </p>
+                <p>- The aorist form ⵓⵔⵎⵉⵔ can be used for the present and future.</p>
+                <p>- Example in the present: <span style="color:red">ⴰⴷ ⵖⵔⵖ</span> ⵜⴰⵏⴼⵓⵙⵜ ⴰⴷ.</p>
+                <p>- Example in the future: <span style="color:red">ⵔⴰⴷ ⵖⵔⵖ</span> ⵜⴰⵏⴼⵓⵙⵜ ⴰⴷ.</p>
+            </div>
+
+            <h2 class="lesson-title">Changes<br>ⴰⵙⵏⴼⵍ</h2>
+            <div class="container" id="grammarContent">
+                <p>
+                - If the verb has one of the vowels ⴰ, ⵉ, ⵓ at the beginning, the verb marker for the pronoun ⵏⵜⵜⴰ changes from ⵉ to ⵢ.
+                    <p id="ltr">
+                    ⵓⵎⵥ ("ⴰⵎⵥ" ⴳ ⵓⵙⵎⵉⴷ) => ⵏⵜⵜⴰ <span style="color:red">ⵉ</span>ⵓⵎⵥ => ⵏⵜⵜⴰ <span style="color:red">ⵢ</span>ⵓⵎⵥ.
+                    <br>
+                    ⴰⵡⵉ => ⴰⴷ <span style="color:red">ⵉ</span>ⴰⵡⵉ ⵏⵜⵜⴰ => ⴰⴷ <span style="color:red">ⵢ</span>ⴰⵡⵉ.
+                    </p>
+                </p>
+                <p>
+                - If the verb has ⵜⵜ at the beginning, the verb markers for the pronouns ⴽⵢⵢ, ⴽⵎⵎ, ⴽⵏⵏⵉ, ⴽⵏⵏⵉⵏⵜⵉ change from ⵜ to ⵜⴻ.
+                    <p id="ltr">
+                    • ⵜⵜⵓ => ⴽⵢⵢ <span style="color:red">ⵜ</span>ⵜⵜⵓ<span style="color:red">ⴷ</span> => ⴽⵢⵢ <span style="color:red">ⵜⴻ</span>ⵜⵜⵓ<span style="color:red">ⴷ</span>.
+                    <br>
+                    • ⵜⵜⵉⵏⵉ => ⴰⴷ <span style="color:red">ⵜ</span>ⵜⵜⵉⵏⵉ<span style="color:red">ⴷ</span> => ⴰⴷ <span style="color:red">ⵜⴻ</span>ⵜⵜⵉⵏⵉⴷ.
+                    </p>
+                </p>
+                <p>
+                 - If the verb has ⵜⵜⴻⵜⵜ at the beginning, the previous verb markers ⵜ for the pronouns ⴽⵢⵢ, ⴽⵎⵎ, ⴽⵏⵏⵉ, ⴽⵏⵏⵉⵏⵜⵉ are not added. This matter concerns ⵜⵜⵓ in the imperfective form ⵜⵜⴻⵜⵜⵓ.
+                    <p id="ltr">
+                    ⵜⵜⴻⵜⵜⵓ ("ⵜⵜⵓ" ⴳ ⴰⵔⵓⵙⵎⵉⴷ) => ⴽⵢⵢ <span style="color:red"></span>ⵜⵜⴻⵜⵜⵓ<span style="color:red">ⴷ</span>.
+                    </p>
+                </p>
+                <p>
+                -If the verb starts with ⵏ‌ⵏ, we add ⵏⴻ instead of ⵏ only when conjugating the verb for the pronoun ⵏⴽⴽⵏⵉ.
+                    <p id="ltr">
+                        - ⵏⵏⵉ\ⵏⵏⴰ ("ⵉⵏⵉ" ⴳ ⵓⵙⵎⵉⴷ) => ⵏⴽⴽⵏⵉ <span style="color:red">ⵏ‌</span>ⵏⵏⴰ => ⵏⴽⴽⵏⵉ <span style="color:red">ⵏⴻ</span>ⵏⵏⴰ
+                    </p>
+                </p>
+            </div>
+
+            <h2 class="lesson-title">Tenses<br></h2>
+            <div class="container" id="grammarContent">
+                <p>
+                    <b>Past</b>
+                    <br>
+                    - The perfective and negative perfective forms are used to talk about an action that happened in the past.  As the name suggests, "perfective" indicates completion.
+                    <br>
+                    Examples:
+                    <br>
+                    <span style="color:red">ⵖⵔⵉⵖ</span> ⴰⴷⵍⵉⵙ ⴰⴷ ⵉⴹⴳⴰⵎ. (I read this book yesterday.)
+                    <br>
+                    <b>ⵓⵔ</b> <span style="color:red">ⵖⵔⵉⵖ</span> ⴰⴷⵍⵉⵙ ⴰⴷ. (I did not read this book.)
+                    <br>
+                    All other forms are negated by adding the particle ⵓⵔ while using the same forms, except for the perfective; there is a negative perfective to use with the negation particle ⵓⵔ.
+                </p>
+                <p>
+                    <b>Present</b>
+                    <br>
+                    - The aorist and imperfective forms are used with the present.
+                    <br>
+                    Examples:
+                    <br>
+                    ⵔⵉⵖ ⴰⴷ <span style="color:red">ⵖⵔⵖ</span> ⴰⴷⵍⵉⵙ ⴰⴷ. (I want to read this book.)
+                    <br>
+                    ⴷⴰ <span style="color:red">ⵇⵇⴰⵔⵖ</span> ⴽⵔⴰ ⵙⴳ ⵓⴷⵍⵉⵙ ⴰⴷ ⴽⵔⴰⵢⴳⴰⵜ ⴰⵙⵙ. (I read something from this book every day.)
+                </p>
+                <p>
+                    <b>Future</b>
+                    <br>
+                    - The aorist and imperfective forms are used with the future.
+                    <br>
+                    ⵔⴰⴷ <span style="color:red">ⵖⵔⵖ</span> ⴰⴷⵍⵉⵙ ⴰⴷ. (I will read this book.)
+                    <br>
+                    ⵔⴰⴷ <span style="color:red">ⵇⵇⴰⵔⵖ</span> ⵉⵎⵉⴽⴽ ⵙⴳ ⵓⴷⵍⵉⵙ ⴰⴷ ⴽⵔⴰⵢⴳⴰⵜ ⴰⵙⵙ. (I will read a little from this book every day.)
+                </p>
+                <p>
+                    <b>Imperative</b>
+                    <br>
+                    - Imperative forms are used to give a command. There is a regular imperative and an emphatic imperative.
+                    <br>
+                    <span style="color:red">ⵖⵔ</span> ⴰⴷⵍⵉⵙ ⴰⴷ! (Read this book!)
+                    <br>
+                    <span style="color:red">ⵇⵇⴰⵔ</span> ⴰⴷⵍⵉⵙ ⴰⴷ! (Read this book! - emphatic)
+                </p>
+                <p>
+                    <b>Contexts of the Participial Form</b>
+                    <br>
+                    - This form appears in different places, such as when using the particles ⵍⵍⵉ, ⴷⴰ, ⵏⵏⴰ.
+                    <p id="ltr">
+                        Perfective ⵓⵙⵎⵉⴷ: ⴰⴼⵔⵓⵅ <b>ⵍⵍⵉ</b> <span style="color:red">ⵉ</span>ⵖⵔⴰ<span style="color:red">ⵏ</span> (The boy who read)
+                        <br>
+                        Negative Perfective ⵓⵙⵎⵉⴷ ⴰⵏⴰⴱⴰⵡ: ⴰⴼⵔⵓⵅ <b>ⴷⴰ</b> ⵓⵔ <span style="color:red">ⵉ</span>ⵖⵔⵉ<span style="color:red">ⵏ</span> (The boy who did not read)
+                        <br>
+                        Imperfective ⴰⵔⵓⵙⵎⵉⴷ: ⴰⴼⵔⵓⵅ <b>ⵏⵏⴰ</b> <span style="color:red">ⵢ</span>ⴰⵇⵇⵔⴰ<span style="color:red">ⵏ</span> (The boy who is reading)
+                        </br>
+                    </p>
+                </p>
+            </div>
+
+            <h2 class="lesson-title">Attention!<br></h2>
+            <div class="container" id="grammarContent">
+                <p>- When one of the verb markers is the same as the letter the verb begins with, a person often forgets to add the verb marker, not realizing that the letter in the verb is just an original letter in the verb and not a verb marker:</p>
+                <h3>Examples</h3>
+                <div id="ltr">
+                    <p>
+                    - ⵉⵙⵙⴰⵏ => ⴰⴷ ⵉⵙⵙⴰⵏ‌<span style="color:red">ⵏ</span> (ⵏⵉⵜⵏⵉ) ✅
+                    <br>
+                    - ⴰⴷ ⵉⵙⵙⴰⵏ (ⵏⵉⵜⵏⵉ) ❌
+                    </p>
+                    <p>
+                    - ⵉⵍⵉ => ⵔⴰⴷ <span style="color:red">ⵢ</span>ⵉⵍⵉ (ⵏⵜⵜⴰ). ✅
+                    <br>
+                    - ⵉⵍⵉ => ⴰⴷ ⵉⵍⵉ ⵏⵜⵜⴰ ❌
+                    </p>
+                    <p>
+                    - ⴼⴼⵖ => ⵏⴽⴽ ⵔⴰⴷ ⴼⴼⵖ<span style="color:red">ⵖ</span> ✅
+                    <br>
+                    - ⵏⴽⴽ ⵔⴰⴷ ⴼⴼⵖ ❌
+                    </p>
+                </div>
+            </div>
+        `;
+    }
+      else if (topic === "noun") {
+      content = `
+        <h2 class="lesson-title">Nouns in Amazigh</h2>
+        <div class="container">
+        <p>
+            Amazigh nouns, like in many other languages, have grammatical gender (masculine and feminine) and number (singular and plural).  Unlike English, Amazigh also has noun states (free state and construct state).
+        </p>
+
+        <h3 class="lesson-title">Gender</h3>
+        <p>
+            There are two genders: masculine and feminine.  Generally, feminine nouns are marked by a prefix and/or suffix containing 't'.
+        </p>
+        <p id="ltr">
+            <table>
+                <tr>
+                    <th>Gender</th>
+                    <th>Example (Singular)</th>
+                    <th>Example (Plural)</th>
+                </tr>
+                <tr>
+                    <td>Masculine</td>
+                    <td>ⴰⴼⵓⵍⵓⵙ (afulus - rooster)</td>
+                    <td>ⵉⴼⵓⵍⴰⵙ (ifulas - roosters)</td>
+                </tr>
+                <tr>
+                    <td>Feminine</td>
+                    <td>ⵜⴰⴼⵓⵍⵓⵙⵜ (tafulust - hen)</td>
+                    <td>ⵜⵉⴼⵓⵍⴰⵙ (tifulas - hens)</td>
+                </tr>
+            </table>
+        </p>
+        <p>Notice how the feminine form is derived from the masculine form by adding 't' at the beginning and often at the end.</p>
+
+        <h3 class="lesson-title">Number</h3>
+        <p>
+           Amazigh has singular and plural forms. Plural formation can be quite complex and involves several patterns, including:
+           <ul>
+              <li>Prefix changes</li>
+              <li>Suffix changes</li>
+              <li>Internal vowel changes (ablaut)</li>
+              <li>Combinations of the above</li>
+           </ul>
+        </p>
+        <p id="ltr">
+            <table>
+                <tr>
+                    <th>Singular</th>
+                    <th>Plural</th>
+                    <th>Translation</th>
+                </tr>
+                <tr>
+                    <td>ⴰⵎⵖⴰⵔ (amɣar)</td>
+                    <td>ⵉⵎⵖⴰⵔⵏ (imɣarn)</td>
+                    <td>old man / old men</td>
+                </tr>
+                <tr>
+                    <td>ⵜⴰⵎⵖⴰⵔⵜ (tamɣart)</td>
+                    <td>ⵜⵉⵎⵖⴰⵔⵉⵏ (timɣarin)</td>
+                    <td>old woman / old women</td>
+                </tr>
+                <tr>
+                    <td>ⴰⵅⴰⵎ (axam)</td>
+                    <td>ⵉⵅⴰⵎⵏ (ixamn)</td>
+                    <td>house / houses</td>
+                </tr>
+            </table>
+        </p>
+          <p>
+            Some nouns have irregular plurals. It's important to learn the plural forms along with the singular.
+          </p>
+    </div>
+      `;
+    }
+
+    else if (topic === "pronoun") {
+        content = `
+           <h2 class="lesson-title">Pronouns in Amazigh</h2>
+            <div class="container">
+            <p>Amazigh has a rich system of pronouns, including personal pronouns, demonstrative pronouns, and possessive pronouns.  Personal pronouns distinguish between gender and number, and some have different forms depending on their function in the sentence (e.g., subject vs. object).</p>
+
+            <h3 class="lesson-title">Personal Pronouns (Independent)</h3>
+                <p>These pronouns stand alone and are not attached to verbs or nouns.</p>
+                <p id="ltr">
+                <table>
+                    <tr>
+                        <th>Person</th>
+                        <th>Singular</th>
+                        <th>Plural</th>
+                        <th>Translation</th>
+                    </tr>
+                    <tr>
+                        <td>1st</td>
+                        <td>ⵏⴽⴽ (nekk)</td>
+                        <td>ⵏⴽⴽⵏⵉ (nekkni) / ⵏⴽⴽⵏⵜⵉ (nekkenti)</td>
+                        <td>I / we</td>
+                    </tr>
+                    <tr>
+                        <td>2nd Masculine</td>
+                        <td>ⴽⵢⵢ (keyy)</td>
+                        <td>ⴽⵏⵏⵉ (kenniw)</td>
+                        <td>you (sg. m) / you (pl. m)</td>
+                    </tr>
+                    <tr>
+                        <td>2nd Feminine</td>
+                        <td>ⴽⵎⵎ (kemm)</td>
+                        <td>ⴽⵏⵏⵉⵏⵜⵉ (kenninti)</td>
+                        <td>you (sg. f) / you (pl. f)</td>
+                    </tr>
+                    <tr>
+                        <td>3rd Masculine</td>
+                        <td>ⵏⵜⵜⴰ (netta)</td>
+                        <td>ⵏⵉⵜⵏⵉ (nitni)</td>
+                        <td>he / they (m)</td>
+                    </tr>
+                    <tr>
+                        <td>3rd Feminine</td>
+                        <td>ⵏⵜⵜⴰⵜ (nettat)</td>
+                        <td>ⵏⵉⵜⵏⵜⵉ (nitenti)</td>
+                        <td>she / they (f)</td>
+                    </tr>
+                </table>
+            </p>
+            <p>Note:  The first-person plural has two forms, one used generally and one specifically for a group of females.</p>
+
+             <h3 class="lesson-title">Personal Pronouns (Affixed/Clitic)</h3>
+            <p>These pronouns are attached to verbs (as prefixes or suffixes) to indicate the subject or object.</p>
+               <p id='ltr'>
+               <p>They are discussed in verb section.</p>
+               </p>
+        </div>
+        `;
+    }
+    else if (topic === "noun state") {
+          content = `
+    <h2 class="lesson-title">Noun States in Amazigh</h2>
+    <div class="container">
+        <p>
+            Amazigh nouns have two states: the free state and the construct state (also called the "annexed" state).  The state of a noun affects its form and indicates its grammatical function in a phrase or sentence.  This is a crucial aspect of Amazigh grammar that doesn't exist in English.
+        </p>
+
+        <h3 class="lesson-title">Free State</h3>
+        <p>
+            The free state is the basic, uninflected form of the noun.  It's used when the noun is:
+            <ul>
+                <li>The subject of a verb</li>
+                <li>The direct object of a verb</li>
+                <li>In isolation (e.g., when listing items)</li>
+            </ul>
+            <p>Examples:</p>
+             <p id='ltr'>
+            <ul>
+                <li><b>ⴰⵔⴳⴰⵣ</b> ⵉⵜⵜⵖⵔ  (<b>Argaz</b> ittɣer) - The <b>man</b> reads. (Subject)</li>
+                <li>ⵉⵥⵕⴰ <b>ⴰⵔⴳⴰⵣ</b> (iẓṛa <b>argaz</b>) - He saw the <b>man</b>. (Direct Object)</li>
+            </ul>
+           </p>
+
+        <h3 class="lesson-title">Construct State (Annexed State)</h3>
+        <p>
+            The construct state is a modified form of the noun. It's primarily used when the noun is:
+            <ul>
+                <li>The first noun in a genitive construction (possessive relationship).  This is like "the man's book" in English, where "man's" is in the construct state.</li>
+                <li>Following a preposition.</li>
+                <li>Following certain particles.</li>
+            </ul>
+        </p>
+        <p>The formation of the construct state involves changes to the beginning of the noun.  The changes depend on the noun's gender and initial sounds:</p>
+
+        <p id="ltr">
+            <table>
+                <tr>
+                    <th>Gender</th>
+                    <th>Initial Sound (Free State)</th>
+                    <th>Construct State Change</th>
+                    <th>Example (Free)</th>
+                    <th>Example (Construct)</th>
+                    <th>Translation</th>
+                </tr>
+                <tr>
+                    <td rowspan="3">Masculine</td>
+                    <td>ⴰ (a)</td>
+                    <td>becomes ⵡ (w)</td>
+                    <td>ⴰⴼⵓⵍⵓⵙ (afulus)</td>
+                    <td>ⵡⴼⵓⵍⵓⵙ (wfulus)</td>
+                    <td>rooster / of the rooster</td>
+                </tr>
+                <tr>
+                    <td>ⵉ (i)</td>
+                    <td>becomes ⵢ (y)</td>
+                    <td>ⵉⵙⵍⵎ (islm)</td>
+                    <td>ⵢⵙⵍⵎ (yslm)</td>
+                    <td>fish / of the fish</td>
+                </tr>
+                 <tr>
+                    <td>ⵓ (u)</td>
+                    <td>becomes ⵡ (w)</td>
+                    <td>ⵓⴷⵎ (udm)</td>
+                    <td>ⵡⴷⵎ (wdm)</td>
+                    <td>face / of the face</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">Feminine</td>
+                    <td>ⵜⴰ (ta)</td>
+                    <td>becomes ⵜ (t) + vowel loss/change</td>
+                    <td>ⵜⴰⴼⵓⵏⴰⵙⵜ (tafunast)</td>
+                    <td>ⵜⴼⵓⵏⴰⵙⵜ (tfunast)</td>
+                    <td>cow / of the cow</td>
+                </tr>
+                <tr>
+                    <td>ⵜⵉ (ti)</td>
+                    <td>becomes ⵜ (t) + vowel loss/change</td>
+                    <td>ⵜⵉⴼⵉ (tifi)</td>
+                    <td>ⵜⴼⵉ (tfi)</td>
+                    <td>flesh / of the flesh</td>
+                </tr>
+                <tr>
+                    <td>ⵜⵓ (tu)</td>
+                    <td>becomes ⵜ (t) + vowel loss/change</td>
+                    <td>ⵜⵓⵜⵍⴰⵢⵜ (tutlayt)</td>
+                    <td>ⵜⵜⵓⵜⵍⴰⵢⵜ (ttutlayt)</td>
+                    <td>language / of the language</td>
+                </tr>
+
+            </table>
+        </p>
+        <p>Examples in sentences:</p>
+        <p id="ltr">
+        <ul>
+            <li>ⴰⴷⵍⵉⵙ <b>ⵏ ⵡⴰⵔⴳⴰⵣ</b> (adlis <b>n wargaz</b>) - The book <b>of the man</b> (the man's book).</li>
+            <li>ⵉⵍⵍⴰ <b>ⴳ ⵡⴰⵅⴰⵎ</b> (illa <b>g waxam</b>) - He is <b>in the house</b>.</li>
+        </ul>
+       </p>
+        <p>
+            The construct state is a very important feature of Amazigh, and understanding its usage is essential for correct sentence construction.  Mastering this concept takes practice and exposure to many examples. It's one of the key differences between Amazigh and languages like English or French.
+        </p>
+
+    </div>
+`;
+    }
+
+
+    // Set the content directly, no fetching
+    grammarContent.innerHTML = content;
+
+    // Update the active list item
+    const currentGrammar = document.getElementById(topic);
+    if (currentGrammar) {
+        currentGrammar.classList.add('active');
+        activeGrammar = currentGrammar;
+    }
 }
-        // Create list items for each grammar topic
-        grammarTopics.forEach(topic => {
-            const listItem = document.createElement('li');
-            listItem.textContent = topic; // Use filename as title for now
-            listItem.id = topic; // Set the ID for later use
-            listItem.addEventListener('click', () => {
-                loadGrammarTopic(topic);
-            });
-            grammarList.appendChild(listItem);
-        });
-		// Load the first topic by default
-        if (grammarTopics.length > 0) {
-            loadGrammarTopic(grammarTopics[0]);
-        }
+
+
+// Create list items for each grammar topic
+grammarTopics.forEach(topic => {
+    const listItem = document.createElement('li');
+    listItem.textContent = topic;
+    listItem.id = topic;
+    listItem.addEventListener('click', () => {
+        loadGrammarTopic(topic);
+    });
+    grammarList.appendChild(listItem);
+});
+
+// Load the first topic by default
+if (grammarTopics.length > 0) {
+    loadGrammarTopic(grammarTopics[0]);
+}
     </script>
 </body>
 </html>
