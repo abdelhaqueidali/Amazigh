@@ -60,43 +60,6 @@
             margin-bottom: 10px;
         }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: none; /* Initially hidden */
-            background-color: #eee;
-            border-radius: 5px;
-        }
-
-        nav ul.show {
-            display: block;
-        }
-
-        nav li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        nav li:last-child {
-            border-bottom: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-        }
-
-        nav a:hover {
-            background-color: #ddd;
-        }
-
-        nav .current-page {
-            font-weight: bold;
-            color: #4CAF50;
-        }
-
         /* --- COLORS TABLE STYLES --- */
 
         .colors-table {
@@ -158,23 +121,8 @@
         <header>
             <h1>Amazigh Colors</h1>
         </header>
-
-        <button class="nav-toggle">Show/Hide Menu</button>
-        <nav>
-              <ul id="menu">
-                <li><a href="index.html">ⴰⵙⵏⵓⴱⴳ - Home</a></li>
-                <li><a href="learn_tifinagh.html">ⴰⴳⵯⵎⵎⴰⵢ - Alphabet</a></li>
-                <li><a href="learn_number.html">ⵓⵟⵟⵓⵏⵏ - Numbers</a></li>
-                <li><a href="learn_color.html" class="current-page">ⵉⴽⵯⵍⴰⵏ - Colors</a></li>
-                <li><a href="read_story.html">ⵜⵓⵍⵍⵉⵙⵉⵏ - Stories</a></li>
-                <li><a href="tifinagh_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ - Alphabet Game</a></li>
-                <li><a href="learn_word.html">ⵜⵉⴳⵓⵔⵉⵡⵉⵏ - Words</a></li>
-                <li><a href="number_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ - Number Game</a></li>
-                <li><a href="color_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ - Color Game</a></li>
-                <li><a href="learn_grammar.html">ⵜⴰⵊⵕⵕⵓⵎⵜ - Grammar</a></li>
-            </ul>
-        </nav>
-
+        <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ - Home</button>
+		</a>
         <main>
             <table class="colors-table">
                 <thead>
@@ -246,19 +194,11 @@
         </main>
 
         <footer>
-            <p>&copy; 2023 Learn Amazigh</p>
+            <p>&copy; 2025 Learn Amazigh</p>
         </footer>
     </div>
 
     <script>
-        // JavaScript for the show/hide menu
-        const navToggle = document.querySelector('.nav-toggle');
-        const menu = document.querySelector('#menu');
-
-        navToggle.addEventListener('click', () => {
-            menu.classList.toggle('show');
-        });
-
         // JavaScript for playing audio on click (same as before)
         const colorWords = document.querySelectorAll('.amazigh-color-word, .latin-color-word');
 
