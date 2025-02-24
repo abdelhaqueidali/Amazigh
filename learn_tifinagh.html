@@ -60,44 +60,6 @@
             margin-bottom: 10px; /* Space between the button and the list */
         }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            /*  Initially hide the list */
-            display: none; 
-            background-color: #eee;
-            border-radius: 5px;
-        }
-
-        nav ul.show {
-            display: block; /*  Show the list when the 'show' class is added */
-        }
-
-        nav li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        nav li:last-child {
-            border-bottom: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-            display: block; /*  Make the whole list item clickable */
-        }
-
-        nav a:hover {
-            background-color: #ddd;
-        }
-        /* Current Page Style in Navigation */
-        nav .current-page {
-            font-weight: bold;
-            color: #4CAF50; /* Highlight current page */
-        }
-
       .tifinagh-table {
             margin: 24px auto; 
             width: 90%;
@@ -250,10 +212,6 @@
     </div>
 	<audio id="audioPlayer" preload="auto"></audio>
     <script>
-        // JavaScript for the show/hide menu
-        const navToggle = document.querySelector('.nav-toggle');
-        const menu = document.querySelector('#menu');
-
         navToggle.addEventListener('click', () => {
             menu.classList.toggle('show');
         });
