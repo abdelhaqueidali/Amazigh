@@ -77,46 +77,6 @@
             margin-bottom: 10px; /* Space between the button and the list */
         }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            /*  Initially hide the list */
-            display: none;
-            background-color: #eee;
-            border-radius: 5px;
-        }
-
-        nav ul.show {
-            display: block; /*  Show the list when the 'show' class is added */
-        }
-
-        nav li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        nav li:last-child {
-            border-bottom: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-            display: block; /*  Make the whole list item clickable */
-        }
-
-        nav a:hover {
-            background-color: #ddd;
-        }
-        /* Current Page Style in Navigation */
-        nav .current-page {
-            font-weight: bold;
-            color: #4CAF50; /* Highlight current page */
-        }
-
-        /* Removed table styles */
-
         .hidden {
             display: none;
         }
@@ -149,23 +109,8 @@
         <header>
             <h1>ⴰⵙⴰⴳⵎ ⴰⵎⴰⵣⵉⵖ - Amazigh Dictionary</h1>  <!-- Changed Header -->
         </header>
-
-        <button class="nav-toggle">Show/Hide Menu</button>
-        <nav>
-            <ul id="menu">
-                <li><a href="index.html">ⴰⵙⵏⵓⴱⴳ - Home</a></li>
-                <li><a href="learn_tifinagh.html" class="current-page">ⴰⴳⵯⵎⵎⴰⵢ - Alphabet</a></li> <!-- Keep, but style -->
-                <li><a href="learn_number.html">ⵓⵟⵟⵓⵏⵏ - Numbers</a></li>
-                <li><a href="learn_color.html">ⵉⴽⵯⵍⴰⵏ - Colors</a></li>
-                <li><a href="read_story.html">ⵜⵓⵍⵍⵉⵙⵉⵏ - Stories</a></li>
-                <li><a href="tifinagh_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ - Alphabet Game</a></li>
-                <li><a href="learn_word.html">ⵜⵉⴳⵓⵔⵉⵡⵉⵏ - Words</a></li>
-                <li><a href="number_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ - Number Game</a></li>
-                <li><a href="color_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ - Color Game</a></li>
-                <li><a href="learn_grammar.html">ⵜⴰⵊⵕⵕⵓⵎⵜ - Grammar</a></li>
-            </ul>
-        </nav>
-
+<button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ - Home</button>
+		</a>
         <main>
            <!-- Iframe for the dictionary -->
             <iframe id="dictionary-iframe" src="https://abdelhaqueidali-amazigh-dictionary.hf.space" title="Amazigh Dictionary"></iframe>
