@@ -59,43 +59,6 @@
             border-radius: 5px;
             margin-bottom: 10px;
         }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: none; /* Initially hidden */
-            background-color: #eee;
-            border-radius: 5px;
-        }
-
-        nav ul.show {
-            display: block;
-        }
-
-        nav li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        nav li:last-child {
-            border-bottom: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-        }
-
-        nav a:hover {
-            background-color: #ddd;
-        }
-
-        nav .current-page {
-            font-weight: bold;
-            color: #4CAF50;
-        }
         /* --- COMMON WORDS TABLE STYLES --- */
 
         .common-words-table {
@@ -531,10 +494,6 @@
     </div>
 
     <script>
-        // JavaScript for the show/hide menu (same as before)
-        const navToggle = document.querySelector('.nav-toggle');
-        const menu = document.querySelector('#menu');
-
         navToggle.addEventListener('click', () => {
             menu.classList.toggle('show');
         });
