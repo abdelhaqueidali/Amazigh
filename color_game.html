@@ -60,43 +60,6 @@
             margin-bottom: 10px;
         }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: none; /* Initially hidden */
-            background-color: #eee;
-            border-radius: 5px;
-        }
-
-        nav ul.show {
-            display: block;
-        }
-
-        nav li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        nav li:last-child {
-            border-bottom: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-            display: block;
-        }
-
-        nav a:hover {
-            background-color: #ddd;
-        }
-
-        nav .current-page {
-            font-weight: bold;
-            color: #4CAF50;
-        }
-
         /* --- GAME-SPECIFIC STYLES --- */
 
         #game-container {
@@ -249,23 +212,8 @@
         <header>
             <h1>Amazigh Color Game!</h1>
         </header>
-
-        <button class="nav-toggle">Show/Hide Menu</button>
-        <nav>
-            <ul id="menu">
-                <li><a href="index.html">ⴰⵙⵏⵓⴱⴳ - Home</a></li>
-                <li><a href="learn_tifinagh.html">ⴰⴳⵯⵎⵎⴰⵢ - Alphabet</a></li>
-                <li><a href="learn_number.html">ⵓⵟⵟⵓⵏⵏ - Numbers</a></li>
-                <li><a href="learn_color.html">ⵉⴽⵯⵍⴰⵏ - Colors</a></li>
-                <li><a href="read_story.html">ⵜⵓⵍⵍⵉⵙⵉⵏ - Stories</a></li>
-                <li><a href="tifinagh_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ - Alphabet Game</a></li>
-                <li><a href="learn_word.html">ⵜⵉⴳⵓⵔⵉⵡⵉⵏ - Words</a></li>
-                <li><a href="number_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ - Number Game</a></li>
-                <li><a href="color_game.html" class="current-page">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ - Color Game</a></li>
-                <li><a href="learn_grammar.html">ⵜⴰⵊⵕⵕⵓⵎⵜ - Grammar</a></li>
-            </ul>
-        </nav>
-
+        <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ - Home</button>
+		</a>
         <main>
             <div id="game-container">
                 <h1>Amazigh Color Game!</h1>
@@ -285,11 +233,12 @@
 
     <script>
        const colors = [
-            { color: 'red', tifinagh: 'ⴰⵣⴳⴳⵯⴰⵖ', latin: 'Azeggwaɣ' },
-            { color: 'blue', tifinagh: 'ⴰⵥⵔⵇⴰⵏ', latin: 'Aẓerqan' },
-            { color: 'green', tifinagh: 'ⴰⵣⵉⵣⴰ', latin: 'Aziza' },
+            { color: 'red', tifinagh: 'ⴰⵣⴳⴳⵯⴰⵖ', latin: 'Azggʷav' },
+            { color: 'blue', tifinagh: 'ⴰⵏⵉⵍⵉ', latin: 'Anili' },
+            { color: 'green', tifinagh: 'ⴰⵣⴳⵣⴰⵡ', latin: 'Azgzaw' },
             { color: 'yellow', tifinagh: 'ⴰⵡⵔⴰⵖ', latin: 'Awraɣ' },
-            { color: 'black', tifinagh: 'ⴰⴱⵔⵛⴰⵏ', latin: 'Abercan' },
+            { color: 'black', tifinagh: 'ⴰⴱⵔⴽⴰⵏ', latin: 'Abercan' },
+	    { color: 'black', tifinagh: 'ⵉⴹⵉⵍⵉ', latin: 'Iḍili' },
             { color: 'white', tifinagh: 'ⴰⵎⵍⵍⴰⵍ', latin: 'Amellal' },
             { color: 'orange', tifinagh: 'ⴰⵛⵉⵏⴰⵡⵉ', latin: 'Acinawi' },
             { color: 'pink', tifinagh: 'ⴰⵣⴳⴳⵯⴰⵖ ⴰⵏⵎⵍⴰⵍ', latin: 'Azeggwaɣ anmellal' },
