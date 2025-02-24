@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Amazigh - Games</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap" rel="stylesheet">
+    <!--  You'll likely want to consolidate your CSS into a single style.css file -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /*  Styles (adapt from your index.html) */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .nav-toggle { /*  Keep if you want a similar button */
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+              text-decoration: none;
+        }
+
+        /*  Crucial changes for single-column layout */
+        .nav-boxes {
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack items vertically */
+            gap: 20px; /*  Space between boxes */
+            margin-top: 30px;
+        }
+
+        .nav-box {
+            background-color: #f0f8f1;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            color: #333;
+            display: block; /*  Ensure the whole box is clickable */
+        }
+
+        .nav-box:hover {
+            background-color: #c8e6c9;
+            transform: scale(1.05);
+        }
+
+        .nav-box h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+        .nav-box .tifinagh {
+          font-size: 2em;
+          margin-bottom: 10px;
+        }
+
+        .nav-box p {
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .icon-wrapper {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-family: 'Noto Emoji', sans-serif; /* Use Noto Emoji */
+            color: #4CAF50; /*  Fallback color, emojis are often limited in color */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Learn Amazigh - Games</h1>
+        </header>
+          <a href="index.html" class="nav-toggle">
+            ⴰⵙⵏⵓⴱⴳ - Home
+        </a>
+        <main>
+            <div class="nav-boxes">
+                <!-- Game 1 -->
+                <a href="tifinagh_game.html" class="nav-box">
+                    <span class="icon-wrapper">🎮🔠</span>
+                    <h2 class="tifinagh">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ</h2>
+                    <h2>Alphabet Game</h2>
+                    <p>Test your knowledge of the Tifinagh alphabet.</p>
+                </a>
+
+                <!-- Game 2 -->
+                <a href="number_game.html" class="nav-box">
+                    <span class="icon-wrapper">🎮🔢</span>
+                    <h2 class="tifinagh">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ</h2>
+                    <h2>Number Game</h2>
+                    <p>Test your knowledge of Amazigh numbers.</p>
+                </a>
+
+                <!-- Game 3 -->
+                <a href="color_game.html" class="nav-box">
+                   <span class="icon-wrapper">🎮🟩</span>
+                   <h2 class="tifinagh">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ</h2>
+                    <h2>Color Game</h2>
+                    <p>Test your knowledge of Amazigh colors.</p>
+                </a>
+
+                <!-- Add more games as needed -->
+
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 Learn Amazigh</p>
+        </footer>
+    </div>
+     <script>
+        // JavaScript for the show/hide menu (if you use it)
+        const navToggle = document.querySelector('.nav-toggle');
+        const menu = document.querySelector('#menu'); // Make sure you have an element with id="menu" if you use this
+
+        navToggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
