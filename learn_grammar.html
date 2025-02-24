@@ -46,7 +46,7 @@
         }
 
         /* Navigation Menu Styles */
-        .nav-toggle, .grammar-toggle {
+         .nav-toggle, .grammar-toggle {
             display: block;
             width: 100%;
             padding: 10px;
@@ -62,7 +62,7 @@
             background-color: #007bff;
         }
 
-        nav ul, #grammar-list-container ul {
+        #grammar-list-container ul {
             list-style: none;
             padding: 0;
             margin: 0;
@@ -71,36 +71,32 @@
             border-radius: 5px;
         }
 
-        nav ul.show, #grammar-list-container ul.show {
+       #grammar-list-container ul.show {
             display: block;
         }
 
-        nav li, #grammar-list-container li {
+        #grammar-list-container li {
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
 
-        nav li:last-child,  #grammar-list-container li:last-child{
+        #grammar-list-container li:last-child{
             border-bottom: none;
         }
 
-        nav a, #grammar-list-container a {
+        #grammar-list-container a {
             text-decoration: none;
             color: #333;
             display: block;
             cursor: pointer;
         }
-        nav a:hover, #grammar-list-container li:hover {
+        #grammar-list-container li:hover {
            background-color: #ddd;
         }
         #grammar-list-container li:hover {
               background-color: #f0f8f1;
         }
 
-        nav .current-page {
-            font-weight: bold;
-            color: #4CAF50;
-        }
         #grammar-list li.active {
             background-color: #4CAF50;
             color: white;
@@ -187,21 +183,9 @@
             <h1>Amazigh Grammar</h1>
         </header>
 
-        <button class="nav-toggle">Show/Hide Menu</button>
-        <nav>
-              <ul id="menu">
-                <li><a href="index.html">ⴰⵙⵏⵓⴱⴳ - Home</a></li>
-                <li><a href="learn_tifinagh.html">ⴰⴳⵯⵎⵎⴰⵢ - Alphabet</a></li>
-                <li><a href="learn_number.html">ⵓⵟⵟⵓⵏⵏ - Numbers</a></li>
-                <li><a href="learn_color.html">ⵉⴽⵯⵍⴰⵏ - Colors</a></li>
-                <li><a href="read_story.html">ⵜⵓⵍⵍⵉⵙⵉⵏ - Stories</a></li>
-                <li><a href="tifinagh_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴳⵯⵎⵎⴰⵢ - Alphabet Game</a></li>
-                <li><a href="learn_word.html">ⵜⵉⴳⵓⵔⵉⵡⵉⵏ - Words</a></li>
-                <li><a href="number_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵟⵟⵓⵏⵏ - Number Game</a></li>
-                <li><a href="color_game.html">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵉⴽⵯⵍⴰⵏ - Color Game</a></li>
-                <li><a href="learn_grammar.html" class="current-page">ⵜⴰⵊⵕⵕⵓⵎⵜ - Grammar</a></li>
-            </ul>
-        </nav>
+        <a href="index.html">
+        <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ - Home</button>
+		</a>
 
         <button class="grammar-toggle">Show/Hide Grammar Topics</button>
         <div id="grammar-list-container">
