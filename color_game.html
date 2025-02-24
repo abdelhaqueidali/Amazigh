@@ -164,18 +164,40 @@
             outline: none;
              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+/*  For correct choices - Green border, no background change */
+.correct {
+    border: 4px solid #4CAF50 !important; /*  Thicker, distinct border */
+    /*  Don't change the background: background-color: inherit !important; */
+    color: initial !important; /*  Reset color to default */
+    /*  Optional: Add a checkmark icon (using a pseudo-element) */
+    position: relative; /*  Needed for absolute positioning of the icon */
+}
+.correct::after{
+    content: '✔';
+    position: absolute;
+    color: #4CAF50;
+    font-weight: bold;
+    font-size: 1.5rem;
+    top:-1.5rem;
+    right: 0.3rem;
+}
 
-        .correct {
-            background-color: #4CAF50 !important;
-            color: white !important;
-            border-color: #388e3c !important;
-        }
-
-        .incorrect {
-            background-color: #f44336 !important;
-            color: white !important;
-            border-color: #d32f2f !important;
-        }
+/*  For incorrect choices - Red border, no background change */
+.incorrect {
+    border: 4px solid #f44336 !important;
+    /* background-color: inherit !important; */
+    color: initial !important;
+    position: relative;
+}
+.incorrect::after{
+    content: '✘';
+    position: absolute;
+    color: #f44336;
+    font-weight: bold;
+    font-size: 1.5rem;
+    top:-1.5rem;
+    right: 0.3rem;
+}
         .correct-container {
             background-color: #a5d6a7; /* Light green background */
             transition: background-color 0.3s ease; /* Add transition here */
