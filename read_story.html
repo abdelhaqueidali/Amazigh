@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stories - Learn Amazigh</title>
+    <title>ⵜⵓⵍⵍⵉⵙⵉⵏ</title>
     <!-- Google Fonts - Noto Sans Tifinagh -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap" rel="stylesheet">
     <style>
         /*  PASTE THE ENTIRE CSS CODE FROM PART 1 HERE (the original CSS) */
         body {
@@ -62,49 +63,44 @@
         }
 
         /* --- STORY-SPECIFIC STYLES --- */
-        /* Add a wrapper for the main content (story list and content) */
-        .main-content {
-            display: flex; /* Now apply flexbox here */
-            flex-direction: row;
+      .nav-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+            gap: 20px;
+            margin-top: 30px;
         }
 
-        #story-list-container {
-            width: 25%; /* Adjust as needed */
-            padding-right: 20px; /* Add some spacing */
-            border-right: 1px solid #ddd; /* Separator */
-        }
-
-        #story-list {
-            list-style: none; /* Remove bullets */
-            padding: 0;
-            margin: 0;
-        }
-
-        #story-list li {
-            padding: 8px 12px; /* Add padding */
+        .nav-box {
+            background-color: #f0f8f1; /* Light green */
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
             cursor: pointer;
-            border-bottom: 1px solid #eee;
-            transition: background-color 0.2s;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none; /* Remove underline from links */
+            color: #333; /* Default text color */
+            display: block; /* Make the entire box clickable */
         }
 
-        #story-list li:hover {
-            background-color: #f0f8f1; /* Light green on hover */
-        }
-        #story-list li.active {
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
+        .nav-box:hover {
+            background-color: #c8e6c9; /* Darker green on hover */
+            transform: scale(1.05); /* Slightly enlarge */
         }
 
-        #story-content {
-            flex: 1; /* Take up remaining space */
-            padding-left: 20px; /* Add some spacing */
-            font-size: 1.1em; /* Slightly larger font */
-            line-height: 1.8; /* More line spacing */
-            white-space: pre-wrap; /* Preserve line breaks and spaces from the TXT */
+        .nav-box h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #4CAF50; /* Green heading */
         }
-        #story-content h2{
-             color: #4CAF50;
+		.nav-box .tifinagh {
+			font-size: 2em;
+			margin-bottom: 10px;
+		}
+
+        .nav-box p {
+            font-size: 1em;
+            line-height: 1.4;
         }
 
         /* Footer Styles */
@@ -114,6 +110,15 @@
             background-color: #333;
             color: #fff;
             border-radius: 0 0 8px 8px;
+        }
+
+	    .icon-wrapper {
+                /* Styles for the emoji container */
+                font-size: 3em;  /* Control the emoji size */
+                margin-bottom: 10px; /* Space between emoji and "Numbers" */
+                color: purple; /* Example color, though emoji colors can be limited */
+                font-family: 'Noto Emoji', sans-serif;
+                color: #4CAF50;
         }
     </style>
 </head>
@@ -125,83 +130,33 @@
 	    <a href="index.html">
         <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ - Home</button>
 	    </a>
-        <!-- Wrap the main content in a div -->
-        <div class="main-content">
-            <div id="story-list-container">
-                <h2>Stories</h2>
-                <ul id="story-list">
-                    <!-- Story list items will be added here by JavaScript -->
-                </ul>
-            </div>
+        <main>
+             <div class="nav-boxes">
+                <a href="story1.html" class="nav-box">
+                    <span class="icon-wrapper">📖</span>
+                    <h2>ⵚⴰⵏⴹⵕⵉⵍⵍⴰ</h2>
+                    <p>ⵖⵔ ⵜⵓⵍⵍⵉⵙⵜ ⵏ ⵚⴰⵏⴹⵕⵉⵍⵍⴰ ⵙ ⵜⵎⴰⵣⵉⵖⵜ</p>
+                </a>
 
-            <div id="story-content">
-                <!-- Story content will be displayed here -->
-                <h2>Select a story to begin.</h2>
+                <a href="story2.html" class="nav-box">
+                   <span class="icon-wrapper">📖</span>
+                    <h2>Story 2</h2>
+                    <p>Read the second Amazigh story.</p>
+                </a>
+
+                <a href="story3.html" class="nav-box">
+                    <span class="icon-wrapper">📖</span>
+                    <h2>Story 3</h2>
+                    <p>Read the third Amazigh story.</p>
+                </a>
             </div>
-        </div>
+        </main>
         <footer>
-            <p>&copy; 2023 Learn Amazigh</p>
+            <p>Afaw - ⴰⴼⴰⵡ</p>
         </footer>
     </div>
 
     <script>
-        const navToggle = document.querySelector('.nav-toggle');
-        const storyList = document.getElementById('story-list');
-        const storyContent = document.getElementById('story-content');
-
-        navToggle.addEventListener('click', () => {
-            menu.classList.toggle('show');
-        });
-
-        // Array of story file names (without the .txt extension)
-        const stories = [
-            "story1",
-            "story2",
-            "story3"
-        ];
-        let activeStory = null;
-
-        // Function to load and display a story
-        function loadStory(filename) {
-			// Remove the 'active' class from the previously active story
-            if (activeStory) {
-                activeStory.classList.remove('active');
-            }
-            fetch(`story/${filename}.txt`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(text => {
-                    storyContent.innerHTML = `<h2>${filename}</h2>${text}`;
-					// Add 'active' class to the current story
-                    const currentStory = document.getElementById(filename);
-                    if(currentStory){
-                        currentStory.classList.add('active');
-                        activeStory = currentStory;
-                    }
-                })
-                .catch(error => {
-                    storyContent.innerHTML = `<p>Error loading story: ${error.message}</p>`;
-                });
-        }
-
-        // Create list items for each story
-        stories.forEach(story => {
-            const listItem = document.createElement('li');
-            listItem.textContent = story; // Use the filename as the title for now
-            listItem.id = story;
-            listItem.addEventListener('click', () => {
-                loadStory(story);
-            });
-            storyList.appendChild(listItem);
-        });
-		// Load the first story by default
-        if (stories.length > 0) {
-            loadStory(stories[0]);
-        }
 
     </script>
 </body>
