@@ -107,6 +107,9 @@
             transition: background-color 0.3s ease, transform 0.1s ease; /* Add transform */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             outline: none;
+            display: flex; /*  Use flexbox for layout within the choice */
+            align-items: center; /* Center vertically */
+           
         }
 
         .choice:hover:not(:disabled),
@@ -189,6 +192,7 @@
           font-size: 18px; /* Adjust as needed */
           transition: background-color 0.3s ease;
           overflow: hidden;/* Hide default audio controls */
+          margin-right: 10px; /* Add some space between play button and text */
         }
          /* Custom play icon */
         .audio-player::before {
@@ -207,6 +211,14 @@
         /* Hide the default audio controls */
         .audio-player audio {
           display: none;
+        }
+
+        /*  Add styles for the audio choice text */
+        .audio-choice-text {
+            flex-grow: 1;  /* Take up remaining space */
+            text-align: left; /* Align text to the left */
+            font-size: 1.2em;
+            padding-left: 0.5em; /*Add some space */
         }
 
         /* Footer Styles (consistent with other pages) */
@@ -366,15 +378,28 @@ function generateQuestion() {
 
         choices.forEach(choiceAudioPath => {
             const button = document.createElement('button');
-            button.classList.add('choice', 'audio-player');
+            button.classList.add('choice');  // Keep the general 'choice' class
 
-            // Create the audio element inside the button
+            //  Create the audio player (circular button)
+            const audioPlayer = document.createElement('button'); //  Use a button for the player
+            audioPlayer.classList.add('audio-player');
             const audioElement = new Audio(choiceAudioPath);
-            button.appendChild(audioElement); //  Append audio to the button
-            choiceAudioPlayers.push(audioElement); // Store for later
+            audioPlayer.appendChild(audioElement);  //Append audio element to audioPlayer div
+            choiceAudioPlayers.push(audioElement);
+            button.appendChild(audioPlayer);   // Append the audio player to the main button
+
+            // Create a span for the audio choice text (filename, or other description)
+            const audioTextSpan = document.createElement('span');
+            audioTextSpan.classList.add('audio-choice-text');
+            // Use the filename (without extension) as the choice text
+            const filename = choiceAudioPath.split('/').pop().split('.')[0];
+            audioTextSpan.textContent = `Audio ${filename}`; //  Descriptive text
+            button.appendChild(audioTextSpan);
+
+
 
             // Play audio on button click (using event delegation)
-                button.addEventListener('click', (event) => {
+                audioPlayer.addEventListener('click', (event) => { //  Attach to audioPlayer
                     // Stop any currently playing audio
                     choiceAudioPlayers.forEach(audio => {
                     if (audio !== audioElement && !audio.paused){
@@ -389,13 +414,16 @@ function generateQuestion() {
                         audioElement.pause();
                         audioElement.currentTime = 0;
                     }
-                    // *** KEY CHANGE: Call checkAnswer *here*, inside the main click handler,
-                    //     but ONLY if the click target is the button itself, not the play icon.
-                    if (event.target === button) {
-                         checkAnswer(choiceAudioPath, currentQuestion.audio, button, isAudioQuestion);
-                    }
+                    //Prevent event bubbling up to the parent button
+                    event.stopPropagation();
+
 
                 });
+
+            // Check the answer when the main choice button is clicked
+             button.addEventListener('click', () => {
+                checkAnswer(choiceAudioPath, currentQuestion.audio, button, isAudioQuestion);
+            });
 
             choicesEl.appendChild(button); // Add the button
         });
