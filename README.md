@@ -1,4 +1,4 @@
-# Learn Amazigh WEB
+# Amazigh
 
 [![Generic badge](https://img.shields.io/badge/Language-Amazigh-blue.svg)](https://en.wikipedia.org/wiki/Berber_languages) [![Website](https://img.shields.io/website?url=https%3A%2F%2Fabdelhaqueidali.github.io%2FLearn-Amazigh-WEB%2F&up_message=Online&down_message=Offline&label=Website)](https://abdelhaqueidali.github.io/Learn-Amazigh-WEB/)
 
