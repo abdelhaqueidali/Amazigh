@@ -245,222 +245,216 @@
     </div>
     <script>
     const letters = [
-        { tifinagh: 'ⴰ', latin: 'a', audio: 'Letters/01.ogg' },
-        { tifinagh: 'ⴱ', latin: 'b', audio: 'Letters/02.ogg' },
-        { tifinagh: 'ⴳ', latin: 'g', audio: 'Letters/03.ogg' },
-        { tifinagh: 'ⴳⵯ', latin: 'gʷ', audio: 'Letters/04.ogg' },
-        { tifinagh: 'ⴷ', latin: 'd', audio: 'Letters/05.ogg' },
-        { tifinagh: 'ⴹ', latin: 'ḍ', audio: 'Letters/06.ogg' },
-        { tifinagh: 'ⴻ', latin: '-', audio: 'Letters/07.ogg' },
-        { tifinagh: 'ⴼ', latin: 'f', audio: 'Letters/08.ogg' },
-        { tifinagh: 'ⴽ', latin: 'k', audio: 'Letters/09.ogg' },
-        { tifinagh: 'ⴽⵯ', latin: 'kʷ', audio: 'Letters/10.ogg' },
-        { tifinagh: 'ⵀ', latin: 'h', audio: 'Letters/11.ogg' },
-        { tifinagh: 'ⵃ', latin: 'ḥ', audio: 'Letters/12.ogg' },
-        { tifinagh: 'ⵄ', latin: 'ɛ', audio: 'Letters/13.ogg' },
-        { tifinagh: 'ⵅ', latin: 'x', audio: 'Letters/14.ogg' },
-        { tifinagh: 'ⵇ', latin: 'q', audio: 'Letters/15.ogg' },
-        { tifinagh: 'ⵉ', latin: 'i', audio: 'Letters/16.ogg' },
-        { tifinagh: 'ⵊ', latin: 'j', audio: 'Letters/17.ogg' },
-        { tifinagh: 'ⵍ', latin: 'l', audio: 'Letters/18.ogg' },
-        { tifinagh: 'ⵎ', latin: 'm', audio: 'Letters/19.ogg' },
-        { tifinagh: 'ⵏ', latin: 'n', audio: 'Letters/20.ogg' },
-        { tifinagh: 'ⵓ', latin: 'u', audio: 'Letters/21.ogg' },
-        { tifinagh: 'ⵔ', latin: 'r', audio: 'Letters/22.ogg' },
-        { tifinagh: 'ⵕ', latin: 'ṛ', audio: 'Letters/23.ogg' },
-        { tifinagh: 'ⵖ', latin: 'ɣ', audio: 'Letters/24.ogg' },
-        { tifinagh: 'ⵙ', latin: 's', audio: 'Letters/25.ogg' },
-        { tifinagh: 'ⵚ', latin: 'ṣ', audio: 'Letters/26.ogg' },
-        { tifinagh: 'ⵛ', latin: 'c', audio: 'Letters/27.ogg' },
-        { tifinagh: 'ⵜ', latin: 't', audio: 'Letters/28.ogg' },
-        { tifinagh: 'ⵟ', latin: 'ṭ', audio: 'Letters/29.ogg' },
-        { tifinagh: 'ⵡ', latin: 'w', audio: 'Letters/30.ogg' },
-        { tifinagh: 'ⵢ', latin: 'y', audio: 'Letters/31.ogg' },
-        { tifinagh: 'ⵣ', latin: 'z', audio: 'Letters/32.ogg' },
-        { tifinagh: 'ⵥ', latin: 'ẓ', audio: 'Letters/33.ogg' }
-    ];
+    { tifinagh: 'ⴰ', latin: 'a', audio: 'Letters/01.ogg' },
+    { tifinagh: 'ⴱ', latin: 'b', audio: 'Letters/02.ogg' },
+    { tifinagh: 'ⴳ', latin: 'g', audio: 'Letters/03.ogg' },
+    { tifinagh: 'ⴳⵯ', latin: 'gʷ', audio: 'Letters/04.ogg' },
+    { tifinagh: 'ⴷ', latin: 'd', audio: 'Letters/05.ogg' },
+    { tifinagh: 'ⴹ', latin: 'ḍ', audio: 'Letters/06.ogg' },
+    { tifinagh: 'ⴻ', latin: '-', audio: 'Letters/07.ogg' },
+    { tifinagh: 'ⴼ', latin: 'f', audio: 'Letters/08.ogg' },
+    { tifinagh: 'ⴽ', latin: 'k', audio: 'Letters/09.ogg' },
+    { tifinagh: 'ⴽⵯ', latin: 'kʷ', audio: 'Letters/10.ogg' },
+    { tifinagh: 'ⵀ', latin: 'h', audio: 'Letters/11.ogg' },
+    { tifinagh: 'ⵃ', latin: 'ḥ', audio: 'Letters/12.ogg' },
+    { tifinagh: 'ⵄ', latin: 'ɛ', audio: 'Letters/13.ogg' },
+    { tifinagh: 'ⵅ', latin: 'x', audio: 'Letters/14.ogg' },
+    { tifinagh: 'ⵇ', latin: 'q', audio: 'Letters/15.ogg' },
+    { tifinagh: 'ⵉ', latin: 'i', audio: 'Letters/16.ogg' },
+    { tifinagh: 'ⵊ', latin: 'j', audio: 'Letters/17.ogg' },
+    { tifinagh: 'ⵍ', latin: 'l', audio: 'Letters/18.ogg' },
+    { tifinagh: 'ⵎ', latin: 'm', audio: 'Letters/19.ogg' },
+    { tifinagh: 'ⵏ', latin: 'n', audio: 'Letters/20.ogg' },
+    { tifinagh: 'ⵓ', latin: 'u', audio: 'Letters/21.ogg' },
+    { tifinagh: 'ⵔ', latin: 'r', audio: 'Letters/22.ogg' },
+    { tifinagh: 'ⵕ', latin: 'ṛ', audio: 'Letters/23.ogg' },
+    { tifinagh: 'ⵖ', latin: 'ɣ', audio: 'Letters/24.ogg' },
+    { tifinagh: 'ⵙ', latin: 's', audio: 'Letters/25.ogg' },
+    { tifinagh: 'ⵚ', latin: 'ṣ', audio: 'Letters/26.ogg' },
+    { tifinagh: 'ⵛ', latin: 'c', audio: 'Letters/27.ogg' },
+    { tifinagh: 'ⵜ', latin: 't', audio: 'Letters/28.ogg' },
+    { tifinagh: 'ⵟ', latin: 'ṭ', audio: 'Letters/29.ogg' },
+    { tifinagh: 'ⵡ', latin: 'w', audio: 'Letters/30.ogg' },
+    { tifinagh: 'ⵢ', latin: 'y', audio: 'Letters/31.ogg' },
+    { tifinagh: 'ⵣ', latin: 'z', audio: 'Letters/32.ogg' },
+    { tifinagh: 'ⵥ', latin: 'ẓ', audio: 'Letters/33.ogg' }
+];
 
-        let currentQuestion = {};
-        let score = 0;
-        let questionTimeout;
-        let choiceAudioPlayers = []; // Array to store audio players for choices
-
-
-        const gameContainer = document.getElementById('game-container');
-        const questionEl = document.getElementById('question');
-        const choicesEl = document.getElementById('choices');
-        const feedbackEl = document.getElementById('feedback');
-        const scoreEl = document.getElementById('score-value');
-        const nextButton = document.getElementById('next-button');
-        let questionAudioPlayer = null;  // Global player for the question
-
-        function generateQuestion() {
-            clearTimeout(questionTimeout);
-            gameContainer.classList.remove('correct-container');
-            // Clean up previous question audio player (if any)
-            if (questionAudioPlayer) {
-                questionAudioPlayer.pause();
-                questionAudioPlayer = null;
-            }
-
-            // Stop and clear any previous choice audio players
-            choiceAudioPlayers.forEach(player => player.pause());
-            choiceAudioPlayers = [];
-
-            const correctLetterIndex = Math.floor(Math.random() * letters.length);
-            currentQuestion = letters[correctLetterIndex];
-            const isAudioQuestion = Math.random() < 0.5;
-
-            if (isAudioQuestion) {
-                // Audio Question: Play audio, show letter choices
-                questionEl.innerHTML = ""; // Clear text, add audio
-                questionAudioPlayer = new Audio(currentQuestion.audio);
-                questionAudioPlayer.play();
+let currentQuestion = {};
+let score = 0;
+let questionTimeout;
+let choiceAudioPlayers = []; // Array to store audio players for choices
 
 
-                questionEl.textContent = "???"; // Show ??? while the audio is playing.
+const gameContainer = document.getElementById('game-container');
+const questionEl = document.getElementById('question');
+const choicesEl = document.getElementById('choices');
+const feedbackEl = document.getElementById('feedback');
+const scoreEl = document.getElementById('score-value');
+const nextButton = document.getElementById('next-button');
+let questionAudioPlayer = null;  // Global player for the question
 
-
-                const choices = [];
-                choices.push(currentQuestion.tifinagh); // The correct Tifinagh letter
-
-                while (choices.length < 4) {
-                    const randomLetterIndex = Math.floor(Math.random() * letters.length);
-                    const randomLetter = letters[randomLetterIndex];
-                    if (!choices.includes(randomLetter.tifinagh) && randomLetterIndex !== correctLetterIndex) {
-                        choices.push(randomLetter.tifinagh);
-                    }
-                }
-
-                choices.sort(() => Math.random() - 0.5);
-
-                choicesEl.innerHTML = '';
-                choices.forEach(choice => {
-                    const button = document.createElement('button');
-                    button.textContent = choice;
-                    button.classList.add('choice', 'tifinagh'); // Add 'tifinagh' class
-                    button.addEventListener('click', () => checkAnswer(choice, currentQuestion.tifinagh, button, isAudioQuestion));
-                    choicesEl.appendChild(button);
-                });
-
-
-            } else {
-                // Letter Question: Show letter, play audio choices
-                questionEl.textContent = currentQuestion.tifinagh;
-                questionEl.className = 'tifinagh';
-
-                const choices = [];
-                choices.push(currentQuestion.audio);  //Correct audio path
-
-                while(choices.length < 4){
-                    const randomLetterIndex = Math.floor(Math.random() * letters.length);
-                    const randomLetter = letters[randomLetterIndex];
-                    if(!choices.includes(randomLetter.audio) && randomLetterIndex !== correctLetterIndex){
-                        choices.push(randomLetter.audio);
-                    }
-                }
-
-                choices.sort(() => Math.random() - 0.5);
-                choicesEl.innerHTML = ''; //Clear previous buttons
-
-
-                choices.forEach(choiceAudioPath => {
-                    const button = document.createElement('button');
-                    button.classList.add('choice', 'audio-player');
-
-                    // Create the audio element inside the button
-                    const audioElement = new Audio(choiceAudioPath);
-                    button.appendChild(audioElement); //  Append audio to the button
-                    choiceAudioPlayers.push(audioElement); // Store for later
-
-                    // Play audio on button click (using event delegation)
-                     button.addEventListener('click', () => {
-                         // Stop any currently playing audio
-                         choiceAudioPlayers.forEach(audio => {
-                            if (audio !== audioElement && !audio.paused){
-                                audio.pause();
-                                audio.currentTime = 0;
-                            }
-                         });
-
-                         if (audioElement.paused) {
-                             audioElement.play();
-                         } else {
-                             audioElement.pause();
-                             audioElement.currentTime = 0;
-                         }
-
-
-                     });
-
-                    // Add a separate event listener for checking the answer
-                    button.addEventListener('click', (event) => {
-                        // Check if the click is for playing or answering (prevent double triggering).
-                        // We check if the audio was just played
-                       if (!event.target.classList.contains('audio-player') && !event.target.closest('.audio-player')) return;
-
-                        // Only check answer if this is after playing.  No immediate check.
-                        checkAnswer(choiceAudioPath, currentQuestion.audio, button, isAudioQuestion);
-
-                     });
-                    choicesEl.appendChild(button); // Add the button
-                });
-            }
-            feedbackEl.textContent = '';
-            nextButton.style.display = 'none';
-
-        }
-
-
-    function checkAnswer(selectedChoice, correctChoice, button, isAudioQuestion) {
-         // Prevent multiple clicks during feedback
-         if (nextButton.style.display === 'block' || gameContainer.classList.contains('correct-container')) {
-            return;
-        }
-        const allChoices = document.querySelectorAll('.choice');
-        allChoices.forEach(btn => btn.disabled = true);
-
-
-        if (selectedChoice === correctChoice) {
-            score++;
-            feedbackEl.textContent = 'Correct!';
-            feedbackEl.style.color = '#4caf50';
-            button.classList.add('correct');
-            gameContainer.classList.add('correct-container');
-
-
-            questionTimeout = setTimeout(() => {
-                gameContainer.classList.remove('correct-container');
-                generateQuestion();
-            }, 2000);
-
-
-        } else {
-            feedbackEl.textContent = 'Incorrect. Try again!';
-            feedbackEl.style.color = '#f44336';
-            button.classList.add('incorrect');
-
-            // Find and highlight the correct button
-            let correctButton;
-            if(isAudioQuestion){
-                correctButton = Array.from(allChoices).find(btn => btn.textContent === correctChoice);
-            } else { //for audio choice questions
-                correctButton = Array.from(allChoices).find(btn => btn.querySelector("audio") && btn.querySelector("audio").src.endsWith(correctChoice));
-            }
-
-
-            if (correctButton) {
-                correctButton.classList.add('correct');
-            }
-            nextButton.style.display = 'block';
-             // Re-enable buttons for next question after incorrect answer
-            allChoices.forEach(btn => btn.disabled = false);
-        }
-
-        scoreEl.textContent = score;
+function generateQuestion() {
+    clearTimeout(questionTimeout);
+    gameContainer.classList.remove('correct-container');
+    // Clean up previous question audio player (if any)
+    if (questionAudioPlayer) {
+        questionAudioPlayer.pause();
+        questionAudioPlayer = null;
     }
-    nextButton.addEventListener('click', generateQuestion);
-    generateQuestion();
+
+    // Stop and clear any previous choice audio players
+    choiceAudioPlayers.forEach(player => player.pause());
+    choiceAudioPlayers = [];
+
+    const correctLetterIndex = Math.floor(Math.random() * letters.length);
+    currentQuestion = letters[correctLetterIndex];
+    const isAudioQuestion = Math.random() < 0.5;
+
+    if (isAudioQuestion) {
+        // Audio Question: Play audio, show letter choices
+        questionEl.innerHTML = ""; // Clear text, add audio
+        questionAudioPlayer = new Audio(currentQuestion.audio);
+        questionAudioPlayer.play();
+
+
+        questionEl.textContent = "???"; // Show ??? while the audio is playing.
+
+
+        const choices = [];
+        choices.push(currentQuestion.tifinagh); // The correct Tifinagh letter
+
+        while (choices.length < 4) {
+            const randomLetterIndex = Math.floor(Math.random() * letters.length);
+            const randomLetter = letters[randomLetterIndex];
+            if (!choices.includes(randomLetter.tifinagh) && randomLetterIndex !== correctLetterIndex) {
+                choices.push(randomLetter.tifinagh);
+            }
+        }
+
+        choices.sort(() => Math.random() - 0.5);
+
+        choicesEl.innerHTML = '';
+        choices.forEach(choice => {
+            const button = document.createElement('button');
+            button.textContent = choice;
+            button.classList.add('choice', 'tifinagh'); // Add 'tifinagh' class
+            button.addEventListener('click', () => checkAnswer(choice, currentQuestion.tifinagh, button, isAudioQuestion));
+            choicesEl.appendChild(button);
+        });
+
+
+    } else {
+        // Letter Question: Show letter, play audio choices
+        questionEl.textContent = currentQuestion.tifinagh;
+        questionEl.className = 'tifinagh';
+
+        const choices = [];
+        choices.push(currentQuestion.audio);  //Correct audio path
+
+        while(choices.length < 4){
+            const randomLetterIndex = Math.floor(Math.random() * letters.length);
+            const randomLetter = letters[randomLetterIndex];
+            if(!choices.includes(randomLetter.audio) && randomLetterIndex !== correctLetterIndex){
+                choices.push(randomLetter.audio);
+            }
+        }
+
+        choices.sort(() => Math.random() - 0.5);
+        choicesEl.innerHTML = ''; //Clear previous buttons
+
+
+        choices.forEach(choiceAudioPath => {
+            const button = document.createElement('button');
+            button.classList.add('choice', 'audio-player');
+
+            // Create the audio element inside the button
+            const audioElement = new Audio(choiceAudioPath);
+            button.appendChild(audioElement); //  Append audio to the button
+            choiceAudioPlayers.push(audioElement); // Store for later
+
+            // Play audio on button click (using event delegation)
+                button.addEventListener('click', (event) => {
+                    // Stop any currently playing audio
+                    choiceAudioPlayers.forEach(audio => {
+                    if (audio !== audioElement && !audio.paused){
+                        audio.pause();
+                        audio.currentTime = 0;
+                    }
+                    });
+
+                    if (audioElement.paused) {
+                        audioElement.play();
+                    } else {
+                        audioElement.pause();
+                        audioElement.currentTime = 0;
+                    }
+                    // *** KEY CHANGE: Call checkAnswer *here*, inside the main click handler,
+                    //     but ONLY if the click target is the button itself, not the play icon.
+                    if (event.target === button) {
+                         checkAnswer(choiceAudioPath, currentQuestion.audio, button, isAudioQuestion);
+                    }
+
+                });
+
+            choicesEl.appendChild(button); // Add the button
+        });
+    }
+    feedbackEl.textContent = '';
+    nextButton.style.display = 'none';
+
+}
+
+
+function checkAnswer(selectedChoice, correctChoice, button, isAudioQuestion) {
+        // Prevent multiple clicks during feedback
+        if (nextButton.style.display === 'block' || gameContainer.classList.contains('correct-container')) {
+        return;
+    }
+    const allChoices = document.querySelectorAll('.choice');
+    allChoices.forEach(btn => btn.disabled = true);
+
+
+    if (selectedChoice === correctChoice) {
+        score++;
+        feedbackEl.textContent = 'Correct!';
+        feedbackEl.style.color = '#4caf50';
+        button.classList.add('correct');
+        gameContainer.classList.add('correct-container');
+
+
+        questionTimeout = setTimeout(() => {
+            gameContainer.classList.remove('correct-container');
+            generateQuestion();
+        }, 2000);
+
+
+    } else {
+        feedbackEl.textContent = 'Incorrect. Try again!';
+        feedbackEl.style.color = '#f44336';
+        button.classList.add('incorrect');
+
+        // Find and highlight the correct button
+        let correctButton;
+        if(isAudioQuestion){
+            correctButton = Array.from(allChoices).find(btn => btn.textContent === correctChoice);
+        } else { //for audio choice questions
+            correctButton = Array.from(allChoices).find(btn => btn.querySelector("audio") && btn.querySelector("audio").src.endsWith(correctChoice));
+        }
+
+
+        if (correctButton) {
+            correctButton.classList.add('correct');
+        }
+        nextButton.style.display = 'block';
+            // Re-enable buttons for next question after incorrect answer
+        allChoices.forEach(btn => btn.disabled = false);
+    }
+
+    scoreEl.textContent = score;
+}
+nextButton.addEventListener('click', generateQuestion);
+generateQuestion();
 
     </script>
 </body>
