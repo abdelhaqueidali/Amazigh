@@ -283,6 +283,8 @@
         let currentQuestion = {};
         let score = 0;
         let questionTimeout;
+        let choiceAudioPlayers = []; // Array to store audio players for choices
+
 
         const gameContainer = document.getElementById('game-container');
         const questionEl = document.getElementById('question');
@@ -295,11 +297,15 @@
         function generateQuestion() {
             clearTimeout(questionTimeout);
             gameContainer.classList.remove('correct-container');
-             // Clean up previous question audio player (if any)
-            if(questionAudioPlayer){
+            // Clean up previous question audio player (if any)
+            if (questionAudioPlayer) {
                 questionAudioPlayer.pause();
                 questionAudioPlayer = null;
             }
+
+            // Stop and clear any previous choice audio players
+            choiceAudioPlayers.forEach(player => player.pause());
+            choiceAudioPlayers = [];
 
             const correctLetterIndex = Math.floor(Math.random() * letters.length);
             currentQuestion = letters[correctLetterIndex];
@@ -356,6 +362,8 @@
 
                 choices.sort(() => Math.random() - 0.5);
                 choicesEl.innerHTML = ''; //Clear previous buttons
+
+
                 choices.forEach(choiceAudioPath => {
                     const button = document.createElement('button');
                     button.classList.add('choice', 'audio-player');
@@ -363,29 +371,39 @@
                     // Create the audio element inside the button
                     const audioElement = new Audio(choiceAudioPath);
                     button.appendChild(audioElement); //  Append audio to the button
+                    choiceAudioPlayers.push(audioElement); // Store for later
 
                     // Play audio on button click (using event delegation)
-                    button.addEventListener('click', () => {
-                        // Stop any currently playing audio from other choices
-                        document.querySelectorAll('.audio-player audio').forEach(audio => {
-                             if (!audio.paused) {
-                                 audio.pause();
-                                 audio.currentTime = 0;
-                             }
-                        });
+                     button.addEventListener('click', () => {
+                         // Stop any currently playing audio
+                         choiceAudioPlayers.forEach(audio => {
+                            if (audio !== audioElement && !audio.paused){
+                                audio.pause();
+                                audio.currentTime = 0;
+                            }
+                         });
 
-                        // Play this button's audio
-                        if (audioElement.paused) {
-                            audioElement.play();
+                         if (audioElement.paused) {
+                             audioElement.play();
                          } else {
                              audioElement.pause();
                              audioElement.currentTime = 0;
                          }
 
-                        checkAnswer(choiceAudioPath, currentQuestion.audio, button, isAudioQuestion);
-                    });
-                    choicesEl.appendChild(button); // Add the button
 
+                     });
+
+                    // Add a separate event listener for checking the answer
+                    button.addEventListener('click', (event) => {
+                        // Check if the click is for playing or answering (prevent double triggering).
+                        // We check if the audio was just played
+                       if (!event.target.classList.contains('audio-player') && !event.target.closest('.audio-player')) return;
+
+                        // Only check answer if this is after playing.  No immediate check.
+                        checkAnswer(choiceAudioPath, currentQuestion.audio, button, isAudioQuestion);
+
+                     });
+                    choicesEl.appendChild(button); // Add the button
                 });
             }
             feedbackEl.textContent = '';
@@ -395,8 +413,13 @@
 
 
     function checkAnswer(selectedChoice, correctChoice, button, isAudioQuestion) {
+         // Prevent multiple clicks during feedback
+         if (nextButton.style.display === 'block' || gameContainer.classList.contains('correct-container')) {
+            return;
+        }
         const allChoices = document.querySelectorAll('.choice');
         allChoices.forEach(btn => btn.disabled = true);
+
 
         if (selectedChoice === correctChoice) {
             score++;
@@ -430,6 +453,8 @@
                 correctButton.classList.add('correct');
             }
             nextButton.style.display = 'block';
+             // Re-enable buttons for next question after incorrect answer
+            allChoices.forEach(btn => btn.disabled = false);
         }
 
         scoreEl.textContent = score;
