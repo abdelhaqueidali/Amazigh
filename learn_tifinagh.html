@@ -215,7 +215,7 @@
                    <p>ⴰⵄⵔⵔⵉⵎ, ⴰⵄⴱⴰⵏ</p>
                 </div>
                  <!-- Letter KH -->
-                <div class="letter-box" onclick="playSound('kh')">
+                <div class="letter-box" onclick="playSound('x')">
                     <div class="tifinagh">ⵅ</div>
                     <h2>x  خ</h2>
                     <p>ⵉⵅⴼ, ⵜⵉⵅⵙⵉ</p>
@@ -284,7 +284,7 @@
                 </div>
 
                 <!-- Letter GH -->
-                <div class="letter-box" onclick="playSound('gh')">
+                <div class="letter-box" onclick="playSound('ɣ')">
                    <div class="tifinagh">ⵖ</div>
                    <h2>ɣ  غ</h2>
                    <p>ⴰⵖⴰⵔⴰⵙ, ⴰⵖⵔⵓⵎ</p>
@@ -361,13 +361,119 @@
     </div>
     <audio id="audioPlayer" preload="auto"></audio>
     <script>
-
     function playSound(letter) {
         const audioPlayer = document.getElementById('audioPlayer');
-        audioPlayer.src = `audio/${letter}.mp3`;
-        audioPlayer.play();
-    }
+        let audioSrc = "";
 
+        switch (letter) {
+            case 'a':
+                audioSrc = "Letters/01.ogg";
+                break;
+            case 'b':
+                audioSrc = "Letters/02.ogg";
+                break;
+            case 'g':
+                audioSrc = "Letters/03.ogg";
+                break;
+            case 'gw':
+                audioSrc = "Letters/04.ogg";
+                break;
+            case 'd':
+                audioSrc = "Letters/05.ogg";
+                break;
+            case 'ḍ':
+                audioSrc = "Letters/06.ogg";
+                break;
+            case 'e':
+                audioSrc = "Letters/07.ogg";
+                break;
+            case 'f':
+                audioSrc = "Letters/08.ogg";
+                break;
+            case 'k':
+                audioSrc = "Letters/09.ogg";
+                break;
+            case 'kw':
+                audioSrc = "Letters/10.ogg";
+                break;
+            case 'h':
+                audioSrc = "Letters/11.ogg";
+                break;
+            case 'ḥ':
+                audioSrc = "Letters/12.ogg";
+                break;
+            case 'ɛ':
+                audioSrc = "Letters/13.ogg";
+                break;
+            case 'x':
+                audioSrc = "Letters/14.ogg";
+                break;
+            case 'q':
+                audioSrc = "Letters/15.ogg";
+                break;
+            case 'i':
+                audioSrc = "Letters/16.ogg";
+                break;
+            case 'j':
+                audioSrc = "Letters/17.ogg";
+                break;
+            case 'l':
+                audioSrc = "Letters/18.ogg";
+                break;
+            case 'm':
+                audioSrc = "Letters/19.ogg";
+                break;
+            case 'n':
+                audioSrc = "Letters/20.ogg";
+                break;
+            case 'u':
+                audioSrc = "Letters/21.ogg";
+                break;
+            case 'r':
+                audioSrc = "Letters/22.ogg";
+                break;
+            case 'ṛ':
+                audioSrc = "Letters/23.ogg";
+                break;
+            case 'ɣ':
+                audioSrc = "Letters/24.ogg";
+                break;
+            case 's':
+                audioSrc = "Letters/25.ogg";
+                break;
+            case 'ṣ':
+                audioSrc = "Letters/26.ogg";
+                break;
+            case 'c':
+                audioSrc = "Letters/27.ogg";
+                break;
+            case 't':
+                audioSrc = "Letters/28.ogg";
+                break;
+            case 'ṭ':
+                audioSrc = "Letters/29.ogg";
+                break;
+            case 'w':
+                audioSrc = "Letters/30.ogg";
+                break;
+            case 'y':
+                audioSrc = "Letters/31.ogg";
+                break;
+            case 'z':
+                audioSrc = "Letters/32.ogg";
+                break;
+            case 'ẓ':
+                audioSrc = "Letters/33.ogg";
+                break;
+            default:
+                audioSrc = ""; // Handle cases where the letter doesn't have a sound
+        }
+
+        if (audioSrc) {
+          audioPlayer.src = audioSrc;
+          audioPlayer.play();
+        }
+    }
     </script>
 </body>
 </html>
