@@ -330,7 +330,7 @@ function generateQuestion() {
         questionAudioPlayer.play();
 
 
-        questionEl.textContent = "???"; // Show ??? while the audio is playing.
+        questionEl.textContent = "ⵙⵙⴼⵍⴷ 🔉"; // Show ??? while the audio is playing.
 
 
         const choices = [];
@@ -392,9 +392,6 @@ function generateQuestion() {
             const audioTextSpan = document.createElement('span');
             audioTextSpan.classList.add('audio-choice-text');
             // Use the filename (without extension) as the choice text
-            const filename = choiceAudioPath.split('/').pop().split('.')[0];
-            audioTextSpan.textContent = `Audio ${filename}`; //  Descriptive text
-            button.appendChild(audioTextSpan);
 
 
 
