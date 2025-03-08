@@ -388,12 +388,6 @@ function generateQuestion() {
             choiceAudioPlayers.push(audioElement);
             button.appendChild(audioPlayer);   // Append the audio player to the main button
 
-            // Create a span for the audio choice text (filename, or other description)
-            const audioTextSpan = document.createElement('span');
-            audioTextSpan.classList.add('audio-choice-text');
-            // Use the filename (without extension) as the choice text
-
-
 
             // Play audio on button click (using event delegation)
                 audioPlayer.addEventListener('click', (event) => { //  Attach to audioPlayer
