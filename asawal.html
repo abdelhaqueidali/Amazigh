@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asawal Amqran Dictionary</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        #search-area {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+
+        #checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive checkboxes */
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+
+        #search-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        #search-button:hover {
+            background-color: #45a049;
+        }
+
+        #results {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            min-height: 100px;  /* Ensure there's space for results. */
+        }
+
+        #results pre { /* Preserve newlines and spaces in the results */
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace; /* Optional: for a fixed-width font */
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3; /* Light grey */
+            border-top: 5px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto; /* Center the loader */
+            display: none; /* Hidden by default */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+          color: red;
+          margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Asawal Amqran Dictionary</h1>
+
+        <div id="search-area">
+            <label for="search-term">Search Term:</label>
+            <input type="text" id="search-term" placeholder="Enter a word...">
+
+            <label for="language">Language:</label>
+            <select id="language">
+                <option value="Amazigh">Amazigh</option>
+                <option value="Arabic">Arabic</option>
+                <option value="French">French</option>
+            </select>
+
+            <div id="checkboxes">
+              <label><input type="checkbox" id="exact-match" checked> Exact Match (whole cell)</label>
+              <label><input type="checkbox" id="word-match" checked> Exact Word Match (within cell)</label>
+              <label><input type="checkbox" id="contains" checked> Contains</label>
+              <label><input type="checkbox" id="starts-with"> Starts With</label>
+              <label><input type="checkbox" id="ends-with"> Ends With</label>
+            </div>
+
+
+            <button id="search-button">Search</button>
+        </div>
+        <div class="loader" id="loader"></div>
+        <div id="results"></div>
+        <div id="error-message" class="error-message"></div>
+
+    </div>
+
+    <script>
+        const searchButton = document.getElementById('search-button');
+        const searchTermInput = document.getElementById('search-term');
+        const languageSelect = document.getElementById('language');
+        const exactMatchCheckbox = document.getElementById('exact-match');
+        const wordMatchCheckbox = document.getElementById('word-match');
+        const containsCheckbox = document.getElementById('contains');
+        const startsWithCheckbox = document.getElementById('starts-with');
+        const endsWithCheckbox = document.getElementById('ends-with');
+        const resultsDiv = document.getElementById('results');
+        const loader = document.getElementById('loader');
+        const errorMessageDiv = document.getElementById('error-message');
+
+        searchButton.addEventListener('click', searchDictionary);
+
+        async function searchDictionary() {
+            const searchTerm = searchTermInput.value.trim();
+            const language = languageSelect.value;
+            const exactMatch = exactMatchCheckbox.checked;
+            const wordMatch = wordMatchCheckbox.checked;
+            const contains = containsCheckbox.checked;
+            const startsWith = startsWithCheckbox.checked;
+            const endsWith = endsWithCheckbox.checked;
+
+            if (!searchTerm) {
+                alert("Please enter a search term.");
+                return;
+            }
+
+            // Clear previous results and error messages
+            resultsDiv.innerHTML = '';
+            errorMessageDiv.textContent = '';
+            loader.style.display = 'block'; // Show loader
+
+            try {
+                const response = await fetch("https://abdelhaqueidali-asawal-amqran-dictionary.hf.space/run/search_dictionary", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        data: [
+                            searchTerm,
+                            language,
+                            exactMatch,
+                            wordMatch,
+                            contains,
+                            startsWith,
+                            endsWith
+                        ]
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+
+                if (result && result.data && result.data.length > 0) {
+                    resultsDiv.innerHTML = `<pre>${result.data[0]}</pre>`;
+                } else {
+                    resultsDiv.textContent = "No results found.";
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessageDiv.textContent = `Error: ${error.message}.  Please check your network connection or try again later.`;
+                resultsDiv.innerHTML = ""; // Clear any partial results
+            } finally {
+                loader.style.display = 'none'; // Hide loader
+            }
+        }
+
+
+       // Add Enter key press event
+        searchTermInput.addEventListener('keypress', function(event) {
+          if (event.key === 'Enter') {
+            searchDictionary();
+          }
+        });
+
+    </script>
+</body>
+
+</html>
