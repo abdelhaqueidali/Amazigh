@@ -149,7 +149,7 @@
             justify-content: center;
             width: 40px; /* Fixed width and height for circular shape */
             height: 40px;
-            transition: background-color 0.3s ease;
+            transition: background-color: 0.3s ease;
         }
 
         .audio-button:hover {
@@ -307,10 +307,16 @@
                 iconSpan.innerHTML = '<i class="fas fa-book-open"></i>'; // Add Icon
 
                 const textSpan = document.createElement('span');
-                textSpan.textContent = file;
+                // Extract filename without extension:  This is the key change
+                const fileNameWithoutExtension = file.substring(0, file.lastIndexOf('.'));
+                textSpan.textContent = fileNameWithoutExtension;
+
 
                 listItem.appendChild(iconSpan); // Add the icon
                 listItem.appendChild(textSpan);
+
+                // Store the *full* filename (with extension) for later use.  Very important!
+                listItem.dataset.filename = file;
 
                 listItem.addEventListener('click', () => loadAudio(file));
                 audioList.appendChild(listItem);
@@ -321,7 +327,8 @@
       function loadAudio(audioFile) {
         // Remove 'playing' class from the previously playing item
         if (currentAudioFile) {
-          const prevPlayingItem = Array.from(audioList.children).find(li => li.querySelector('span:last-child').textContent === currentAudioFile);          if (prevPlayingItem) {
+          const prevPlayingItem = Array.from(audioList.children).find(li => li.dataset.filename === currentAudioFile); //use dataset.filename
+          if (prevPlayingItem) {
             prevPlayingItem.classList.remove('playing');
           }
         }
@@ -333,7 +340,7 @@
         playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; // Change to pause icon
 
         // Add 'playing' class to the currently playing item
-        const currentPlayingItem = Array.from(audioList.children).find(li => li.querySelector('span:last-child').textContent === currentAudioFile);
+        const currentPlayingItem = Array.from(audioList.children).find(li => li.dataset.filename === currentAudioFile); // use dataset.filename
         if (currentPlayingItem) {
           currentPlayingItem.classList.add('playing');
         }
