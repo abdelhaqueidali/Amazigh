@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ⴰⵙⴼⵍⴷⵍⵉⵙ</title>
-    <!-- Google Fonts (Optional) -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
@@ -124,6 +122,9 @@
             width: 100%;
             display: block;
             border-radius: 8px;
+            border: none; /* Remove any default border */
+            outline: none; /* Remove outline */
+            background: #000; /* Ensure background is black to blend seamlessly */
         }
 
         #subtitleDisplay {
@@ -154,6 +155,12 @@
             background-color: #eee;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease; /* Smooth fade effect */
+        }
+
+        #videoControls.hidden {
+            opacity: 0;
+            pointer-events: none; /* Prevent interaction when hidden */
         }
 
         .video-button {
@@ -183,7 +190,7 @@
             height: 10px;
             cursor: pointer;
             margin: 0 10px;
-            border: none; /* Removed the border to eliminate the dark line */
+            border: none;
         }
 
         #progressBar {
@@ -246,7 +253,9 @@
             <div id="videoPlayerContainer">
                 <video id="myVideo"></video>
                 <div id="videoControls">
+                    <button id="rewindBtn" class="video-button"><i class="fas fa-backward"></i></button>
                     <button id="playPauseBtn" class="video-button"><i class="fas fa-play"></i></button>
+                    <button id="forwardBtn" class="video-button"><i class="fas fa-forward"></i></button>
                     <div id="progressBarContainer">
                         <div id="progressBar"></div>
                     </div>
@@ -271,6 +280,8 @@
         const videoList = document.getElementById('videoList');
         const subtitleDisplay = document.getElementById('subtitleDisplay');
         const playPauseBtn = document.getElementById('playPauseBtn');
+        const rewindBtn = document.getElementById('rewindBtn');
+        const forwardBtn = document.getElementById('forwardBtn');
         const progressBarContainer = document.getElementById('progressBarContainer');
         const progressBar = document.getElementById('progressBar');
         const timeDisplay = document.getElementById('timeDisplay');
@@ -278,8 +289,10 @@
         const muteBtn = document.getElementById('muteBtn');
         const fullscreenBtn = document.getElementById('fullscreenBtn');
         const videoContainer = document.getElementById('videoPlayerContainer');
+        const videoControls = document.getElementById('videoControls');
         let subtitles = [];
         let currentVideoFile = null;
+        let controlsTimeout;
 
         // Fetch and populate video list
         fetch('video_list.txt')
@@ -316,7 +329,7 @@
                     }
                 });
             })
-            .catch(error => console.error('Error fetching Démos list:', error));
+            .catch(error => console.error('Error fetching video list:', error));
 
         function loadVideo(videoFile, srtFile) {
             if (currentVideoFile) {
@@ -455,28 +468,36 @@
             }
         }
 
+        rewindBtn.addEventListener('click', () => {
+            videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 10);
+        });
+
+        forwardBtn.addEventListener('click', () => {
+            videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 10);
+        });
+
         fullscreenBtn.addEventListener('click', toggleFullscreen);
 
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 if (videoContainer.requestFullscreen) {
                     videoContainer.requestFullscreen();
-                } else if (videoContainer.mozRequestFullScreen) { // Firefox
+                } else if (videoContainer.mozRequestFullScreen) {
                     videoContainer.mozRequestFullScreen();
-                } else if (videoContainer.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                } else if (videoContainer.webkitRequestFullscreen) {
                     videoContainer.webkitRequestFullscreen();
-                } else if (videoContainer.msRequestFullscreen) { // IE/Edge
+                } else if (videoContainer.msRequestFullscreen) {
                     videoContainer.msRequestFullscreen();
                 }
                 fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
-                } else if (document.mozCancelFullScreen) { // Firefox
+                } else if (document.mozCancelFullScreen) {
                     document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) { // Chrome, Safari, Opera
+                } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { // IE/Edge
+                } else if (document.msExitFullscreen) {
                     document.msExitFullscreen();
                 }
                 fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
@@ -484,10 +505,21 @@
         }
 
         document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) {
-                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            if (document.fullscreenElement) {
+                videoControls.classList.add('hidden'); // Hide controls on entering fullscreen
             } else {
-                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                videoControls.classList.remove('hidden'); // Show controls when exiting fullscreen
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            }
+        });
+
+        videoContainer.addEventListener('click', (e) => {
+            if (document.fullscreenElement && e.target === videoPlayer) {
+                videoControls.classList.remove('hidden');
+                clearTimeout(controlsTimeout);
+                controlsTimeout = setTimeout(() => {
+                    videoControls.classList.add('hidden');
+                }, 3000); // Hide after 3 seconds
             }
         });
 
