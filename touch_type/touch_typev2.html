@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵜⴰⴽⵜⵓⴱⵜ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .nav-toggle {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        #typing-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #typing-container h1 {
+            color: #4CAF50;
+            margin-bottom: 1em;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 0.5em;
+            font-size: 2em;
+        }
+
+        .controls {
+            margin-bottom: 1em;
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            flex-wrap: wrap;
+        }
+
+        .controls select, .controls label {
+            padding: 0.5em;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            background-color: #f0f8f1;
+        }
+
+        #typing-area {
+            width: 100%;
+            min-height: 150px;
+            padding: 1em;
+            font-size: 1.5em;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            background-color: #f0f8f1;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            position: relative;
+            outline: none;
+        }
+
+        .char {
+            transition: color 0.3s;
+            color: #999999;
+        }
+
+        .correct {
+            color: #388e3c;
+        }
+
+        .wrong {
+            color: #f44336;
+        }
+
+        #results {
+            margin-top: 1em;
+            font-size: 1.2em;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .tifinagh {
+            font-family: 'Noto Sans Tifinagh', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="tifinagh">ⵜⴰⴽⵜⵓⴱⵜ ⵏ ⵜⴼⵉⵏⴰⵖ</h1>
+        </header>
+        <a href="index.html">
+            <button class="nav-toggle tifinagh">ⴰⵙⵏⵓⴱⴳ - Home</button>
+        </a>
+        <main>
+            <div id="typing-container">
+                <h1 class="tifinagh">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴽⵜⵓⴱ!</h1>
+                
+                <div class="controls">
+                    <select id="word-count">
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                    </select>
+                    <label><input type="checkbox" id="punctuation"> ⵉⴳⵎⵓⵔⵏ (Punctuation)</label>
+                    <label><input type="checkbox" id="numbers"> ⵎⴰⵡⵓⴷ (Numbers)</label>
+                </div>
+
+                <div contenteditable="true" id="typing-area"></div>
+                <div id="results" class="tifinagh"></div>
+            </div>
+        </main>
+        <footer>
+            <p class="tifinagh">ⴰⴼⴰⵡ</p>
+        </footer>
+    </div>
+
+    <script>
+        let words = [];
+        let currentText = '';
+        let currentPosition = 0;
+        let startTime = null;
+        let errors = 0;
+        let correctWords = 0;
+        const typingArea = document.getElementById('typing-area');
+        const resultsDiv = document.getElementById('results');
+
+        fetch('entery.txt')
+            .then(response => response.text())
+            .then(data => {
+                words = data.split('\n').filter(word => word.trim() !== '');
+                initializeGame();
+            })
+            .catch(error => {
+                console.error('Error loading file:', error);
+                typingArea.innerHTML = 'Error loading words. Please ensure entry.txt exists.';
+            });
+
+        function initializeGame() {
+            const wordCountSelect = document.getElementById('word-count');
+            const punctuationCheckbox = document.getElementById('punctuation');
+            const numbersCheckbox = document.getElementById('numbers');
+            
+            generateText();
+            
+            wordCountSelect.addEventListener('change', generateText);
+            punctuationCheckbox.addEventListener('change', generateText);
+            numbersCheckbox.addEventListener('change', generateText);
+            
+            typingArea.addEventListener('input', handleTyping);
+            typingArea.addEventListener('keydown', handleKeydown);
+            typingArea.addEventListener('paste', (e) => e.preventDefault());
+            typingArea.focus();
+        }
+
+        function generateText() {
+            const wordCount = parseInt(document.getElementById('word-count').value);
+            const usePunctuation = document.getElementById('punctuation').checked;
+            const useNumbers = document.getElementById('numbers').checked;
+            
+            let wordPool = [...words];
+            if (usePunctuation) {
+                wordPool = wordPool.concat(['.', ',', '!', '?', ';', ':']);
+            }
+            if (useNumbers) {
+                wordPool = wordPool.concat(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']);
+            }
+
+            currentText = '';
+            for (let i = 0; i < wordCount; i++) {
+                const randomIndex = Math.floor(Math.random() * wordPool.length);
+                currentText += wordPool[randomIndex] + ' ';
+            }
+            currentText = currentText.trim();
+
+            displayText();
+            currentPosition = 0;
+            startTime = null;
+            errors = 0;
+            correctWords = 0;
+            resultsDiv.style.display = 'none';
+            typingArea.focus();
+            setCursorPosition(0);
+        }
+
+        function displayText() {
+            typingArea.innerHTML = '';
+            for (let char of currentText) {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char;
+                typingArea.appendChild(span);
+            }
+        }
+
+        function setCursorPosition(pos) {
+            const range = document.createRange();
+            const sel = window.getSelection();
+            if (pos < typingArea.childNodes.length) {
+                range.setStart(typingArea.childNodes[pos], 0);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+        }
+
+        function handleKeydown(e) {
+            if (e.key === 'Backspace' && currentPosition > 0) {
+                e.preventDefault();
+                currentPosition--;
+                const charElement = typingArea.children[currentPosition];
+                if (charElement.classList.contains('wrong')) {
+                    errors--;
+                }
+                charElement.classList.remove('correct', 'wrong');
+                setCursorPosition(currentPosition);
+            }
+        }
+
+        function handleTyping(e) {
+            if (!startTime) {
+                startTime = new Date();
+            }
+
+            const input = e.data;
+            if (!input || currentPosition >= currentText.length) return;
+
+            const currentChar = currentText[currentPosition];
+            const charElement = typingArea.children[currentPosition];
+
+            if (input === currentChar) {
+                charElement.classList.add('correct');
+                if (currentChar === ' ' && typingArea.children[currentPosition - 1]?.classList.contains('correct')) {
+                    correctWords++;
+                }
+            } else {
+                charElement.classList.add('wrong');
+                errors++;
+            }
+
+            currentPosition++;
+            setCursorPosition(currentPosition);
+
+            if (currentPosition === currentText.length) {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const endTime = new Date();
+            const timeDiff = (endTime - startTime) / 1000 / 60;
+            const totalWords = currentText.split(' ').length;
+            const wpm = Math.round(correctWords / timeDiff);
+
+            if (typingArea.children[currentPosition - 1].classList.contains('correct')) {
+                correctWords++;
+            }
+
+            resultsDiv.innerHTML = `
+                ⵎⴰⴷⵉⴷ! ⵙⵎⴳⵓⵔⴷ ⴰⵙⵓⵔⴰⵔⵜ!<br>
+                ⴰⵡⴰⵍⵏ ⵙⴰⵖⴰⵏ: ${correctWords}/${totalWords}<br>
+                ⴰⵙⵖⵓⵏⵓ ⴷⴳ ⵓⴼⵔⴷ: ${errors}<br>
+                ⴰⵡⴰⵍⵏ ⴳ ⵓⴼⵔⴷ: ${wpm} WPM
+            `;
+            resultsDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                generateText();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
