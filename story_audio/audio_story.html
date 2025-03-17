@@ -365,91 +365,103 @@
 
         }
 
-      function parseLrc(content) {
-        const lines = content.trim().split('\n');
-        const parsedLrc = [];
-        let paragraph = [];
+function parseLrc(content) {
+    const lines = content.trim().split('\n');
+    const parsedLrc = [];
+    let paragraph = [];
+    let currentLine = []; // Store words for the current line
 
-        for (const line of lines) {
-            const pTagMatch = line.trim().match(/^<p>$/i); // Match <p> tag case-insensitively
-            if (pTagMatch) {
-                if (paragraph.length > 0) {
-                  parsedLrc.push(paragraph); // Push the previous paragraph
-                }
-                paragraph = []; // Start a new paragraph
-                continue;
+    for (const line of lines) {
+        const pTagMatch = line.trim().match(/^<p>$/i);
+        if (pTagMatch) {
+            if (currentLine.length > 0) {
+                paragraph.push(currentLine); // Push the last line of the paragraph
+                currentLine = [];
             }
+            if (paragraph.length > 0) {
+                parsedLrc.push(paragraph);
+                paragraph = [];
+            }
+            continue;
+        }
 
-          const match = line.match(/^\[(\d+):(\d+\.\d+)\](.*)/);
-          if (match) {
+        const nTagMatch = line.trim().match(/^<n>$/i); //check for <n> tag
+        if (nTagMatch) {
+          if (currentLine.length > 0) {
+            paragraph.push(currentLine); // Push current line to the paragraph
+            currentLine = []; // Start a new line
+          }
+          continue; // Move to the next line in the LRC file
+        }
+
+
+        const match = line.match(/^\[(\d+):(\d+\.\d+)\](.*)/);
+        if (match) {
             const minutes = parseInt(match[1], 10);
             const seconds = parseFloat(match[2]);
-            const text = match[3].trim();
+            let text = match[3].trim();
             const time = minutes * 60 + seconds;
-            paragraph.push({ time: time, text: text });
-          }
+
+            // Handle <br> tags *within* the LRC text
+            const parts = text.split(/<br\s*\/?>/i); // Split by <br> or <br/> (case-insensitive)
+            for (let i = 0; i < parts.length; i++) {
+                if (parts[i].trim() !== "") {
+                    currentLine.push({ time: time, text: parts[i].trim() });
+                }
+                if (i < parts.length - 1) { // If not the last part, it's a line break
+                    paragraph.push(currentLine);
+                    currentLine = [];
+                }
+            }
         }
-          //add last paragraph
-          if (paragraph.length > 0) {
-              parsedLrc.push(paragraph);
-          }
+    }
 
-        return parsedLrc;
-      }
-
-      function updateLrc() {
-          const currentTime = audioPlayer.currentTime;
-          let highlightedWordIndex = -1;
-          let highlightedParagraphIndex = -1;
-
-          // Find current paragraph and word.
-          for (let i = 0; i < lrcData.length; i++) {
-              const paragraph = lrcData[i];
-              for(let j = 0; j < paragraph.length; j++){
-                  if (currentTime >= paragraph[j].time) {
-                    highlightedWordIndex = j;
-                    highlightedParagraphIndex = i;
-                  } else {
-                    break; // Because it is ordered.
-                  }
-              }
-          }
-
-          displayLrc(lrcData, highlightedParagraphIndex, highlightedWordIndex);
-      }
-
-       function displayLrc(lrcData, highlightParaIndex = -1, highlightWordIndex = -1) {
-        lrcDisplay.innerHTML = ''; // Clear previous content
-
-        if (!lrcData || lrcData.length === 0) {
-            return; // No lyrics to display
-        }
+    // Add the last line and paragraph
+    if(currentLine.length > 0){
+        paragraph.push(currentLine);
+    }
+    if (paragraph.length > 0) {
+        parsedLrc.push(paragraph);
+    }
+    return parsedLrc;
+}
 
 
-        for (let i = 0; i < lrcData.length; i++) {
-          const paragraphDiv = document.createElement('div');
-          paragraphDiv.classList.add('paragraph');
+function displayLrc(lrcData, highlightParaIndex = -1, highlightWordIndex = -1) {
+    lrcDisplay.innerHTML = ''; // Clear previous content
 
-          for(let j = 0; j < lrcData[i].length; j++){
+    if (!lrcData || lrcData.length === 0) {
+        return; // No lyrics to display
+    }
+
+    for (let i = 0; i < lrcData.length; i++) {
+        const paragraphDiv = document.createElement('div');
+        paragraphDiv.classList.add('paragraph');
+
+        for (let j = 0; j < lrcData[i].length; j++) {
+            const lineDiv = document.createElement('div'); // Create a div for each line
+            lineDiv.classList.add('line'); // Add a class for potential styling
+
+            for (let k = 0; k < lrcData[i][j].length; k++) {
                 const wordSpan = document.createElement('span');
-                wordSpan.textContent = lrcData[i][j].text + " "; // Add space after each word
-                wordSpan.dataset.time = lrcData[i][j].time; // Store time for click event
-                wordSpan.style.cursor = "pointer"; // Make words clickable
+                wordSpan.textContent = lrcData[i][j][k].text + " ";
+                wordSpan.dataset.time = lrcData[i][j][k].time;
+                wordSpan.style.cursor = "pointer";
 
                 wordSpan.addEventListener('click', function() {
                     audioPlayer.currentTime = parseFloat(this.dataset.time);
                 });
 
-
-                if (i === highlightParaIndex && j === highlightWordIndex) {
-                  wordSpan.classList.add('highlight');
+                if (i === highlightParaIndex && j === highlightParaIndex && k === highlightWordIndex) {
+                    wordSpan.classList.add('highlight');
                 }
-                paragraphDiv.appendChild(wordSpan);
-          }
-
-          lrcDisplay.appendChild(paragraphDiv);
+                lineDiv.appendChild(wordSpan); // Add word to the line
+            }
+             paragraphDiv.appendChild(lineDiv); //Add line to paragraph
         }
-      }
+        lrcDisplay.appendChild(paragraphDiv);
+    }
+}
 
 
       // --- Audio Player Control Event Listeners ---
