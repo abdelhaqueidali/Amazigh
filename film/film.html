@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ⴰⵙⴰⵔⵓ</title>
+    <title>ⴰⵙⴼⵍⴷⵍⵉⵙ</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -122,9 +122,9 @@
             width: 100%;
             display: block;
             border-radius: 8px;
-            border: none; /* Remove any default border */
-            outline: none; /* Remove outline */
-            background: #000; /* Ensure background is black to blend seamlessly */
+            border: none;
+            outline: none;
+            background: #000;
         }
 
         #subtitleDisplay {
@@ -155,12 +155,12 @@
             background-color: #eee;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: opacity 0.3s ease; /* Smooth fade effect */
+            transition: opacity 0.3s ease;
         }
 
         #videoControls.hidden {
             opacity: 0;
-            pointer-events: none; /* Prevent interaction when hidden */
+            pointer-events: none;
         }
 
         .video-button {
@@ -344,6 +344,7 @@
             videoPlayer.load();
             videoPlayer.play();
             playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            videoControls.classList.remove('hidden'); // Ensure controls are visible when loading a new video
 
             const currentPlayingItem = Array.from(videoList.children).find(li => li.dataset.video === currentVideoFile);
             if (currentPlayingItem) {
@@ -413,6 +414,16 @@
             }
         }
 
+        function showControlsTemporarily() {
+            if (document.fullscreenElement) {
+                videoControls.classList.remove('hidden');
+                clearTimeout(controlsTimeout);
+                controlsTimeout = setTimeout(() => {
+                    videoControls.classList.add('hidden');
+                }, 3000); // Hide after 3 seconds
+            }
+        }
+
         playPauseBtn.addEventListener('click', () => {
             if (videoPlayer.paused) {
                 videoPlayer.play();
@@ -421,6 +432,7 @@
                 videoPlayer.pause();
                 playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
             }
+            showControlsTemporarily();
         });
 
         videoPlayer.addEventListener('timeupdate', () => {
@@ -448,16 +460,19 @@
             const clickPosition = e.clientX - progressBarRect.left;
             const seekTime = (clickPosition / progressBarRect.width) * videoPlayer.duration;
             videoPlayer.currentTime = seekTime;
+            showControlsTemporarily();
         });
 
         volumeSlider.addEventListener('input', () => {
             videoPlayer.volume = volumeSlider.value;
             updateMuteButtonIcon();
+            showControlsTemporarily();
         });
 
         muteBtn.addEventListener('click', () => {
             videoPlayer.muted = !videoPlayer.muted;
             updateMuteButtonIcon();
+            showControlsTemporarily();
         });
 
         function updateMuteButtonIcon() {
@@ -470,10 +485,12 @@
 
         rewindBtn.addEventListener('click', () => {
             videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 10);
+            showControlsTemporarily();
         });
 
         forwardBtn.addEventListener('click', () => {
             videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 10);
+            showControlsTemporarily();
         });
 
         fullscreenBtn.addEventListener('click', toggleFullscreen);
@@ -506,25 +523,25 @@
 
         document.addEventListener('fullscreenchange', () => {
             if (document.fullscreenElement) {
-                videoControls.classList.add('hidden'); // Hide controls on entering fullscreen
+                // Show controls briefly when entering fullscreen, then hide
+                videoControls.classList.remove('hidden');
+                controlsTimeout = setTimeout(() => {
+                    videoControls.classList.add('hidden');
+                }, 3000);
             } else {
-                videoControls.classList.remove('hidden'); // Show controls when exiting fullscreen
-                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                videoControls.classList.remove('hidden'); // Always show controls in normal mode
             }
         });
 
         videoContainer.addEventListener('click', (e) => {
             if (document.fullscreenElement && e.target === videoPlayer) {
-                videoControls.classList.remove('hidden');
-                clearTimeout(controlsTimeout);
-                controlsTimeout = setTimeout(() => {
-                    videoControls.classList.add('hidden');
-                }, 3000); // Hide after 3 seconds
+                showControlsTemporarily();
             }
         });
 
         // Initial setup
         updateMuteButtonIcon();
+        videoControls.classList.remove('hidden'); // Ensure controls are visible initially
     </script>
 </body>
 </html>
