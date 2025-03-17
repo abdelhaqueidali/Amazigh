@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        /* --- (Styles remain largely the same, see previous response) --- */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -49,7 +48,8 @@
             margin: 0;
             font-size: 2.5em;
         }
-          .nav-toggle {
+
+        .nav-toggle {
             display: block;
             width: 100%;
             padding: 10px;
@@ -69,9 +69,8 @@
             flex: 1;
         }
 
-        /* --- Video List Styles --- */
         #videoListContainer {
-            max-height: 200px; /* Or whatever height you prefer */
+            max-height: 200px;
             overflow-y: auto;
             width: 100%;
             margin-bottom: 20px;
@@ -96,8 +95,8 @@
             justify-content: space-between;
         }
 
-         #videoList li:last-child {
-            border-bottom: none; /* Remove border from the last item */
+        #videoList li:last-child {
+            border-bottom: none;
         }
 
         #videoList li:hover {
@@ -108,48 +107,43 @@
             background-color: #c8e6c9;
             font-weight: bold;
         }
+
         #videoList li i {
             margin-right: 10px;
             color: #4CAF50;
         }
 
-
-
-        /* --- Video Player Styles --- */
         #videoPlayerContainer {
             width: 100%;
-            max-width: 800px; /* Adjust as needed */
+            max-width: 800px;
             margin: 20px 0;
-            position: relative; /* Important for subtitles */
+            position: relative;
         }
 
         #myVideo {
             width: 100%;
-            display: block; /* Remove any extra spacing below the video */
-            border-radius: 8px; /* Optional: for rounded corners */
+            display: block;
+            border-radius: 8px;
         }
 
-        /* --- Subtitle Styles --- */
-       #subtitleDisplay {
+        #subtitleDisplay {
             position: absolute;
-            bottom: 10%; /* Adjust as needed */
+            bottom: 10%;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             color: white;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.5);
             padding: 5px 10px;
             border-radius: 5px;
-            font-size: 1.2em; /* Adjust as needed */
-            z-index: 10; /* Ensure subtitles are above video */
-            pointer-events: none; /* Allow clicks to pass through to video */
-            width: 90%; /* Subtitles span most of the video width */
-            max-width: 700px; /* Limit maximum subtitle width */
-            word-wrap: break-word; /* Handle long words/lines */
-           /* white-space: pre-line;   Handle line breaks within subtitle */
+            font-size: 1.2em;
+            z-index: 10;
+            pointer-events: none;
+            width: 90%;
+            max-width: 700px;
+            word-wrap: break-word;
         }
 
-        /*--Video controls --*/
         #videoControls {
             display: flex;
             align-items: center;
@@ -160,8 +154,8 @@
             background-color: #eee;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
         }
+
         .video-button {
             background-color: #4CAF50;
             color: white;
@@ -177,16 +171,19 @@
             height: 40px;
             transition: background-color: 0.3s ease;
         }
+
         .video-button:hover {
             background-color: #388e3c;
         }
-         #progressBarContainer {
+
+        #progressBarContainer {
             flex: 1;
             background-color: #ddd;
             border-radius: 5px;
             height: 10px;
             cursor: pointer;
             margin: 0 10px;
+            border: none; /* Removed the border to eliminate the dark line */
         }
 
         #progressBar {
@@ -213,8 +210,6 @@
             width: 80px;
         }
 
-
-        /* --- Footer Styles --- */
         footer {
             text-align: center;
             padding: 10px;
@@ -223,17 +218,15 @@
             border-radius: 0 0 8px 8px;
         }
 
-        /* --- Responsive adjustments --- */
         @media (max-width: 768px) {
             #videoControls {
                 justify-content: center;
             }
-             #timeDisplay{
-                width:100%;
+            #timeDisplay {
+                width: 100%;
                 order: 1;
             }
         }
-
     </style>
 </head>
 <body>
@@ -241,7 +234,7 @@
         <header>
             <h1>ⵓⴷⵍⵉⵙⴼⵍⴷ</h1>
         </header>
-         <a href="https://abdelhaqueidali.github.io/Amazigh/">
+        <a href="https://abdelhaqueidali.github.io/Amazigh/">
             <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ</button>
         </a>
 
@@ -259,9 +252,10 @@
                     </div>
                     <div id="timeDisplay">0:00 / 0:00</div>
                     <div id="volumeContainer">
-                         <button id="muteBtn" class="video-button"> <i class="fas fa-volume-up"></i></button>
+                        <button id="muteBtn" class="video-button"><i class="fas fa-volume-up"></i></button>
                         <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
                     </div>
+                    <button id="fullscreenBtn" class="video-button"><i class="fas fa-expand"></i></button>
                 </div>
                 <div id="subtitleDisplay"></div>
             </div>
@@ -273,207 +267,232 @@
     </div>
 
     <script>
-    const videoPlayer = document.getElementById('myVideo');
-    const videoList = document.getElementById('videoList');
-    const subtitleDisplay = document.getElementById('subtitleDisplay');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const progressBarContainer = document.getElementById('progressBarContainer');
-    const progressBar = document.getElementById('progressBar');
-    const timeDisplay = document.getElementById('timeDisplay');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const muteBtn = document.getElementById('muteBtn');
-    let subtitles = [];
-    let currentVideoFile = null;
+        const videoPlayer = document.getElementById('myVideo');
+        const videoList = document.getElementById('videoList');
+        const subtitleDisplay = document.getElementById('subtitleDisplay');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const progressBarContainer = document.getElementById('progressBarContainer');
+        const progressBar = document.getElementById('progressBar');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const muteBtn = document.getElementById('muteBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const videoContainer = document.getElementById('videoPlayerContainer');
+        let subtitles = [];
+        let currentVideoFile = null;
 
-
-    // Fetch and populate video list
-    fetch('video_list.txt')
-        .then(response => response.text())
-        .then(data => {
-            const lines = data.trim().split('\n');
-            lines.forEach(line => {
-                const [titleAndLink, srtFile] = line.split('|').map(s => s.trim());
-                // Check if it's a bracketed title with a link
-                const bracketMatch = titleAndLink.match(/^\[(.*?)\]\((.*?)\)$/);
-
-
-                let videoFile, title;
-                if (bracketMatch) {
-                    title = bracketMatch[1];  // Text inside []
-                    videoFile = bracketMatch[2]; // Text inside ()
-                } else {
-                    // Assume it's a simple filename (like video2.mp4)
-                    title = titleAndLink.replace(/\.[^/.]+$/, ""); // Remove extension
-                    videoFile = titleAndLink;
-                }
-
-
-                if(videoFile && srtFile){
-                    const listItem = document.createElement('li');
-                    const iconSpan = document.createElement('span');
-                    iconSpan.innerHTML = '<i class="fas fa-video"></i>';
-
-                    const textSpan = document.createElement('span');
-                    textSpan.textContent = title; // Use extracted title
-
-                    listItem.appendChild(textSpan);
-                    listItem.appendChild(iconSpan);
-                    listItem.dataset.video = videoFile;
-                    listItem.dataset.srt = srtFile;
-                    listItem.addEventListener('click', () => loadVideo(videoFile, srtFile));
-                    videoList.appendChild(listItem);
-                }
-
-            });
-        })
-        .catch(error => console.error('Error fetching video list:', error));
-
-
-
-      function loadVideo(videoFile, srtFile) {
-        if (currentVideoFile) {
-          const prevPlayingItem = Array.from(videoList.children).find(li => li.dataset.video === currentVideoFile);
-          if (prevPlayingItem) {
-            prevPlayingItem.classList.remove('playing');
-          }
-        }
-
-        currentVideoFile = videoFile;
-        videoPlayer.src = videoFile;
-        videoPlayer.load();
-        videoPlayer.play();
-        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-
-        const currentPlayingItem = Array.from(videoList.children).find(li => li.dataset.video === currentVideoFile);
-        if (currentPlayingItem) {
-          currentPlayingItem.classList.add('playing');
-        }
-
-        loadSubtitles(srtFile);
-    }
-
-    function loadSubtitles(srtFile) {
-        fetch(srtFile)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text();
-            })
+        // Fetch and populate video list
+        fetch('video_list.txt')
+            .then(response => response.text())
             .then(data => {
-                subtitles = parseSRT(data);
-                videoPlayer.addEventListener('timeupdate', updateSubtitles);
+                const lines = data.trim().split('\n');
+                lines.forEach(line => {
+                    const [titleAndLink, srtFile] = line.split('|').map(s => s.trim());
+                    const bracketMatch = titleAndLink.match(/^\[(.*?)\]\((.*?)\)$/);
+
+                    let videoFile, title;
+                    if (bracketMatch) {
+                        title = bracketMatch[1];
+                        videoFile = bracketMatch[2];
+                    } else {
+                        title = titleAndLink.replace(/\.[^/.]+$/, "");
+                        videoFile = titleAndLink;
+                    }
+
+                    if (videoFile && srtFile) {
+                        const listItem = document.createElement('li');
+                        const iconSpan = document.createElement('span');
+                        iconSpan.innerHTML = '<i class="fas fa-video"></i>';
+
+                        const textSpan = document.createElement('span');
+                        textSpan.textContent = title;
+
+                        listItem.appendChild(textSpan);
+                        listItem.appendChild(iconSpan);
+                        listItem.dataset.video = videoFile;
+                        listItem.dataset.srt = srtFile;
+                        listItem.addEventListener('click', () => loadVideo(videoFile, srtFile));
+                        videoList.appendChild(listItem);
+                    }
+                });
             })
-            .catch(error => {
-                console.error('Error fetching or parsing SRT file:', error);
-                subtitleDisplay.textContent = "Subtitles not found.";
-                subtitles = [];
-                videoPlayer.removeEventListener('timeupdate', updateSubtitles);
-            });
-    }
+            .catch(error => console.error('Error fetching Démos list:', error));
 
-    function parseSRT(srtContent) {
-        const srtLines = srtContent.trim().split('\n\n');
-        const parsedSubtitles = [];
-        srtLines.forEach(srtLine => {
-            const parts = srtLine.split('\n');
-            if (parts.length >= 3) {
-                const index = parseInt(parts[0], 10);
-                const timecodes = parts[1].split(' --> ');
-                const startTime = parseTimecode(timecodes[0]);
-                const endTime = parseTimecode(timecodes[1]);
-                const text = parts.slice(2).join('\n').trim();
-                parsedSubtitles.push({ startTime, endTime, text });
+        function loadVideo(videoFile, srtFile) {
+            if (currentVideoFile) {
+                const prevPlayingItem = Array.from(videoList.children).find(li => li.dataset.video === currentVideoFile);
+                if (prevPlayingItem) {
+                    prevPlayingItem.classList.remove('playing');
+                }
             }
-        });
-        return parsedSubtitles;
-    }
 
-    function parseTimecode(timecode) {
-        const [hours, minutes, seconds] = timecode.replace(',', '.').split(':').map(parseFloat);
-        return hours * 3600 + minutes * 60 + seconds;
-    }
-
-    function updateSubtitles() {
-      const currentTime = videoPlayer.currentTime;
-      let currentSubtitle = null;
-
-      for (const subtitle of subtitles) {
-          if (currentTime >= subtitle.startTime && currentTime <= subtitle.endTime) {
-              currentSubtitle = subtitle;
-              break;
-          }
-      }
-
-      if (currentSubtitle) {
-          subtitleDisplay.textContent = currentSubtitle.text;
-      } else {
-          subtitleDisplay.textContent = '';
-      }
-    }
-    // --- (Event Listeners for controls - same as previous response) ---
-     // --- Event Listeners for video controls --- //
-    playPauseBtn.addEventListener('click', () => {
-        if (videoPlayer.paused) {
+            currentVideoFile = videoFile;
+            videoPlayer.src = videoFile;
+            videoPlayer.load();
             videoPlayer.play();
             playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-        } else {
-            videoPlayer.pause();
-            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+
+            const currentPlayingItem = Array.from(videoList.children).find(li => li.dataset.video === currentVideoFile);
+            if (currentPlayingItem) {
+                currentPlayingItem.classList.add('playing');
+            }
+
+            loadSubtitles(srtFile);
         }
-    });
 
-    videoPlayer.addEventListener('timeupdate', () => {
-        const currentTime = videoPlayer.currentTime;
-        const duration = videoPlayer.duration;
-
-        if (!isNaN(duration)) {
-            const progress = (currentTime / duration) * 100;
-            progressBar.style.width = progress + '%';
-
-            const currentMinutes = Math.floor(currentTime / 60);
-            const currentSeconds = Math.floor(currentTime % 60).toString().padStart(2, '0');
-            const durationMinutes = Math.floor(duration / 60);
-            const durationSeconds = Math.floor(duration % 60).toString().padStart(2, '0');
-
-            timeDisplay.textContent = `${currentMinutes}:${currentSeconds} / ${durationMinutes}:${durationSeconds}`;
-        } else {
-            timeDisplay.textContent = '0:00 / 0:00';
-            progressBar.style.width = '0%';
+        function loadSubtitles(srtFile) {
+            fetch(srtFile)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    subtitles = parseSRT(data);
+                    videoPlayer.addEventListener('timeupdate', updateSubtitles);
+                })
+                .catch(error => {
+                    console.error('Error fetching or parsing SRT file:', error);
+                    subtitleDisplay.textContent = "Subtitles not found.";
+                    subtitles = [];
+                    videoPlayer.removeEventListener('timeupdate', updateSubtitles);
+                });
         }
-    });
 
-      progressBarContainer.addEventListener('click', (e) => {
-        const progressBarRect = progressBarContainer.getBoundingClientRect();
-        const clickPosition = e.clientX - progressBarRect.left;
-        const seekTime = (clickPosition / progressBarRect.width) * videoPlayer.duration;
-        videoPlayer.currentTime = seekTime;
-      });
+        function parseSRT(srtContent) {
+            const srtLines = srtContent.trim().split('\n\n');
+            const parsedSubtitles = [];
+            srtLines.forEach(srtLine => {
+                const parts = srtLine.split('\n');
+                if (parts.length >= 3) {
+                    const index = parseInt(parts[0], 10);
+                    const timecodes = parts[1].split(' --> ');
+                    const startTime = parseTimecode(timecodes[0]);
+                    const endTime = parseTimecode(timecodes[1]);
+                    const text = parts.slice(2).join('\n').trim();
+                    parsedSubtitles.push({ startTime, endTime, text });
+                }
+            });
+            return parsedSubtitles;
+        }
 
+        function parseTimecode(timecode) {
+            const [hours, minutes, seconds] = timecode.replace(',', '.').split(':').map(parseFloat);
+            return hours * 3600 + minutes * 60 + seconds;
+        }
 
-      volumeSlider.addEventListener('input', () => {
-        videoPlayer.volume = volumeSlider.value;
+        function updateSubtitles() {
+            const currentTime = videoPlayer.currentTime;
+            let currentSubtitle = null;
+
+            for (const subtitle of subtitles) {
+                if (currentTime >= subtitle.startTime && currentTime <= subtitle.endTime) {
+                    currentSubtitle = subtitle;
+                    break;
+                }
+            }
+
+            if (currentSubtitle) {
+                subtitleDisplay.textContent = currentSubtitle.text;
+            } else {
+                subtitleDisplay.textContent = '';
+            }
+        }
+
+        playPauseBtn.addEventListener('click', () => {
+            if (videoPlayer.paused) {
+                videoPlayer.play();
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                videoPlayer.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+
+        videoPlayer.addEventListener('timeupdate', () => {
+            const currentTime = videoPlayer.currentTime;
+            const duration = videoPlayer.duration;
+
+            if (!isNaN(duration)) {
+                const progress = (currentTime / duration) * 100;
+                progressBar.style.width = progress + '%';
+
+                const currentMinutes = Math.floor(currentTime / 60);
+                const currentSeconds = Math.floor(currentTime % 60).toString().padStart(2, '0');
+                const durationMinutes = Math.floor(duration / 60);
+                const durationSeconds = Math.floor(duration % 60).toString().padStart(2, '0');
+
+                timeDisplay.textContent = `${currentMinutes}:${currentSeconds} / ${durationMinutes}:${durationSeconds}`;
+            } else {
+                timeDisplay.textContent = '0:00 / 0:00';
+                progressBar.style.width = '0%';
+            }
+        });
+
+        progressBarContainer.addEventListener('click', (e) => {
+            const progressBarRect = progressBarContainer.getBoundingClientRect();
+            const clickPosition = e.clientX - progressBarRect.left;
+            const seekTime = (clickPosition / progressBarRect.width) * videoPlayer.duration;
+            videoPlayer.currentTime = seekTime;
+        });
+
+        volumeSlider.addEventListener('input', () => {
+            videoPlayer.volume = volumeSlider.value;
+            updateMuteButtonIcon();
+        });
+
+        muteBtn.addEventListener('click', () => {
+            videoPlayer.muted = !videoPlayer.muted;
+            updateMuteButtonIcon();
+        });
+
+        function updateMuteButtonIcon() {
+            if (videoPlayer.muted || videoPlayer.volume === 0) {
+                muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        }
+
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                if (videoContainer.requestFullscreen) {
+                    videoContainer.requestFullscreen();
+                } else if (videoContainer.mozRequestFullScreen) { // Firefox
+                    videoContainer.mozRequestFullScreen();
+                } else if (videoContainer.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                    videoContainer.webkitRequestFullscreen();
+                } else if (videoContainer.msRequestFullscreen) { // IE/Edge
+                    videoContainer.msRequestFullscreen();
+                }
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) { // Firefox
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) { // Chrome, Safari, Opera
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { // IE/Edge
+                    document.msExitFullscreen();
+                }
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            }
+        }
+
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            } else {
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+            }
+        });
+
+        // Initial setup
         updateMuteButtonIcon();
-
-      });
-
-      muteBtn.addEventListener('click', () => {
-          videoPlayer.muted = !videoPlayer.muted;
-          updateMuteButtonIcon();
-      });
-
-      function updateMuteButtonIcon(){
-          if(videoPlayer.muted || videoPlayer.volume === 0){
-            muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-          }else{
-            muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-          }
-      }
-
-      //initial setup
-      updateMuteButtonIcon();
-
-
     </script>
 </body>
 </html>
