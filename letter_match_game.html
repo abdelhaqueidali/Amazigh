@@ -7,9 +7,8 @@
     <!-- Google Fonts - Noto Sans Tifinagh -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
     <style>
-        /*  PASTE THE ENTIRE CSS CODE FROM THE PREVIOUS RESPONSE HERE */
         body {
-            font-family: 'Arial', sans-serif; /* A common, readable font. */
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f8f8f8;
@@ -29,12 +28,12 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            flex: 1; /* Allow to grow */
+            flex: 1;
         }
 
         /*  Header Styles */
         header {
-            background-color: #4CAF50; /*  Green */
+            background-color: #4CAF50;
             color: #fff;
             padding: 10px 0;
             text-align: center;
@@ -60,11 +59,11 @@
             margin-bottom: 10px;
         }
 
-        /*  --- GAME-SPECIFIC STYLES (Modified to fit the overall design and matching game) --- */
+        /*  --- GAME-SPECIFIC STYLES --- */
 
         #game-container {
             width: 90%;
-            max-width: 800px; /*  Adjusted for the two-column layout */
+            max-width: 800px;
             margin: 20px auto;
             background-color: #fff;
             padding: 2em;
@@ -83,60 +82,63 @@
 
         #matching-area {
             display: flex;
-            justify-content: space-around; /*  Evenly space the columns */
+            justify-content: space-around;
             margin-bottom: 1em;
         }
 
         .matching-column {
-            width: 45%; /*  Adjust width as needed */
+            width: 45%;
             display: flex;
             flex-direction: column;
         }
 
-       .match-item {
+        .match-item {
             background-color: #f0f8f1;
             color: #333;
-            padding: 1em;
+            padding: 0.5em;          /* Reduced padding */
             border: 2px solid #4CAF50;
             border-radius: 8px;
-            margin-bottom: 0.5em; /* Space between items */
+            margin-bottom: 0.5em;
             cursor: pointer;
-            /* Make boxes same size */
-            font-size: 1.5em;  /* Keep font size consistent */
-            flex: 1; /* Important: Allow items to grow and fill space */
-            display: flex; /* Use flexbox for centering */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
-            /* End changes for same size */
-
+            font-size: 1.2em;        /* Consistent font size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: background-color 0.3s ease, transform 0.1s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            user-select: none; /* Prevent text selection */
+            user-select: none;
         }
+
         .match-item:hover,
-        .match-item.selected { /*  Style for selected items */
+        .match-item.selected {
             background-color: #c8e6c9;
             transform: scale(1.05);
         }
-        .match-item.correctly-matched{
+
+        .match-item.correctly-matched {
             background-color: #4CAF50;
-            border-color:  #388e3c;
+            border-color: #388e3c;
             color: white;
             cursor: default;
         }
-        .match-item.incorrectly-matched{
+
+        .match-item.incorrectly-matched {
             background-color: #f44336;
             border-color: #d32f2f;
             color: white;
             cursor: default;
         }
-       .match-item:focus {
-            outline: none; /* Remove default focus outline */
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5); /* Custom focus style */
+
+        .match-item:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.5);
         }
-        .match-item.tifinagh, .match-item.selected.tifinagh{
-            font-size: 2.5em;
+
+        /* Removed the .tifinagh specific font-size.  Apply to .match-item directly */
+        .match-item.tifinagh {
+            font-family: 'Noto Sans Tifinagh', sans-serif; /* Font, but not size */
         }
+
         #feedback {
             font-size: 1.2em;
             font-weight: bold;
@@ -158,22 +160,23 @@
             cursor: pointer;
             font-size: 1.2em;
             transition: background-color 0.3s ease;
-            display: none; /* Initially hidden */
+            display: none;
         }
 
         #reset-button:hover {
             background-color: #388e3c;
         }
-        .tifinagh {
-            font-family: 'Noto Sans Tifinagh', sans-serif;
 
+        .tifinagh {
+             font-family: 'Noto Sans Tifinagh', sans-serif;
         }
+
         .latin {
             font-style: italic;
             color: #666;
         }
 
-        /* Footer Styles (consistent with other pages) */
+        /* Footer Styles */
         footer {
             text-align: center;
             padding: 10px;
@@ -185,33 +188,31 @@
 </head>
 <body>
     <div class="container">
-    <header>
-        <h1>Tifinagh Matching Game!</h1>
-    </header>
-	    <a href="index.html">
-        <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ - Home</button>
-	    </a>
-    <main>
-    <div id="game-container">
-        <h1>ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵙⵎⴰⴳⵍ!</h1>
-
-        <div id="matching-area">
-            <div id="tifinagh-column" class="matching-column"></div>
-            <div id="latin-column" class="matching-column"></div>
-        </div>
-
-        <div id="feedback"></div>
-        <div id="score">ⴰⵏⴽⵙ : <span id="score-value">0</span></div>
-        <button id="reset-button">Re-try</button>
-    </div>
-    </main>
-    <footer>
-        <p>ⴰⴼⴰⵡ</p>
-    </footer>
+        <header>
+            <h1>Tifinagh Matching Game!</h1>
+        </header>
+        <a href="index.html">
+            <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ - Home</button>
+        </a>
+        <main>
+            <div id="game-container">
+                <h1>ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⵙⵎⴰⴳⵍ!</h1>
+                <div id="matching-area">
+                    <div id="tifinagh-column" class="matching-column"></div>
+                    <div id="latin-column" class="matching-column"></div>
+                </div>
+                <div id="feedback"></div>
+                <div id="score">ⴰⵏⴽⵙ : <span id="score-value">0</span></div>
+                <button id="reset-button">Re-try</button>
+            </div>
+        </main>
+        <footer>
+            <p>ⴰⴼⴰⵡ</p>
+        </footer>
     </div>
     <script>
         const letters = [
-             { tifinagh: 'ⴰ', latin: 'a' },
+            { tifinagh: 'ⴰ', latin: 'a' },
             { tifinagh: 'ⴱ', latin: 'b' },
             { tifinagh: 'ⴳ', latin: 'g' },
             { tifinagh: 'ⴷ', latin: 'd' },
@@ -247,8 +248,8 @@
         let score = 0;
         let selectedTifinagh = null;
         let selectedLatin = null;
-        let matchedPairs = 0; // Track how many pairs have been matched
-        let numLetters = 5; // Number of letters to use in the game
+        let matchedPairs = 0;
+        let numLetters = 5;
 
         const tifinaghColumn = document.getElementById('tifinagh-column');
         const latinColumn = document.getElementById('latin-column');
@@ -268,10 +269,10 @@
             const item = document.createElement('div');
             item.textContent = text;
             item.classList.add('match-item');
-            item.dataset.type = type;  // Store if it's tifinagh or latin
-            item.dataset.value = text; // Store the actual letter
-            if(type === 'tifinagh'){
-                item.classList.add('tifinagh')
+            item.dataset.type = type;
+            item.dataset.value = text;
+            if (type === 'tifinagh') {
+                item.classList.add('tifinagh');
             }
             return item;
         }
@@ -282,26 +283,21 @@
             selectedTifinagh = null;
             selectedLatin = null;
             matchedPairs = 0;
-            feedbackEl.textContent = ''; // Clear feedback
+            feedbackEl.textContent = '';
             scoreEl.textContent = score;
 
-            // 1. Select a random subset of letters
             const shuffledLetters = shuffle([...letters]);
             const selectedSubset = shuffledLetters.slice(0, numLetters);
 
-            // 2. Create match items
             const tifinaghItems = selectedSubset.map(letter => createMatchItem(letter.tifinagh, 'tifinagh'));
             const latinItems = selectedSubset.map(letter => createMatchItem(letter.latin, 'latin'));
 
-            // 3. Shuffle within columns
             shuffle(tifinaghItems);
             shuffle(latinItems);
 
-            // 4. Append to columns
             tifinaghItems.forEach(item => tifinaghColumn.appendChild(item));
             latinItems.forEach(item => latinColumn.appendChild(item));
 
-            // 5. Add event listeners
             document.querySelectorAll('.match-item').forEach(item => {
                 item.addEventListener('click', handleItemClick);
             });
@@ -310,15 +306,13 @@
         function handleItemClick(event) {
             const clickedItem = event.target;
 
-            // If already correctly matched, do nothing
             if (clickedItem.classList.contains('correctly-matched')) {
                 return;
             }
-            //Remove incorrectly-matched class if present
+
             if (clickedItem.classList.contains('incorrectly-matched')) {
                 clickedItem.classList.remove('incorrectly-matched');
             }
-
 
             if (clickedItem.dataset.type === 'tifinagh') {
                 if (selectedTifinagh) {
@@ -338,54 +332,53 @@
                 checkMatch();
             }
         }
-function checkMatch() {
-    const tifinaghValue = selectedTifinagh.dataset.value;
-    const latinValue = selectedLatin.dataset.value;
 
-    const correctMatch = letters.find(letter => letter.tifinagh === tifinaghValue && letter.latin === latinValue);
+        function checkMatch() {
+            const tifinaghValue = selectedTifinagh.dataset.value;
+            const latinValue = selectedLatin.dataset.value;
+            const correctMatch = letters.find(letter => letter.tifinagh === tifinaghValue && letter.latin === latinValue);
 
-    if (correctMatch) {
-        // Correct match
-        selectedTifinagh.classList.remove('selected');
-        selectedLatin.classList.remove('selected');
-        selectedTifinagh.classList.add('correctly-matched');
-        selectedLatin.classList.add('correctly-matched');
-        score++;
-        scoreEl.textContent = score;
-        matchedPairs++;
-        feedbackEl.textContent = "Correct Match!";
-        feedbackEl.style.color = '#4caf50';
-        selectedTifinagh = null;
-        selectedLatin = null;
+            if (correctMatch) {
+                selectedTifinagh.classList.remove('selected');
+                selectedLatin.classList.remove('selected');
+                selectedTifinagh.classList.add('correctly-matched');
+                selectedLatin.classList.add('correctly-matched');
+                score++;
+                scoreEl.textContent = score;
+                matchedPairs++;
+                feedbackEl.textContent = "Correct Match!";
+                feedbackEl.style.color = '#4caf50';
+                selectedTifinagh = null;
+                selectedLatin = null;
 
-        if (matchedPairs === numLetters) {
-             feedbackEl.textContent = "Congratulations! You matched all the letters.";
-             resetButton.style.display = 'block'; // Show reset button
+                if (matchedPairs === numLetters) {
+                     feedbackEl.textContent = "Congratulations! You matched all the letters.";
+                     resetButton.style.display = 'block';
+                }
+
+            } else {
+                selectedTifinagh.classList.remove('selected')
+                selectedLatin.classList.remove('selected')
+                 selectedTifinagh.classList.add('incorrectly-matched');
+                selectedLatin.classList.add('incorrectly-matched');
+                feedbackEl.textContent = "Incorrect Match. Try again!";
+                feedbackEl.style.color = '#f44336';
+
+                setTimeout(() => {
+                   if(selectedTifinagh) selectedTifinagh.classList.remove('incorrectly-matched');
+                   if(selectedLatin) selectedLatin.classList.remove('incorrectly-matched');
+                    selectedTifinagh = null;
+                    selectedLatin = null;
+                }, 1000);
+            }
         }
 
-    } else {
-        // Incorrect Match
-        selectedTifinagh.classList.remove('selected')
-        selectedLatin.classList.remove('selected')
-         selectedTifinagh.classList.add('incorrectly-matched');
-        selectedLatin.classList.add('incorrectly-matched');
-        feedbackEl.textContent = "Incorrect Match. Try again!";
-        feedbackEl.style.color = '#f44336';
-
-        // Clear selection after a short delay
-        setTimeout(() => {
-           if(selectedTifinagh) selectedTifinagh.classList.remove('incorrectly-matched');
-           if(selectedLatin) selectedLatin.classList.remove('incorrectly-matched');
-            selectedTifinagh = null;
-            selectedLatin = null;
-        }, 1000);
-    }
-}
         resetButton.addEventListener('click', () => {
-            resetButton.style.display = 'none'; // Hide reset button again
+            resetButton.style.display = 'none';
             feedbackEl.textContent = "";
-            populateColumns(); // Restart the game
+            populateColumns();
         });
+
         populateColumns();
 
     </script>
