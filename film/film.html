@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ⴰⵙⴼⵍⴷⵍⵉⵙ</title>
-    <!-- Google Fonts (Optional, if you want the same fonts)-->
+    <!-- Google Fonts (Optional) -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        /* --- General Styles (Keep most of your existing styles) --- */
+        /* --- (Styles remain largely the same, see previous response) --- */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -90,7 +90,7 @@
             border-bottom: 1px solid #ddd;
             padding: 12px 15px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color: 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -175,7 +175,7 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            transition: background-color 0.3s ease;
+            transition: background-color: 0.3s ease;
         }
         .video-button:hover {
             background-color: #388e3c;
@@ -234,7 +234,6 @@
             }
         }
 
-
     </style>
 </head>
 <body>
@@ -242,7 +241,7 @@
         <header>
             <h1>ⵓⴷⵍⵉⵙⴼⵍⴷ</h1>
         </header>
-        <a href="https://abdelhaqueidali.github.io/Amazigh/">
+         <a href="https://abdelhaqueidali.github.io/Amazigh/">
             <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ</button>
         </a>
 
@@ -252,10 +251,10 @@
             </div>
 
             <div id="videoPlayerContainer">
-                <video id="myVideo"  ></video>
-                 <div id="videoControls">
+                <video id="myVideo"></video>
+                <div id="videoControls">
                     <button id="playPauseBtn" class="video-button"><i class="fas fa-play"></i></button>
-                     <div id="progressBarContainer">
+                    <div id="progressBarContainer">
                         <div id="progressBar"></div>
                     </div>
                     <div id="timeDisplay">0:00 / 0:00</div>
@@ -283,29 +282,39 @@
     const timeDisplay = document.getElementById('timeDisplay');
     const volumeSlider = document.getElementById('volumeSlider');
     const muteBtn = document.getElementById('muteBtn');
-
     let subtitles = [];
     let currentVideoFile = null;
 
 
-   // Fetch and populate video list (from a text file, like before)
-    fetch('video_list.txt') // Change the filename as needed.
+    // Fetch and populate video list
+    fetch('video_list.txt')
         .then(response => response.text())
         .then(data => {
             const lines = data.trim().split('\n');
-            // Expecting pairs of lines: video, then srt.
-            for (let i = 0; i < lines.length; i += 2) {
-                const videoFile = lines[i].trim();
-                const srtFile = lines[i + 1]?.trim(); // Optional chaining, in case of odd number of lines.
+            lines.forEach(line => {
+                const [titleAndLink, srtFile] = line.split('|').map(s => s.trim());
+                // Check if it's a bracketed title with a link
+                const bracketMatch = titleAndLink.match(/^\[(.*?)\]\((.*?)\)$/);
 
-                if (videoFile && srtFile) { // Make sure both are present.
+
+                let videoFile, title;
+                if (bracketMatch) {
+                    title = bracketMatch[1];  // Text inside []
+                    videoFile = bracketMatch[2]; // Text inside ()
+                } else {
+                    // Assume it's a simple filename (like video2.mp4)
+                    title = titleAndLink.replace(/\.[^/.]+$/, ""); // Remove extension
+                    videoFile = titleAndLink;
+                }
+
+
+                if(videoFile && srtFile){
                     const listItem = document.createElement('li');
                     const iconSpan = document.createElement('span');
-                    iconSpan.innerHTML = '<i class="fas fa-video"></i>'; //video icon
+                    iconSpan.innerHTML = '<i class="fas fa-video"></i>';
 
                     const textSpan = document.createElement('span');
-                    const fileNameWithoutExtension = videoFile.substring(0, videoFile.lastIndexOf('.'));
-                    textSpan.textContent = fileNameWithoutExtension;
+                    textSpan.textContent = title; // Use extracted title
 
                     listItem.appendChild(textSpan);
                     listItem.appendChild(iconSpan);
@@ -314,14 +323,14 @@
                     listItem.addEventListener('click', () => loadVideo(videoFile, srtFile));
                     videoList.appendChild(listItem);
                 }
-            }
+
+            });
         })
         .catch(error => console.error('Error fetching video list:', error));
 
 
 
-    function loadVideo(videoFile, srtFile) {
-         // Remove 'playing' class from previously playing item
+      function loadVideo(videoFile, srtFile) {
         if (currentVideoFile) {
           const prevPlayingItem = Array.from(videoList.children).find(li => li.dataset.video === currentVideoFile);
           if (prevPlayingItem) {
@@ -331,13 +340,11 @@
 
         currentVideoFile = videoFile;
         videoPlayer.src = videoFile;
-        videoPlayer.load(); // Important to load before playing
-        videoPlayer.play(); // Autoplay
-        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; // Change to pause icon
+        videoPlayer.load();
+        videoPlayer.play();
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
 
-
-         // Add 'playing' class to the currently playing item
-        const currentPlayingItem = Array.from(videoList.children).find(li => li.dataset.video === currentVideoFile); // use dataset.filename
+        const currentPlayingItem = Array.from(videoList.children).find(li => li.dataset.video === currentVideoFile);
         if (currentPlayingItem) {
           currentPlayingItem.classList.add('playing');
         }
@@ -345,79 +352,67 @@
         loadSubtitles(srtFile);
     }
 
-
-      function loadSubtitles(srtFile) {
+    function loadSubtitles(srtFile) {
         fetch(srtFile)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.text();
-          })
-          .then(data => {
-            subtitles = parseSRT(data);
-            videoPlayer.addEventListener('timeupdate', updateSubtitles); // Attach the listener here
-          })
-          .catch(error => {
-            console.error('Error fetching or parsing SRT file:', error);
-            subtitleDisplay.textContent = "Subtitles not found.";
-            subtitles = []; // Clear subtitles
-            videoPlayer.removeEventListener('timeupdate', updateSubtitles);
-
-          });
-      }
-
-      function parseSRT(srtContent) {
-            const srtLines = srtContent.trim().split('\n\n');  //split into blocks
-            const parsedSubtitles = [];
-
-            srtLines.forEach(srtLine => {
-                const parts = srtLine.split('\n');
-                if (parts.length >= 3) { // Ensure we have index, time, and text.
-                    const index = parseInt(parts[0], 10); //Parse the index
-                    const timecodes = parts[1].split(' --> '); //split timecode
-                    const startTime = parseTimecode(timecodes[0]);
-                    const endTime = parseTimecode(timecodes[1]);
-                    //join all remaining lines as subtitle text
-                    const text = parts.slice(2).join('\n').trim();
-
-                    parsedSubtitles.push({
-                       // index, //index is not strictly needed, but it good to keep it for debugging
-                        startTime,
-                        endTime,
-                        text
-                    });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                return response.text();
+            })
+            .then(data => {
+                subtitles = parseSRT(data);
+                videoPlayer.addEventListener('timeupdate', updateSubtitles);
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing SRT file:', error);
+                subtitleDisplay.textContent = "Subtitles not found.";
+                subtitles = [];
+                videoPlayer.removeEventListener('timeupdate', updateSubtitles);
             });
-
-            return parsedSubtitles;
-        }
-
-        function parseTimecode(timecode) {
-            const [hours, minutes, seconds] = timecode.replace(',', '.').split(':').map(parseFloat);
-            return hours * 3600 + minutes * 60 + seconds;
-        }
-
-      function updateSubtitles() {
-        const currentTime = videoPlayer.currentTime;
-        let currentSubtitle = null;
-
-        //find the subtitle to display
-        for (const subtitle of subtitles) {
-            if (currentTime >= subtitle.startTime && currentTime <= subtitle.endTime) {
-                currentSubtitle = subtitle;
-                break; // Exit loop once we've found the current one.
-            }
-        }
-
-        if (currentSubtitle) {
-            subtitleDisplay.textContent = currentSubtitle.text;
-        } else {
-            subtitleDisplay.textContent = ''; // Clear if no subtitle for current time
-        }
     }
 
-    // --- Event Listeners for video controls --- //
+    function parseSRT(srtContent) {
+        const srtLines = srtContent.trim().split('\n\n');
+        const parsedSubtitles = [];
+        srtLines.forEach(srtLine => {
+            const parts = srtLine.split('\n');
+            if (parts.length >= 3) {
+                const index = parseInt(parts[0], 10);
+                const timecodes = parts[1].split(' --> ');
+                const startTime = parseTimecode(timecodes[0]);
+                const endTime = parseTimecode(timecodes[1]);
+                const text = parts.slice(2).join('\n').trim();
+                parsedSubtitles.push({ startTime, endTime, text });
+            }
+        });
+        return parsedSubtitles;
+    }
+
+    function parseTimecode(timecode) {
+        const [hours, minutes, seconds] = timecode.replace(',', '.').split(':').map(parseFloat);
+        return hours * 3600 + minutes * 60 + seconds;
+    }
+
+    function updateSubtitles() {
+      const currentTime = videoPlayer.currentTime;
+      let currentSubtitle = null;
+
+      for (const subtitle of subtitles) {
+          if (currentTime >= subtitle.startTime && currentTime <= subtitle.endTime) {
+              currentSubtitle = subtitle;
+              break;
+          }
+      }
+
+      if (currentSubtitle) {
+          subtitleDisplay.textContent = currentSubtitle.text;
+      } else {
+          subtitleDisplay.textContent = '';
+      }
+    }
+    // --- (Event Listeners for controls - same as previous response) ---
+     // --- Event Listeners for video controls --- //
     playPauseBtn.addEventListener('click', () => {
         if (videoPlayer.paused) {
             videoPlayer.play();
