@@ -105,15 +105,21 @@
 
         .char {
             transition: color 0.3s;
-            color: #999999; /* Dimmed initial state */
+            color: #999999;
         }
 
         .correct {
-            color: #388e3c; /* Light green for correct */
+            color: #388e3c;
         }
 
         .wrong {
-            color: #f44336; /* Red for wrong */
+            color: #f44336;
+        }
+
+        #results {
+            margin-top: 1em;
+            font-size: 1.2em;
+            display: none;
         }
 
         footer {
@@ -152,6 +158,7 @@
                 </div>
 
                 <div contenteditable="true" id="typing-area"></div>
+                <div id="results" class="tifinagh"></div>
             </div>
         </main>
         <footer>
@@ -163,7 +170,11 @@
         let words = [];
         let currentText = '';
         let currentPosition = 0;
+        let startTime = null;
+        let errors = 0;
+        let correctWords = 0;
         const typingArea = document.getElementById('typing-area');
+        const resultsDiv = document.getElementById('results');
 
         fetch('entery.txt')
             .then(response => response.text())
@@ -188,7 +199,7 @@
             numbersCheckbox.addEventListener('change', generateText);
             
             typingArea.addEventListener('keydown', handleTyping);
-            typingArea.addEventListener('paste', (e) => e.preventDefault()); // Prevent pasting
+            typingArea.addEventListener('paste', (e) => e.preventDefault());
             typingArea.focus();
         }
 
@@ -214,6 +225,10 @@
 
             displayText();
             currentPosition = 0;
+            startTime = null;
+            errors = 0;
+            correctWords = 0;
+            resultsDiv.style.display = 'none';
             typingArea.focus();
         }
 
@@ -231,9 +246,16 @@
             e.preventDefault();
             const key = e.key;
 
+            if (!startTime) {
+                startTime = new Date();
+            }
+
             if (key === 'Backspace' && currentPosition > 0) {
                 currentPosition--;
                 const charElement = typingArea.children[currentPosition];
+                if (charElement.classList.contains('wrong')) {
+                    errors--;
+                }
                 charElement.classList.remove('correct', 'wrong');
                 return;
             }
@@ -245,18 +267,43 @@
 
             if (key === currentChar) {
                 charElement.classList.add('correct');
+                if (currentChar === ' ' && typingArea.children[currentPosition - 1]?.classList.contains('correct')) {
+                    correctWords++;
+                }
             } else {
                 charElement.classList.add('wrong');
+                errors++;
             }
 
             currentPosition++;
 
             if (currentPosition === currentText.length) {
-                setTimeout(() => {
-                    alert('ⵎⴰⴷⵉⴷ! ⵙⵎⴳⵓⵔⴷ ⴰⵙⵓⵔⴰⵔⵜ!');
-                    generateText();
-                }, 100);
+                showResults();
             }
+        }
+
+        function showResults() {
+            const endTime = new Date();
+            const timeDiff = (endTime - startTime) / 1000 / 60; // Convert to minutes
+            const totalWords = currentText.split(' ').length;
+            const wpm = Math.round(correctWords / timeDiff);
+
+            // Adjust correctWords for the last word if completed correctly
+            if (typingArea.children[currentPosition - 1].classList.contains('correct')) {
+                correctWords++;
+            }
+
+            resultsDiv.innerHTML = `
+                ⵎⴰⴷⵉⴷ! ⵙⵎⴳⵓⵔⴷ ⴰⵙⵓⵔⴰⵔⵜ!<br>
+                ⴰⵡⴰⵍⵏ ⵙⴰⵖⴰⵏ: ${correctWords}/${totalWords}<br>
+                ⴰⵙⵖⵓⵏⵓ ⴷⴳ ⵓⴼⵔⴷ: ${errors}<br>
+                ⴰⵡⴰⵍⵏ ⴳ ⵓⴼⵔⴷ: ${wpm} WPM
+            `;
+            resultsDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                generateText();
+            }, 3000); // Reset after 3 seconds
         }
     </script>
 </body>
