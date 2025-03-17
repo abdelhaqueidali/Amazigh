@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵜⴰⴽⵜⵓⴱⵜ</title>
-    <!-- Google Fonts - Noto Sans Tifinagh -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
     <style>
         body {
@@ -90,44 +89,31 @@
             background-color: #f0f8f1;
         }
 
-        .word-display {
-            background-color: #f0f8f1;
+        #typing-area {
+            width: 100%;
+            min-height: 150px;
             padding: 1em;
+            font-size: 1.5em;
             border: 2px solid #4CAF50;
             border-radius: 8px;
-            min-height: 100px;
-            margin-bottom: 1em;
-            word-wrap: break-word;
-            font-size: 1.5em;
+            background-color: #f0f8f1;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            position: relative;
         }
 
-        .word {
-            margin: 0 5px;
-            color: #999999;
+        .char {
             transition: color 0.3s;
-        }
-
-        .current {
-            color: #4CAF50;
-            font-weight: bold;
+            color: #999999; /* Dimmed initial state */
         }
 
         .correct {
-            color: #388e3c;
+            color: #388e3c; /* Light green for correct */
         }
 
         .wrong {
-            color: #f44336;
-        }
-
-        #input-field {
-            width: 100%;
-            padding: 0.8em;
-            font-size: 1.2em;
-            border: 2px solid #4CAF50;
-            border-radius: 8px;
-            box-sizing: border-box;
-            margin-bottom: 1em;
+            color: #f44336; /* Red for wrong */
         }
 
         footer {
@@ -165,8 +151,7 @@
                     <label><input type="checkbox" id="numbers"> ⵎⴰⵡⵓⴷ (Numbers)</label>
                 </div>
 
-                <div class="word-display" id="word-display"></div>
-                <input type="text" id="input-field" placeholder="ⴽⵜⵓⴱ ⴳⵉⴷ...">
+                <div contenteditable="true" id="typing-area"></div>
             </div>
         </main>
         <footer>
@@ -176,8 +161,9 @@
 
     <script>
         let words = [];
-        let currentIndex = 0;
-        let currentWords = [];
+        let currentText = '';
+        let currentPosition = 0;
+        const typingArea = document.getElementById('typing-area');
 
         fetch('entery.txt')
             .then(response => response.text())
@@ -187,7 +173,7 @@
             })
             .catch(error => {
                 console.error('Error loading file:', error);
-                document.getElementById('word-display').innerHTML = 'Error loading words. Please ensure entry.txt exists.';
+                typingArea.innerHTML = 'Error loading words. Please ensure entry.txt exists.';
             });
 
         function initializeGame() {
@@ -195,16 +181,18 @@
             const punctuationCheckbox = document.getElementById('punctuation');
             const numbersCheckbox = document.getElementById('numbers');
             
-            generateWords();
+            generateText();
             
-            wordCountSelect.addEventListener('change', generateWords);
-            punctuationCheckbox.addEventListener('change', generateWords);
-            numbersCheckbox.addEventListener('change', generateWords);
+            wordCountSelect.addEventListener('change', generateText);
+            punctuationCheckbox.addEventListener('change', generateText);
+            numbersCheckbox.addEventListener('change', generateText);
             
-            document.getElementById('input-field').addEventListener('input', handleInput);
+            typingArea.addEventListener('keydown', handleTyping);
+            typingArea.addEventListener('paste', (e) => e.preventDefault()); // Prevent pasting
+            typingArea.focus();
         }
 
-        function generateWords() {
+        function generateText() {
             const wordCount = parseInt(document.getElementById('word-count').value);
             const usePunctuation = document.getElementById('punctuation').checked;
             const useNumbers = document.getElementById('numbers').checked;
@@ -217,51 +205,57 @@
                 wordPool = wordPool.concat(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']);
             }
 
-            currentWords = [];
+            currentText = '';
             for (let i = 0; i < wordCount; i++) {
                 const randomIndex = Math.floor(Math.random() * wordPool.length);
-                currentWords.push(wordPool[randomIndex]);
+                currentText += wordPool[randomIndex] + ' ';
+            }
+            currentText = currentText.trim();
+
+            displayText();
+            currentPosition = 0;
+            typingArea.focus();
+        }
+
+        function displayText() {
+            typingArea.innerHTML = '';
+            for (let char of currentText) {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char;
+                typingArea.appendChild(span);
+            }
+        }
+
+        function handleTyping(e) {
+            e.preventDefault();
+            const key = e.key;
+
+            if (key === 'Backspace' && currentPosition > 0) {
+                currentPosition--;
+                const charElement = typingArea.children[currentPosition];
+                charElement.classList.remove('correct', 'wrong');
+                return;
             }
 
-            displayWords();
-            currentIndex = 0;
-            document.getElementById('input-field').value = '';
-            document.getElementById('input-field').focus();
-        }
+            if (key.length !== 1 || currentPosition >= currentText.length) return;
 
-        function displayWords() {
-            const display = document.getElementById('word-display');
-            display.innerHTML = currentWords
-                .map((word, index) => `<span class="word" id="word-${index}">${word}</span>`)
-                .join(' ');
-            document.getElementById(`word-${currentIndex}`).classList.add('current');
-        }
+            const currentChar = currentText[currentPosition];
+            const charElement = typingArea.children[currentPosition];
 
-        function handleInput(e) {
-            const input = e.target.value.trim();
-            const currentWord = currentWords[currentIndex];
-            const currentElement = document.getElementById(`word-${currentIndex}`);
-
-            currentElement.classList.remove('correct', 'wrong');
-
-            if (input === currentWord) {
-                currentElement.classList.add('correct');
-                currentIndex++;
-                e.target.value = '';
-                
-                if (currentIndex < currentWords.length) {
-                    currentElement.classList.remove('current');
-                    document.getElementById(`word-${currentIndex}`).classList.add('current');
-                } else {
-                    setTimeout(() => {
-                        alert('ⵎⴰⴷⵉⴷ! ⵙⵎⴳⵓⵔⴷ ⴰⵙⵓⵔⴰⵔⵜ!');
-                        generateWords();
-                    }, 100);
-                }
-            } else if (currentWord.startsWith(input)) {
-                // Still typing the correct word
+            if (key === currentChar) {
+                charElement.classList.add('correct');
             } else {
-                currentElement.classList.add('wrong');
+                charElement.classList.add('wrong');
+            }
+
+            currentPosition++;
+
+            if (currentPosition === currentText.length) {
+                setTimeout(() => {
+                    alert('ⵎⴰⴷⵉⴷ! ⵙⵎⴳⵓⵔⴷ ⴰⵙⵓⵔⴰⵔⵜ!');
+                    generateText();
+                }, 100);
             }
         }
     </script>
