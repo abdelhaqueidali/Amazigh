@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵜⴰⴽⵜⵓⴱⵜ</title>
+    <!-- Google Fonts - Noto Sans Tifinagh -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .nav-toggle {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        #typing-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #typing-container h1 {
+            color: #4CAF50;
+            margin-bottom: 1em;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 0.5em;
+            font-size: 2em;
+        }
+
+        .controls {
+            margin-bottom: 1em;
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            flex-wrap: wrap;
+        }
+
+        .controls select, .controls label {
+            padding: 0.5em;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            background-color: #f0f8f1;
+        }
+
+        .word-display {
+            background-color: #f0f8f1;
+            padding: 1em;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            min-height: 100px;
+            margin-bottom: 1em;
+            word-wrap: break-word;
+            font-size: 1.5em;
+        }
+
+        .word {
+            margin: 0 5px;
+            color: #999999;
+            transition: color 0.3s;
+        }
+
+        .current {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: #388e3c;
+        }
+
+        .wrong {
+            color: #f44336;
+        }
+
+        #input-field {
+            width: 100%;
+            padding: 0.8em;
+            font-size: 1.2em;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            box-sizing: border-box;
+            margin-bottom: 1em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .tifinagh {
+            font-family: 'Noto Sans Tifinagh', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="tifinagh">ⵜⴰⴽⵜⵓⴱⵜ ⵏ ⵜⴼⵉⵏⴰⵖ</h1>
+        </header>
+        <a href="index.html">
+            <button class="nav-toggle tifinagh">ⴰⵙⵏⵓⴱⴳ - Home</button>
+        </a>
+        <main>
+            <div id="typing-container">
+                <h1 class="tifinagh">ⵜⴰⵙⵓⵔⴰⵔⵜ ⵏ ⵓⴽⵜⵓⴱ!</h1>
+                
+                <div class="controls">
+                    <select id="word-count">
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                    </select>
+                    <label><input type="checkbox" id="punctuation"> ⵉⴳⵎⵓⵔⵏ (Punctuation)</label>
+                    <label><input type="checkbox" id="numbers"> ⵎⴰⵡⵓⴷ (Numbers)</label>
+                </div>
+
+                <div class="word-display" id="word-display"></div>
+                <input type="text" id="input-field" placeholder="ⴽⵜⵓⴱ ⴳⵉⴷ...">
+            </div>
+        </main>
+        <footer>
+            <p class="tifinagh">ⴰⴼⴰⵡ</p>
+        </footer>
+    </div>
+
+    <script>
+        let words = [];
+        let currentIndex = 0;
+        let currentWords = [];
+
+        fetch('entery.txt')
+            .then(response => response.text())
+            .then(data => {
+                words = data.split('\n').filter(word => word.trim() !== '');
+                initializeGame();
+            })
+            .catch(error => {
+                console.error('Error loading file:', error);
+                document.getElementById('word-display').innerHTML = 'Error loading words. Please ensure entry.txt exists.';
+            });
+
+        function initializeGame() {
+            const wordCountSelect = document.getElementById('word-count');
+            const punctuationCheckbox = document.getElementById('punctuation');
+            const numbersCheckbox = document.getElementById('numbers');
+            
+            generateWords();
+            
+            wordCountSelect.addEventListener('change', generateWords);
+            punctuationCheckbox.addEventListener('change', generateWords);
+            numbersCheckbox.addEventListener('change', generateWords);
+            
+            document.getElementById('input-field').addEventListener('input', handleInput);
+        }
+
+        function generateWords() {
+            const wordCount = parseInt(document.getElementById('word-count').value);
+            const usePunctuation = document.getElementById('punctuation').checked;
+            const useNumbers = document.getElementById('numbers').checked;
+            
+            let wordPool = [...words];
+            if (usePunctuation) {
+                wordPool = wordPool.concat(['.', ',', '!', '?', ';', ':']);
+            }
+            if (useNumbers) {
+                wordPool = wordPool.concat(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']);
+            }
+
+            currentWords = [];
+            for (let i = 0; i < wordCount; i++) {
+                const randomIndex = Math.floor(Math.random() * wordPool.length);
+                currentWords.push(wordPool[randomIndex]);
+            }
+
+            displayWords();
+            currentIndex = 0;
+            document.getElementById('input-field').value = '';
+            document.getElementById('input-field').focus();
+        }
+
+        function displayWords() {
+            const display = document.getElementById('word-display');
+            display.innerHTML = currentWords
+                .map((word, index) => `<span class="word" id="word-${index}">${word}</span>`)
+                .join(' ');
+            document.getElementById(`word-${currentIndex}`).classList.add('current');
+        }
+
+        function handleInput(e) {
+            const input = e.target.value.trim();
+            const currentWord = currentWords[currentIndex];
+            const currentElement = document.getElementById(`word-${currentIndex}`);
+
+            currentElement.classList.remove('correct', 'wrong');
+
+            if (input === currentWord) {
+                currentElement.classList.add('correct');
+                currentIndex++;
+                e.target.value = '';
+                
+                if (currentIndex < currentWords.length) {
+                    currentElement.classList.remove('current');
+                    document.getElementById(`word-${currentIndex}`).classList.add('current');
+                } else {
+                    setTimeout(() => {
+                        alert('ⵎⴰⴷⵉⴷ! ⵙⵎⴳⵓⵔⴷ ⴰⵙⵓⵔⴰⵔⵜ!');
+                        generateWords();
+                    }, 100);
+                }
+            } else if (currentWord.startsWith(input)) {
+                // Still typing the correct word
+            } else {
+                currentElement.classList.add('wrong');
+            }
+        }
+    </script>
+</body>
+</html>
