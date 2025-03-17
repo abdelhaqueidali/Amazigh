@@ -220,7 +220,7 @@
             punctuationCheckbox.addEventListener('change', generateText);
             numbersCheckbox.addEventListener('change', generateText);
             
-            typingArea.addEventListener('input', handleTyping);
+            typingArea.addEventListener('beforeinput', handleBeforeInput);
             typingArea.addEventListener('keydown', handleKeydown);
             typingArea.addEventListener('paste', (e) => e.preventDefault());
             playAgainBtn.addEventListener('click', generateText);
@@ -310,17 +310,17 @@
             }
         }
 
-        function handleTyping(e) {
+        function handleBeforeInput(e) {
+            e.preventDefault(); // Prevent default input behavior
+            
             if (!startTime) {
                 startTime = new Date();
             }
 
-            if (e.inputType !== 'insertText' || !e.data || e.data.length > 1) {
-                e.preventDefault();
+            if (e.inputType !== 'insertText' || !e.data || e.data.length > 1 || 
+                currentPosition >= currentText.length) {
                 return;
             }
-
-            if (currentPosition >= currentText.length) return;
 
             const input = e.data;
             const currentChar = currentText[currentPosition];
