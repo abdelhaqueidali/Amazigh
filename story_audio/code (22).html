@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Book Reader</title>
+    <!-- Google Fonts - Noto Sans Tifinagh -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Container for the entire page content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            display: flex; /* Added for layout */
+            flex-direction: column; /* Stack elements vertically */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /* Navigation Menu Styles */
+        .nav-toggle {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+       /* Audio List Styles */
+        #audioList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            margin-bottom: 20px; /* Space between list and player */
+        }
+
+        #audioList li {
+            background-color: #f0f8f1;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #audioList li:hover {
+            background-color: #c8e6c9;
+        }
+
+
+        /* Main content area */
+        main {
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center; /* Center content horizontally */
+            flex: 1;
+        }
+
+
+        /* LRC Display Styles */
+        #lrcDisplay {
+            margin-top: 15px;
+            font-size: larger;
+            color: navy;
+            font-weight: bold;
+            white-space: normal;
+            word-break: break-word;
+            text-align: center;  /* Center the lyrics */
+            width: 100%; /* Occupy full width within the container */
+
+        }
+       .highlight {
+          background-color: yellow;
+        }
+        .paragraph {
+          margin-bottom: 1em; /* Add spacing between paragraphs */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Audio Player Styles */
+        #audioPlayerContainer {
+            width: 100%; /* Make the container responsive */
+            max-width: 640px; /* But don't let it get too wide */
+            margin: 20px 0; /* Center horizontally and add space */
+        }
+
+        #myAudio {
+          width: 100%; /* Make audio element responsive */
+          display: block; /* Remove extra space below the audio element */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Audio Book Reader</h1>
+        </header>
+        <a href="index.html">
+            <button class="nav-toggle">Home</button>
+        </a>
+
+        <main>
+            <ul id="audioList"></ul>
+
+            <div id="audioPlayerContainer">
+              <audio id="myAudio" controls></audio>
+            </div>
+
+            <div id="lrcDisplay"></div>
+        </main>
+
+
+        <footer>
+            <p>ⴰⴼⴰⵡ</p>
+        </footer>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('myAudio');
+        const audioList = document.getElementById('audioList');
+        const lrcDisplay = document.getElementById('lrcDisplay');
+        let lrcData = [];
+
+      // Fetch and populate audio list
+        fetch('audio_story.txt')
+        .then(response => response.text())
+        .then(data => {
+            const audioFiles = data.trim().split('\n');
+            audioFiles.forEach(file => {
+                const listItem = document.createElement('li');
+                listItem.textContent = file;
+                listItem.addEventListener('click', () => loadAudio(file));
+                audioList.appendChild(listItem);
+            });
+        })
+        .catch(error => console.error('Error fetching audio list:', error));
+
+
+
+        function loadAudio(audioFile) {
+            audioPlayer.src = audioFile;
+            audioPlayer.load();
+
+            // Construct LRC file name
+            const lrcFileName = audioFile.substring(0, audioFile.lastIndexOf('.')) + ".lrc";
+            loadLrc(lrcFileName);
+
+             audioPlayer.addEventListener('timeupdate', updateLrc); // Add here
+
+        }
+
+
+
+        function loadLrc(lrcFileName) {
+           fetch(lrcFileName)
+            .then(response => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                lrcData = parseLrc(data);
+                displayLrc(lrcData); // Initial display
+                audioPlayer.addEventListener('timeupdate', updateLrc);
+
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing LRC file:', error);
+                lrcDisplay.innerHTML = "Lyrics not found.";  // Show message to user
+                lrcData = []; // Clear lrcData to prevent errors in updateLrc
+                audioPlayer.removeEventListener('timeupdate', updateLrc);
+            });
+
+        }
+
+
+
+      function parseLrc(content) {
+        const lines = content.trim().split('\n');
+        const parsedLrc = [];
+        let paragraph = [];
+
+        for (const line of lines) {
+            const pTagMatch = line.trim().match(/^<p>$/i); // Match <p> tag case-insensitively
+            if (pTagMatch) {
+                if (paragraph.length > 0) {
+                  parsedLrc.push(paragraph); // Push the previous paragraph
+                }
+                paragraph = []; // Start a new paragraph
+                continue;
+            }
+
+          const match = line.match(/^\[(\d+):(\d+\.\d+)\](.*)/);
+          if (match) {
+            const minutes = parseInt(match[1], 10);
+            const seconds = parseFloat(match[2]);
+            const text = match[3].trim();
+            const time = minutes * 60 + seconds;
+            paragraph.push({ time: time, text: text });
+          }
+        }
+          //add last paragraph
+          if (paragraph.length > 0) {
+              parsedLrc.push(paragraph);
+          }
+
+        return parsedLrc;
+      }
+
+      function updateLrc() {
+          const currentTime = audioPlayer.currentTime;
+          let highlightedWordIndex = -1;
+          let highlightedParagraphIndex = -1;
+
+          // Find current paragraph and word.
+          for (let i = 0; i < lrcData.length; i++) {
+              const paragraph = lrcData[i];
+              for(let j = 0; j < paragraph.length; j++){
+                  if (currentTime >= paragraph[j].time) {
+                    highlightedWordIndex = j;
+                    highlightedParagraphIndex = i;
+                  } else {
+                    break; // Because it is ordered.
+                  }
+              }
+          }
+
+          displayLrc(lrcData, highlightedParagraphIndex, highlightedWordIndex);
+      }
+
+
+      function displayLrc(lrcData, highlightParaIndex = -1, highlightWordIndex = -1) {
+        lrcDisplay.innerHTML = ''; // Clear previous content
+
+        if (!lrcData || lrcData.length === 0) {
+            return; // No lyrics to display
+        }
+
+
+        for (let i = 0; i < lrcData.length; i++) {
+          const paragraphDiv = document.createElement('div');
+          paragraphDiv.classList.add('paragraph');
+
+          for(let j = 0; j < lrcData[i].length; j++){
+                const wordSpan = document.createElement('span');
+                wordSpan.textContent = lrcData[i][j].text + " "; // Add space after each word
+                wordSpan.dataset.time = lrcData[i][j].time; // Store time for click event
+                wordSpan.style.cursor = "pointer"; // Make words clickable
+
+                wordSpan.addEventListener('click', function() {
+                    audioPlayer.currentTime = parseFloat(this.dataset.time);
+                });
+
+
+                if (i === highlightParaIndex && j === highlightWordIndex) {
+                  wordSpan.classList.add('highlight');
+                }
+                paragraphDiv.appendChild(wordSpan);
+          }
+
+          lrcDisplay.appendChild(paragraphDiv);
+        }
+      }
+
+    </script>
+</body>
+</html>
