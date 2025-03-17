@@ -101,6 +101,7 @@
             white-space: pre-wrap;
             overflow-wrap: break-word;
             position: relative;
+            outline: none;
         }
 
         .char {
@@ -198,7 +199,8 @@
             punctuationCheckbox.addEventListener('change', generateText);
             numbersCheckbox.addEventListener('change', generateText);
             
-            typingArea.addEventListener('keydown', handleTyping);
+            typingArea.addEventListener('input', handleTyping);
+            typingArea.addEventListener('keydown', handleKeydown);
             typingArea.addEventListener('paste', (e) => e.preventDefault());
             typingArea.focus();
         }
@@ -230,6 +232,7 @@
             correctWords = 0;
             resultsDiv.style.display = 'none';
             typingArea.focus();
+            setCursorPosition(0);
         }
 
         function displayText() {
@@ -242,30 +245,42 @@
             }
         }
 
-        function handleTyping(e) {
-            e.preventDefault();
-            const key = e.key;
-
-            if (!startTime) {
-                startTime = new Date();
+        function setCursorPosition(pos) {
+            const range = document.createRange();
+            const sel = window.getSelection();
+            if (pos < typingArea.childNodes.length) {
+                range.setStart(typingArea.childNodes[pos], 0);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
             }
+        }
 
-            if (key === 'Backspace' && currentPosition > 0) {
+        function handleKeydown(e) {
+            if (e.key === 'Backspace' && currentPosition > 0) {
+                e.preventDefault();
                 currentPosition--;
                 const charElement = typingArea.children[currentPosition];
                 if (charElement.classList.contains('wrong')) {
                     errors--;
                 }
                 charElement.classList.remove('correct', 'wrong');
-                return;
+                setCursorPosition(currentPosition);
+            }
+        }
+
+        function handleTyping(e) {
+            if (!startTime) {
+                startTime = new Date();
             }
 
-            if (key.length !== 1 || currentPosition >= currentText.length) return;
+            const input = e.data;
+            if (!input || currentPosition >= currentText.length) return;
 
             const currentChar = currentText[currentPosition];
             const charElement = typingArea.children[currentPosition];
 
-            if (key === currentChar) {
+            if (input === currentChar) {
                 charElement.classList.add('correct');
                 if (currentChar === ' ' && typingArea.children[currentPosition - 1]?.classList.contains('correct')) {
                     correctWords++;
@@ -276,6 +291,7 @@
             }
 
             currentPosition++;
+            setCursorPosition(currentPosition);
 
             if (currentPosition === currentText.length) {
                 showResults();
@@ -284,11 +300,10 @@
 
         function showResults() {
             const endTime = new Date();
-            const timeDiff = (endTime - startTime) / 1000 / 60; // Convert to minutes
+            const timeDiff = (endTime - startTime) / 1000 / 60;
             const totalWords = currentText.split(' ').length;
             const wpm = Math.round(correctWords / timeDiff);
 
-            // Adjust correctWords for the last word if completed correctly
             if (typingArea.children[currentPosition - 1].classList.contains('correct')) {
                 correctWords++;
             }
@@ -303,7 +318,7 @@
             
             setTimeout(() => {
                 generateText();
-            }, 3000); // Reset after 3 seconds
+            }, 3000);
         }
     </script>
 </body>
