@@ -102,6 +102,9 @@
             overflow-wrap: break-word;
             position: relative;
             outline: none;
+            user-select: none;
+            -webkit-user-select: none;
+            caret-color: transparent;
         }
 
         .char {
@@ -233,21 +236,19 @@
             currentText = '';
             let textArray = [];
 
-            // Generate base text with words
             for (let i = 0; i < wordCount; i++) {
                 const randomIndex = Math.floor(Math.random() * wordPool.length);
                 textArray.push(wordPool[randomIndex]);
             }
 
-            // Add punctuation and numbers naturally
             if (usePunctuation || useNumbers) {
                 const punctuations = ['.', ',', '!', '?', ';', ':'];
                 const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
                 for (let i = 0; i < textArray.length; i++) {
-                    if (usePunctuation && Math.random() < 0.2) { // 20% chance after words
+                    if (usePunctuation && Math.random() < 0.2) {
                         textArray[i] += punctuations[Math.floor(Math.random() * punctuations.length)];
                     }
-                    if (useNumbers && Math.random() < 0.1) { // 10% chance of number insertion
+                    if (useNumbers && Math.random() < 0.1) {
                         textArray.splice(i + 1, 0, numbers[Math.floor(Math.random() * numbers.length)]);
                     }
                 }
@@ -261,6 +262,7 @@
             correctWords = 0;
             resultsDiv.style.display = 'none';
             playAgainBtn.style.display = 'none';
+            typingArea.setAttribute('contenteditable', 'true');
             typingArea.focus();
             setCursorPosition(0);
         }
@@ -278,11 +280,16 @@
         function setCursorPosition(pos) {
             const range = document.createRange();
             const sel = window.getSelection();
-            if (pos < typingArea.childNodes.length) {
-                range.setStart(typingArea.childNodes[pos], 0);
+            if (pos >= 0 && pos <= typingArea.childNodes.length) {
+                if (typingArea.childNodes[pos]) {
+                    range.setStart(typingArea.childNodes[pos], 0);
+                } else {
+                    range.setStart(typingArea, 0);
+                }
                 range.collapse(true);
                 sel.removeAllRanges();
                 sel.addRange(range);
+                typingArea.focus();
             }
         }
 
@@ -297,6 +304,10 @@
                 charElement.classList.remove('correct', 'wrong');
                 setCursorPosition(currentPosition);
             }
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || 
+                e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                e.preventDefault();
+            }
         }
 
         function handleTyping(e) {
@@ -304,9 +315,14 @@
                 startTime = new Date();
             }
 
-            const input = e.data;
-            if (!input || currentPosition >= currentText.length) return;
+            if (e.inputType !== 'insertText' || !e.data || e.data.length > 1) {
+                e.preventDefault();
+                return;
+            }
 
+            if (currentPosition >= currentText.length) return;
+
+            const input = e.data;
             const currentChar = currentText[currentPosition];
             const charElement = typingArea.children[currentPosition];
 
@@ -355,7 +371,7 @@
             `;
             resultsDiv.style.display = 'block';
             playAgainBtn.style.display = 'block';
-            typingArea.setAttribute('contenteditable', 'false'); // Disable typing
+            typingArea.setAttribute('contenteditable', 'false');
         }
     </script>
 </body>
