@@ -43,24 +43,24 @@
             margin: 0;
             font-size: 2.5em;
         }
-
-        /* --- Input and Buttons --- */
-        #inputText {
-            width: 100%;
-            height: 200px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
+        #toggleListButton{
+           background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
             border-radius: 4px;
-            padding: 10px;
-            box-sizing: border-box; /* Important for padding */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
         }
 
+        /* --- Buttons --- */
         #buttons {
             display: flex;
             gap: 10px; /* Space between buttons */
             margin-bottom: 20px;
         }
-        #processButton, #loadStoryButton, #copyButton {
+        #copyButton {
             background-color: #4CAF50;
             color: white;
             padding: 10px 15px;
@@ -70,7 +70,7 @@
             transition: background-color 0.3s ease;
         }
 
-        #processButton:hover, #loadStoryButton:hover, #copyButton:hover {
+        #copyButton:hover {
             background-color: #388e3c;
         }
          #storiesListContainer{
@@ -80,7 +80,12 @@
             margin-bottom: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
+
         }
+        .hidden {
+            display: none !important;
+        }
+
          #storiesList {
             list-style: none;
             padding: 0;
@@ -183,13 +188,7 @@
             <h1>Amazigh Story Reader</h1>
         </header>
 
-        <p>Paste your text here or load a story:</p>
-        <textarea id="inputText"></textarea>
-        <div id="buttons">
-            <button id="processButton" onclick="processText()">Process Text</button>
-
-            <button id="copyButton" onclick="copyOutput()">Copy Output</button>
-        </div>
+        <button id="toggleListButton" onclick="toggleStoryList()">Show/Hide Stories</button>
 
         <div id="storiesListContainer">
             <ul id="storiesList"></ul>
@@ -199,15 +198,18 @@
         <h2>Reading Page</h2>
         <div id="output"></div>
 
+        <div id="buttons">
+            <button id="copyButton" onclick="copyOutput()">Copy Output</button>
+        </div>
+
         <footer>
             <p>Your Footer Text</p>
         </footer>
     </div>
 
     <script>
-        // --- Existing Functions (processText, copyOutput) ---
-        function processText() {
-            const inputText = document.getElementById('inputText').value;
+        // --- Process Text Function ---
+        function processText(inputText) { // Accept inputText as parameter
             const outputDiv = document.getElementById('output');
             outputDiv.innerHTML = ''; // Clear previous output
 
@@ -288,8 +290,8 @@
                     return response.text();
                 })
                 .then(text => {
-                    document.getElementById('inputText').value = text;
-                    processText(); // Automatically process after loading
+                   // document.getElementById('inputText').value = text; // Removed inputText
+                    processText(text); // Automatically process after loading, passing the text
                 })
                 .catch(error => {
                     console.error('Error loading story:', error);
@@ -298,7 +300,7 @@
         }
 
         // --- Populate Story List ---
-        function populateStoryList() {
+       function populateStoryList() {
             fetch('stories.txt')
                 .then(response => response.text())
                 .then(data => {
@@ -308,21 +310,29 @@
 
                     storyFiles.forEach(file => {
                         const listItem = document.createElement('li');
-                         const iconSpan = document.createElement('span'); //Span for the icon
+                        const iconSpan = document.createElement('span'); //Span for the icon
                         iconSpan.innerHTML = '<i class="fas fa-book-open"></i>'; // Add Icon
 
                         const textSpan = document.createElement('span');
-                        const fileNameWithoutExtension = file.trim();
+                        const fileNameWithoutExtension = file.trim().replace(/\.txt$/, ''); // Remove .txt
                         textSpan.textContent = fileNameWithoutExtension;
 
+                        listItem.appendChild(iconSpan);  //Add the icon first.
                         listItem.appendChild(textSpan);
-                        listItem.appendChild(iconSpan);
+
                         listItem.addEventListener('click', () => loadStory(file.trim())); // Trim whitespace
                         storiesList.appendChild(listItem);
                     });
                 })
                 .catch(error => console.error('Error fetching story list:', error));
         }
+
+        // Toggle Story List Visibility
+        function toggleStoryList() {
+            const listContainer = document.getElementById('storiesListContainer');
+            listContainer.classList.toggle('hidden');
+        }
+
         // --- Initial Setup ---
         populateStoryList(); // Call on page load
 
