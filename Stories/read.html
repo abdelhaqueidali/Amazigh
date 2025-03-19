@@ -13,12 +13,15 @@
     <style>
         /* --- General Styles --- */
         body {
-            font-family: 'Arial', sans-serif; /* Or any suitable font */
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f8f8f8;
             color: #333;
             line-height: 1.6;
+            display: flex; /* Added for flexbox layout */
+            flex-direction: column; /* Stack header, content, footer */
+            min-height: 100vh; /* Full viewport height */
         }
 
         .container {
@@ -29,6 +32,9 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1; /* Grow to fill available space */
+            display: flex;
+            flex-direction: column;
         }
 
         header {
@@ -43,6 +49,20 @@
             margin: 0;
             font-size: 2.5em;
         }
+
+        .nav-toggle { /* Style for the navigation button */
+          display: block;
+          width: 100%;
+          padding: 10px;
+          background-color: #333;
+          color: #fff;
+          text-align: center;
+          cursor: pointer;
+          border: none;
+          border-radius: 5px;
+          margin-bottom: 10px; /* Space below the button */
+      }
+
         #toggleListButton{
            background-color: #4CAF50;
             color: white;
@@ -54,25 +74,7 @@
             margin-bottom: 10px;
         }
 
-        /* --- Buttons --- */
-        #buttons {
-            display: flex;
-            gap: 10px; /* Space between buttons */
-            margin-bottom: 20px;
-        }
-        #copyButton {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
 
-        #copyButton:hover {
-            background-color: #388e3c;
-        }
          #storiesListContainer{
             max-height: 200px; /* Set a maximum height */
             overflow-y: auto;  /* Add vertical scrollbar if needed */
@@ -128,6 +130,8 @@
             white-space: pre-wrap;
             border-radius: 4px;
             position: relative; /* For absolute positioning of translation */
+            flex: 1;  /* Allow the output to grow */
+            margin-bottom:20px;
 
         }
 
@@ -174,7 +178,7 @@
             background-color: #333;
             color: #fff;
             border-radius: 0 0 8px 8px;
-            margin-top: 20px; /* Space above footer */
+           /* margin-top: 20px;  Space above footer */
         }
         @media (max-width: 768px) {
 
@@ -187,6 +191,9 @@
         <header>
             <h1>Amazigh Story Reader</h1>
         </header>
+        <a href="https://abdelhaqueidali.github.io/Amazigh/">
+            <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ</button>
+        </a>
 
         <button id="toggleListButton" onclick="toggleStoryList()">Show/Hide Stories</button>
 
@@ -198,9 +205,7 @@
         <h2>Reading Page</h2>
         <div id="output"></div>
 
-        <div id="buttons">
-            <button id="copyButton" onclick="copyOutput()">Copy Output</button>
-        </div>
+
 
         <footer>
             <p>Your Footer Text</p>
@@ -263,23 +268,6 @@
             });
         }
 
-
-        function copyOutput() {
-            const outputDiv = document.getElementById('output');
-            const range = document.createRange();
-            range.selectNodeContents(outputDiv);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                alert('Copied to clipboard!');
-            } catch (err) {
-                alert('Unable to copy text');
-            }
-            selection.removeAllRanges();
-        }
-
         // --- Story Loading ---
         function loadStory(filename) {
             fetch(filename)
@@ -290,7 +278,6 @@
                     return response.text();
                 })
                 .then(text => {
-                   // document.getElementById('inputText').value = text; // Removed inputText
                     processText(text); // Automatically process after loading, passing the text
                 })
                 .catch(error => {
