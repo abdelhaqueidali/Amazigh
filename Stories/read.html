@@ -304,8 +304,8 @@
                         const fileNameWithoutExtension = file.trim().replace(/\.txt$/, ''); // Remove .txt
                         textSpan.textContent = fileNameWithoutExtension;
 
-                        listItem.appendChild(iconSpan);  //Add the icon first.
                         listItem.appendChild(textSpan);
+                        listItem.appendChild(iconSpan);  //Add the icon first.
 
                         listItem.addEventListener('click', () => loadStory(file.trim())); // Trim whitespace
                         storiesList.appendChild(listItem);
