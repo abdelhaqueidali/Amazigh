@@ -61,10 +61,10 @@
           border: none;
           border-radius: 5px;
           margin-bottom: 10px; /* Space below the button */
-      }
+        }
 
-        #toggleListButton{
-           background-color: #4CAF50;
+        #toggleListButton {
+            background-color: #4CAF50;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -74,26 +74,25 @@
             margin-bottom: 10px;
         }
 
-
-         #storiesListContainer{
+        #storiesListContainer {
             max-height: 200px; /* Set a maximum height */
             overflow-y: auto;  /* Add vertical scrollbar if needed */
             width: 100%;
             margin-bottom: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
-
         }
+
         .hidden {
             display: none !important;
         }
 
-         #storiesList {
+        #storiesList {
             list-style: none;
             padding: 0;
             margin: 0;
-
         }
+
         #storiesList li {
             background-color: #f9f9f9;
             border-bottom: 1px solid #ddd;
@@ -117,6 +116,7 @@
             background-color: #c8e6c9;
             font-weight: bold;
         }
+
         #storiesList li i {
             margin-right: 10px; /* Space between icon and text */
             color: #4CAF50; /* Icon color */
@@ -131,8 +131,7 @@
             border-radius: 4px;
             position: relative; /* For absolute positioning of translation */
             flex: 1;  /* Allow the output to grow */
-            margin-bottom:20px;
-
+            margin-bottom: 20px;
         }
 
         .word-container {
@@ -178,12 +177,10 @@
             background-color: #333;
             color: #fff;
             border-radius: 0 0 8px 8px;
-           /* margin-top: 20px;  Space above footer */
         }
+
         @media (max-width: 768px) {
-
         }
-
     </style>
 </head>
 <body>
@@ -201,11 +198,8 @@
             <ul id="storiesList"></ul>
         </div>
 
-
         <h2>Reading Page</h2>
         <div id="output"></div>
-
-
 
         <footer>
             <p>Your Footer Text</p>
@@ -215,58 +209,59 @@
     <script>
         // --- Process Text Function ---
         function processText(inputText) {
-    const outputDiv = document.getElementById('output');
-    outputDiv.innerHTML = ''; // Clear previous output
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = ''; // Clear previous output
 
-    const regex = /(\w+)\[(.*?)\]/g; // Updated regex for word[translation]
-    let match;
-    let lastIndex = 0;
+            const regex = /(\w+)\[(.*?)\]/g; // Updated regex for word[translation]
+            let match;
+            let lastIndex = 0;
 
-    while ((match = regex.exec(inputText)) !== null) {
-        if (match.index > lastIndex) {
-            outputDiv.appendChild(document.createTextNode(inputText.substring(lastIndex, match.index)));
+            while ((match = regex.exec(inputText)) !== null) {
+                if (match.index > lastIndex) {
+                    outputDiv.appendChild(document.createTextNode(inputText.substring(lastIndex, match.index)));
+                }
+
+                const word = match[1]; // The word before the brackets
+                const translation = match[2]; // The content inside [ ]
+
+                const wordContainer = document.createElement('span');
+                wordContainer.classList.add('word-container');
+
+                const wordSpan = document.createElement('span');
+                wordSpan.classList.add('word');
+                wordSpan.textContent = word;
+                wordContainer.appendChild(wordSpan);
+
+                const translationSpan = document.createElement('span');
+                translationSpan.classList.add('translation');
+                translationSpan.textContent = translation;
+                wordContainer.appendChild(translationSpan);
+
+                wordContainer.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    document.querySelectorAll('.word-container.show-translation').forEach(el => {
+                        if (el !== this) {
+                            el.classList.remove('show-translation');
+                        }
+                    });
+                    this.classList.toggle('show-translation');
+                });
+
+                outputDiv.appendChild(wordContainer);
+                lastIndex = regex.lastIndex;
+            }
+
+            if (lastIndex < inputText.length) {
+                outputDiv.appendChild(document.createTextNode(inputText.substring(lastIndex)));
+            }
+
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.word-container.show-translation').forEach(el => {
+                    el.classList.remove('show-translation');
+                });
+            });
         }
 
-        const word = match[1]; // The word before the brackets
-        const translation = match[2]; // The content inside [ ]
-
-        const wordContainer = document.createElement('span');
-        wordContainer.classList.add('word-container');
-
-        const wordSpan = document.createElement('span');
-        wordSpan.classList.add('word');
-        wordSpan.textContent = word;
-        wordContainer.appendChild(wordSpan);
-
-        const translationSpan = document.createElement('span');
-        translationSpan.classList.add('translation');
-        translationSpan.textContent = translation;
-        wordContainer.appendChild(translationSpan);
-
-        wordContainer.addEventListener('click', function(event) {
-            event.stopPropagation();
-            document.querySelectorAll('.word-container.show-translation').forEach(el => {
-                if (el !== this) {
-                    el.classList.remove('show-translation');
-                }
-            });
-            this.classList.toggle('show-translation');
-        });
-
-        outputDiv.appendChild(wordContainer);
-        lastIndex = regex.lastIndex;
-    }
-
-    if (lastIndex < inputText.length) {
-        outputDiv.appendChild(document.createTextNode(inputText.substring(lastIndex)));
-    }
-
-    document.addEventListener('click', function() {
-        document.querySelectorAll('.word-container.show-translation').forEach(el => {
-            el.classList.remove('show-translation');
-        });
-    });
-}
         // --- Story Loading ---
         function loadStory(filename) {
             fetch(filename)
@@ -286,7 +281,7 @@
         }
 
         // --- Populate Story List ---
-       function populateStoryList() {
+        function populateStoryList() {
             fetch('stories.txt')
                 .then(response => response.text())
                 .then(data => {
@@ -296,7 +291,7 @@
 
                     storyFiles.forEach(file => {
                         const listItem = document.createElement('li');
-                        const iconSpan = document.createElement('span'); //Span for the icon
+                        const iconSpan = document.createElement('span'); // Span for the icon
                         iconSpan.innerHTML = '<i class="fas fa-book-open"></i>'; // Add Icon
 
                         const textSpan = document.createElement('span');
@@ -304,7 +299,7 @@
                         textSpan.textContent = fileNameWithoutExtension;
 
                         listItem.appendChild(textSpan);
-                        listItem.appendChild(iconSpan);  //Add the icon first.
+                        listItem.appendChild(iconSpan);  // Add the icon after the text
 
                         listItem.addEventListener('click', () => loadStory(file.trim())); // Trim whitespace
                         storiesList.appendChild(listItem);
@@ -321,7 +316,6 @@
 
         // --- Initial Setup ---
         populateStoryList(); // Call on page load
-
     </script>
 </body>
 </html>
