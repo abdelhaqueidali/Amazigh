@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zgh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ⴰⵎⴰⵡⴰⵍ</title> <!-- Changed Title -->
+    <!-- Google Fonts - Noto Sans Tifinagh -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <style>
+   :root {
+     color-scheme: only light;
+   }
+   /* OR, more explicitly */
+   body {
+       background-color: white;
+       color: black;
+       /* ... any other light mode styles you need ... */
+   }
+
+   @media (prefers-color-scheme: dark) {
+     body {
+       background-color: white !important;  /* !important overrides dark mode */
+       color: black !important;
+       /* ... other overrides ... */
+      }
+   }
+        /*  PASTE THE ENTIRE CSS CODE FROM PREVIOUS RESPONSE HERE */
+        body {
+            font-family: 'Arial', sans-serif; /* A common, readable font.  Consider a more "handwritten" font for the child theme */
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8; /* Light background */
+            color: #333; /* Dark text for readability */
+            line-height: 1.6;  /* Improve readability */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the content fills at least the viewport height */
+        }
+
+        /*  Container for the entire page content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto; /* Center the content */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            flex: 1; /* Allow the container to grow and fill available space */
+        }
+
+        /*  Header Styles */
+        header {
+            background-color: #4CAF50; /*  Green, a lively color */
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0; /* Round top corners */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        /*  Navigation Menu Styles */
+        .nav-toggle {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px; /* Space between the button and the list */
+        }
+
+        .hidden {
+            display: none;
+        }
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px; /* Round bottom corners */
+        }
+
+         /* Styles for the iframe */
+        #dictionary-iframe {
+            width: 100%; /* Full width of the container */
+            height: 500px; /* Set a reasonable initial height, adjust as needed */
+            border: none; /* No border */
+        }
+        /*Make it responsive*/
+        @media (max-width: 768px) {
+            #dictionary-iframe {
+                height: 800px; /* Increase height on smaller screens if needed */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ⴰⵡⴰⵍ ⵏ ⵓⵎⴰⵔⴳ</h1>  <!-- Changed Header -->
+        </header>
+                <a href="index.html">
+        <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ</button>
+		</a>
+        <main>
+            <iframe id="dictionary-iframe" src="https://abdelhaqueidali-lrc-player-amazigh.static.hf.space" title="ⴰⵡⴰⵍ ⵏ ⵓⵎⴰⵔⴳ"></iframe>
+        </main>
+
+        <footer>
+            <p>ⴰⴼⴰⵡ</p>  <!-- Keep footer the same -->
+        </footer>
+    </div>
+    <script>
+
+    </script>
+</body>
+</html>
