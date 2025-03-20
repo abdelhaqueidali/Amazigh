@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazigh Story Reader</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@300..700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* --- General Styles --- */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex; /* Added for flexbox layout */
+            flex-direction: column; /* Stack header, content, footer */
+            min-height: 100vh; /* Full viewport height */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1; /* Grow to fill available space */
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #4CAF50; /* Green header */
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .nav-toggle { /* Style for the navigation button */
+          display: block;
+          width: 100%;
+          padding: 10px;
+          background-color: #333;
+          color: #fff;
+          text-align: center;
+          cursor: pointer;
+          border: none;
+          border-radius: 5px;
+          margin-bottom: 10px; /* Space below the button */
+      }
+
+        #toggleListButton{
+           background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+
+         #storiesListContainer{
+            max-height: 200px; /* Set a maximum height */
+            overflow-y: auto;  /* Add vertical scrollbar if needed */
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+
+        }
+        .hidden {
+            display: none !important;
+        }
+
+         #storiesList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+        }
+        #storiesList li {
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Space out content */
+        }
+
+        #storiesList li:last-child {
+            border-bottom: none; /* Remove border from the last item */
+        }
+
+        #storiesList li:hover {
+            background-color: #e9e9e9;
+        }
+
+        #storiesList li.playing {
+            background-color: #c8e6c9;
+            font-weight: bold;
+        }
+        #storiesList li i {
+            margin-right: 10px; /* Space between icon and text */
+            color: #4CAF50; /* Icon color */
+        }
+
+        /* --- Output Area --- */
+        #output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 100px;
+            white-space: pre-wrap;
+            border-radius: 4px;
+            position: relative; /* For absolute positioning of translation */
+            flex: 1;  /* Allow the output to grow */
+            margin-bottom:20px;
+
+        }
+
+        .word-container {
+            display: inline-block;
+            margin-right: 2px;
+            cursor: pointer;
+            border-bottom: 1px dotted black;
+            position: relative;
+        }
+
+        .word-container:hover {
+            background-color: yellow;
+        }
+
+        .word {
+            user-select: none;
+        }
+
+        .translation {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 5px;
+            z-index: 2;
+            min-width: 80px;
+            text-align: center;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            white-space: nowrap;
+            left: 0;
+            top: -40px; /* Position above */
+        }
+
+        .word-container:hover .translation,
+        .word-container.show-translation .translation {
+            display: block;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+           /* margin-top: 20px;  Space above footer */
+        }
+        @media (max-width: 768px) {
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Amazigh Story Reader</h1>
+        </header>
+        <a href="https://abdelhaqueidali.github.io/Amazigh/">
+            <button class="nav-toggle">ⴰⵙⵏⵓⴱⴳ</button>
+        </a>
+
+        <button id="toggleListButton" onclick="toggleStoryList()">Show/Hide Stories</button>
+
+        <div id="storiesListContainer">
+            <ul id="storiesList"></ul>
+        </div>
+
+
+        <h2>Reading Page</h2>
+        <div id="output"></div>
+
+
+
+        <footer>
+            <p>Your Footer Text</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- Process Text Function ---
+        function processText(inputText) { // Accept inputText as parameter
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = ''; // Clear previous output
+
+            const regex = /\[(.*?)\]\((.*?)\)/g;
+            let match;
+            let lastIndex = 0;
+
+            while ((match = regex.exec(inputText)) !== null) {
+                if (match.index > lastIndex) {
+                    outputDiv.appendChild(document.createTextNode(inputText.substring(lastIndex, match.index)));
+                }
+
+                const word = match[1];
+                const translation = match[2];
+
+                const wordContainer = document.createElement('span');
+                wordContainer.classList.add('word-container');
+
+                const wordSpan = document.createElement('span');
+                wordSpan.classList.add('word');
+                wordSpan.textContent = word;
+                wordContainer.appendChild(wordSpan);
+
+                const translationSpan = document.createElement('span');
+                translationSpan.classList.add('translation');
+                translationSpan.textContent = translation;
+                wordContainer.appendChild(translationSpan);
+
+                wordContainer.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    document.querySelectorAll('.word-container.show-translation').forEach(el => {
+                        if (el !== this) {
+                            el.classList.remove('show-translation');
+                        }
+                    });
+                    this.classList.toggle('show-translation');
+                });
+
+                outputDiv.appendChild(wordContainer);
+                lastIndex = regex.lastIndex;
+            }
+
+            if (lastIndex < inputText.length) {
+                outputDiv.appendChild(document.createTextNode(inputText.substring(lastIndex)));
+            }
+
+            document.addEventListener('click', function() {
+                document.querySelectorAll('.word-container.show-translation').forEach(el => {
+                    el.classList.remove('show-translation');
+                });
+            });
+        }
+
+        // --- Story Loading ---
+        function loadStory(filename) {
+            fetch(filename)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    processText(text); // Automatically process after loading, passing the text
+                })
+                .catch(error => {
+                    console.error('Error loading story:', error);
+                    alert(`Error loading story: ${filename}`);
+                });
+        }
+
+        // --- Populate Story List ---
+       function populateStoryList() {
+            fetch('stories.txt')
+                .then(response => response.text())
+                .then(data => {
+                    const storyFiles = data.trim().split('\n');
+                    const storiesList = document.getElementById('storiesList');
+                    storiesList.innerHTML = ''; // Clear existing list
+
+                    storyFiles.forEach(file => {
+                        const listItem = document.createElement('li');
+                        const iconSpan = document.createElement('span'); //Span for the icon
+                        iconSpan.innerHTML = '<i class="fas fa-book-open"></i>'; // Add Icon
+
+                        const textSpan = document.createElement('span');
+                        const fileNameWithoutExtension = file.trim().replace(/\.txt$/, ''); // Remove .txt
+                        textSpan.textContent = fileNameWithoutExtension;
+
+                        listItem.appendChild(textSpan);
+                        listItem.appendChild(iconSpan);  //Add the icon first.
+
+                        listItem.addEventListener('click', () => loadStory(file.trim())); // Trim whitespace
+                        storiesList.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching story list:', error));
+        }
+
+        // Toggle Story List Visibility
+        function toggleStoryList() {
+            const listContainer = document.getElementById('storiesListContainer');
+            listContainer.classList.toggle('hidden');
+        }
+
+        // --- Initial Setup ---
+        populateStoryList(); // Call on page load
+
+    </script>
+</body>
+</html>
