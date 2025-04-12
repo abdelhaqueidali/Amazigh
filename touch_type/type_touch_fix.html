@@ -98,10 +98,10 @@
             border-radius: 8px;
             background-color: #f0f8f1;
             box-sizing: border-box;
-            white-space: pre-wrap;
-            word-break: keep-all;
-            overflow-wrap: normal;
-            overflow: auto;
+            white-space: pre-wrap; /* Allow multi-line with manual breaks */
+            word-break: keep-all; /* Prevent words from breaking */
+            overflow-wrap: normal; /* Avoid breaking words */
+            overflow: auto; /* Scroll if needed, but multi-line preserved */
             position: relative;
             outline: none;
             user-select: none;
@@ -186,7 +186,7 @@
                 
                 <div class="controls">
                     <select id="word-count">
-                        <option value="50" selected>50</option>
+                        <option value="50">50</option>
                         <option value="100">100</option>
                         <option value="200">200</option>
                     </select>
@@ -219,15 +219,11 @@
             .then(response => response.text())
             .then(data => {
                 words = data.split('\n').filter(word => word.trim() !== '');
-                if (words.length === 0) {
-                    typingArea.innerHTML = 'Error: No words found in entery.txt.';
-                    return;
-                }
                 initializeGame();
             })
             .catch(error => {
                 console.error('Error loading file:', error);
-                typingArea.innerHTML = 'Error loading words. Please ensure entery.txt exists.';
+                typingArea.innerHTML = 'Error loading words. Please ensure entry.txt exists.';
             });
 
         function initializeGame() {
@@ -254,9 +250,9 @@
             const useNumbers = document.getElementById('numbers').checked;
             
             let wordPool = [...words];
-            if (wordPool.length === 0) return;
-            
+            currentText = '';
             let textArray = [];
+
             for (let i = 0; i < wordCount; i++) {
                 const randomIndex = Math.floor(Math.random() * wordPool.length);
                 textArray.push(wordPool[randomIndex]);
@@ -370,7 +366,7 @@
             const endTime = new Date();
             const timeDiff = (endTime - startTime) / 1000 / 60;
             const totalWords = currentText.split(' ').length;
-            const wpm = Math.round(correctWords / timeDiff) || 0;
+            const wpm = Math.round(correctWords / timeDiff);
 
             if (currentPosition > 0 && typingArea.children[currentPosition - 1].classList.contains('correct')) {
                 const lastSpace = currentText.lastIndexOf(' ', currentPosition - 2);
