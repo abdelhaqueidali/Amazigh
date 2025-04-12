@@ -98,9 +98,10 @@
             border-radius: 8px;
             background-color: #f0f8f1;
             box-sizing: border-box;
-            white-space: nowrap; /* Prevent words from breaking */
-            overflow-x: auto; /* Allow horizontal scrolling if needed */
-            overflow-y: visible;
+            white-space: pre-wrap; /* Allow multi-line with manual breaks */
+            word-break: keep-all; /* Prevent words from breaking */
+            overflow-wrap: normal; /* Avoid breaking words */
+            overflow: auto; /* Scroll if needed, but multi-line preserved */
             position: relative;
             outline: none;
             user-select: none;
@@ -338,30 +339,19 @@
             const currentChar = currentText[currentPosition];
             const charElement = typingArea.children[currentPosition];
 
-            // If current character is a space, only accept space input
-            if (currentChar === ' ') {
-                if (input === ' ') {
-                    charElement.classList.add('correct');
-                    if (currentPosition > 0 && 
-                        typingArea.children[currentPosition - 1].classList.contains('correct')) {
-                        const prevWordEnd = currentText.lastIndexOf(' ', currentPosition - 1);
-                        const wordCorrect = Array.from(typingArea.children)
-                            .slice(prevWordEnd + 1, currentPosition)
-                            .every(char => char.classList.contains('correct'));
-                        if (wordCorrect) correctWords++;
-                    }
-                } else {
-                    // Ignore non-space input for spaces
-                    return;
+            if (input === currentChar) {
+                charElement.classList.add('correct');
+                if (currentChar === ' ' && currentPosition > 0 && 
+                    typingArea.children[currentPosition - 1].classList.contains('correct')) {
+                    const prevWordEnd = currentText.lastIndexOf(' ', currentPosition - 1);
+                    const wordCorrect = Array.from(typingArea.children)
+                        .slice(prevWordEnd + 1, currentPosition)
+                        .every(char => char.classList.contains('correct'));
+                    if (wordCorrect) correctWords++;
                 }
             } else {
-                // Handle non-space characters
-                if (input === currentChar) {
-                    charElement.classList.add('correct');
-                } else {
-                    charElement.classList.add('wrong');
-                    errors++;
-                }
+                charElement.classList.add('wrong');
+                errors++;
             }
 
             currentPosition++;
