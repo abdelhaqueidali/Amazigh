@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Reset default margin and padding */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%; /* Make sure body and html take up the full height */
+            overflow: hidden; /* Prevent scrollbars on the outer page */
+        }
+
+        /* Style the iframe to take up the entire viewport */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Remove default iframe border */
+        }
+        
+        /* Reset default margin and padding */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Make sure body and html take up the full height */
+    overflow: hidden; /* Prevent scrollbars on the outer page */
+}
+
+/* Style the iframe to take up the entire viewport */
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove default iframe border */
+}
+
+/* Style for the div containing the links */
+div {
+    text-align: center;  /* Center the links horizontally */
+    background-color: #f0f0f0; /* Light gray background (optional) */
+    padding: 10px;          /* Add some padding around the links */
+    position: relative;    /* Important for z-index to work */
+    z-index: 2;            /* Ensure the div is above the iframe */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow (optional) */
+}
+
+/* Style for the links themselves (optional) */
+div a {
+    margin: 0 10px;       /* Add some horizontal spacing between links */
+    color: #007bff;       /* Blue link color (adjust as desired) */
+    text-decoration: none; /* Remove underline (optional) */
+}
+
+div a:hover {
+    text-decoration: underline; /* Add underline on hover (optional) */
+}
+    </style>
+</head>
+<body>
+  <iframe src="https://abdelhaqueidali-lrc-player-amazigh.static.hf.space"></iframe>
+
+</body>
+</html>
