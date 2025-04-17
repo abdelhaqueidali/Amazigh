@@ -74,18 +74,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Style for single video links in sidebar */
-.single-video-link {
-  display: block;
-  padding: 5px 0;
-  color: #90caf9;
-  text-decoration: none;
-}
-
-.single-video-link:hover {
-  text-decoration: underline;
-}
-
 </style>
 </head>
 <body>
@@ -112,6 +100,8 @@ function loadAndDisplayData() {
       let currentSection = null;
       let seriesListHTML = '';
       let currentSeriesEpisodes = [];
+      let singleVideoUrl = null;  // Store single video URL
+
 
       for (const line of lines) {
         const trimmedLine = line.trim();
@@ -125,6 +115,7 @@ function loadAndDisplayData() {
             currentSeriesEpisodes = []; // Reset
           }
           currentSection = trimmedLine.slice(1, -1);
+
         }
         else if (trimmedLine.startsWith('Episode')) {
           const [episodeInfo, url] = trimmedLine.split('|');
@@ -138,15 +129,8 @@ function loadAndDisplayData() {
           }
         }
         else if (trimmedLine.startsWith('https://www.youtube.com')) {
-          const videoUrl = trimmedLine;  // Store the full URL
-          const videoId = extractVideoId(videoUrl);
-          if (videoId) {
-              //Create a single line
-              seriesListHTML += `<a href="#" class="single-video-link" onclick="playVideo('${videoId}'); return false;">Single Video</a>`;
+            singleVideoUrl = trimmedLine;
 
-          } else {
-              console.warn("Invalid Video URL:", videoUrl);
-          }
         }
         else {
           console.warn("Skipping line:", trimmedLine);
@@ -155,7 +139,14 @@ function loadAndDisplayData() {
 
       // Close the last series
       if (currentSection) {
+        if (singleVideoUrl) {
+          seriesListHTML += createSingleVideoHTML("Single Video", extractVideoId(singleVideoUrl));  // Create single video entry
+
+        }
         seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);
+      } else if (singleVideoUrl) {
+           seriesListHTML += createSingleVideoHTML("Single Video", extractVideoId(singleVideoUrl));  // Create single video entry if there's no section
+
       }
 
       document.getElementById('series-list').innerHTML = seriesListHTML;
@@ -205,7 +196,13 @@ function createSeriesHTML(seriesTitle, episodes) {
     </div>
   `;
 }
-
+function createSingleVideoHTML(title, videoId) {
+  return `
+  <div class="series">
+      <div class="series-title" onclick="playVideo('${videoId}')">${title}</div>
+    </div>
+  `;
+}
 
 window.onload = loadAndDisplayData;
 </script>
