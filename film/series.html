@@ -1,31 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>YouTube Player</title>
+<title>YouTube Movie Site</title>
 <style>
 body {
   font-family: sans-serif;
-  margin: 20px;
+  margin: 0;
+  background-color: #121212; /* Dark background */
+  color: #fff; /* White text */
+  display: flex; /* Use flexbox for layout */
+  min-height: 100vh;
 }
 
-h2 {
-  margin-top: 20px;
+/* Left Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #212121; /* Darker sidebar */
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto; /* Scroll if content overflows */
+  height: 100vh;  /*Full height*/
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+.sidebar h2 {
+  margin-top: 0;
+  color: #ddd;
 }
 
-li {
+.series-title {
+  cursor: pointer;
+  padding: 5px 0;
+  border-bottom: 1px solid #333;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
-/* Style for the video player */
+.episode-list {
+  display: none; /* Initially collapsed */
+  padding-left: 20px;
+}
+
+.episode-list li {
+  margin-bottom: 5px;
+}
+
+/* Main Content (Video Player) */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center; /* Center the player horizontally */
+  align-items: center;      /* Center the player vertically */
+}
+
 .video-container {
-  width: 640px; /* Adjust as needed */
-  height: 360px; /* Adjust as needed */
-  margin-bottom: 15px;
+  width: 854px; /* Adjust as needed (16:9 ratio) */
+  height: 480px; /* Adjust as needed (16:9 ratio) */
+  /* Ensure the video doesn't overflow */
+  max-width: 100%;  /* Responsive width */
+  max-height: 80vh; /* Limit height to viewport */
 }
 
 .video-container iframe {
@@ -33,14 +67,33 @@ li {
   height: 100%;
   border: none;
 }
+
+/* Styling for links */
+a {
+    color: #90caf9; /* Light blue link color */
+    text-decoration: none; /* Remove underlines */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
 </style>
 </head>
 <body>
 
-<h1>YouTube Videos</h1>
+<div class="sidebar">
+  <h1>YouTube Videos</h1>
+  <div id="series-list">
+    <!-- Series list will be loaded here -->
+  </div>
+</div>
 
-<div id="content">
-  <!-- Content will be loaded here -->
+<div class="main-content">
+  <div id="player" class="video-container">
+    <!-- Initial placeholder -->
+    <div>Select a video to play.</div>
+  </div>
 </div>
 
 <script>
@@ -50,8 +103,8 @@ function loadAndDisplayData() {
     .then(data => {
       const lines = data.split('\n');
       let currentSection = null;
-      let outputHTML = '';
-      let currentVideoId = null; // Store the video ID for playback
+      let seriesListHTML = '';
+      let currentSeriesEpisodes = [];
 
       for (const line of lines) {
         const trimmedLine = line.trim();
@@ -59,25 +112,31 @@ function loadAndDisplayData() {
         if (!trimmedLine) continue;
 
         if (trimmedLine.startsWith('[')) {
+          // Close previous series, if any
+          if (currentSection) {
+            seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);
+            currentSeriesEpisodes = []; // Reset
+          }
+
           currentSection = trimmedLine.slice(1, -1);
-          outputHTML += `<h2>${currentSection}</h2><ul>`;
+
         } else if (trimmedLine.startsWith('Episode')) {
           const [episodeInfo, url] = trimmedLine.split('|');
           const episodeNumber = episodeInfo.trim();
           const videoUrl = url.trim();
-          const videoId = extractVideoId(videoUrl); // Extract video ID
+          const videoId = extractVideoId(videoUrl);
           if (videoId) {
-              outputHTML += `<li>${episodeNumber}: <button onclick="playVideo('${videoId}')">Play</button></li>`;
+              currentSeriesEpisodes.push({ number: episodeNumber, id: videoId });
           } else {
-              outputHTML += `<li>${episodeNumber}: Invalid Video URL</li>`;
+              console.warn("Invalid Video URL:", videoUrl);
           }
         }
         else if (trimmedLine.startsWith('https://www.youtube.com')) {
           const videoId = extractVideoId(trimmedLine);
           if (videoId) {
-            outputHTML += `<li> <button onclick="playVideo('${videoId}')">Play</button></li>`;
+            currentSeriesEpisodes.push({ number: "Single Video", id: videoId });
           } else {
-            outputHTML += `<li>Invalid Video URL</li>`;
+            console.warn("Invalid Video URL:", trimmedLine);
           }
         }
         else {
@@ -85,17 +144,26 @@ function loadAndDisplayData() {
         }
       }
 
+      // Close the last series
       if (currentSection) {
-        outputHTML += '</ul>';
+        seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);
       }
 
-      // Add the video player container
-      outputHTML = '<div id="player" class="video-container"></div>' + outputHTML;
-      document.getElementById('content').innerHTML = outputHTML;
+      document.getElementById('series-list').innerHTML = seriesListHTML;
+
+      // Add event listeners for collapsing/expanding series
+      const seriesTitles = document.querySelectorAll('.series-title');
+      seriesTitles.forEach(title => {
+        title.addEventListener('click', function() {
+          const episodeList = this.nextElementSibling;
+          episodeList.style.display = episodeList.style.display === 'none' ? 'block' : 'none';
+        });
+      });
+
     })
     .catch(error => {
       console.error('Error loading data.txt:', error);
-      document.getElementById('content').innerHTML = '<p>Error loading data. Please make sure data.txt exists and is in the same directory.</p>';
+      document.getElementById('series-list').innerHTML = '<p>Error loading data. Please make sure data.txt exists and is in the same directory.</p>';
     });
 }
 
@@ -113,6 +181,20 @@ function extractVideoId(url) {
 function playVideo(videoId) {
     const playerDiv = document.getElementById('player');
     playerDiv.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+}
+
+function createSeriesHTML(seriesTitle, episodes) {
+  let episodeListHTML = '';
+  episodes.forEach(episode => {
+    episodeListHTML += `<li><a href="#" onclick="playVideo('${episode.id}'); return false;">${episode.number}</a></li>`;
+  });
+
+  return `
+    <div class="series">
+      <div class="series-title">${seriesTitle}</div>
+      <ul class="episode-list">${episodeListHTML}</ul>
+    </div>
+  `;
 }
 
 
