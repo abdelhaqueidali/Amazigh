@@ -5,83 +5,26 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-
-        h1 {
-            text-align: center;
-            padding: 20px 0;
-            background-color: #333;
-            color: white;
-            margin: 0;
-        }
-
-        #content {
-            width: 80%;
-            margin: 20px auto;
         }
 
         .section {
-            background-color: white;
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
         }
 
         .section-title {
-            background-color: #555;
-            color: white;
-            padding: 10px;
             cursor: pointer;
-            border-bottom: 1px solid #ddd;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
             font-weight: bold;
         }
 
         .section-content {
-            padding: 15px;
             display: none; /* Initially hidden */
         }
 
         .episode-link {
             display: block;
-            padding: 8px 12px;
             margin-bottom: 5px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            cursor: pointer;
-            color: #337ab7; /* Blue color for links */
-            text-decoration: none;
-            transition: background-color 0.3s ease; /* Smooth transition */
-        }
-
-        .episode-link:hover {
-            background-color: #ddd;
-        }
-
-        #player {
-            width: 80%;
-            max-width: 800px; /* Set a maximum width */
-            margin: 20px auto;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            #content, #player {
-                width: 95%;
-            }
-
-            #player iframe {
-                width: 100%;
-                height: auto;
-                min-height: 300px; /* Minimum height for mobile */
-            }
         }
     </style>
 </head>
@@ -93,7 +36,7 @@
     </div>
 
     <div id="player">
-        <!-- YouTube Player will be embedded here -->
+        <!-- YouTube Player -->
     </div>
 
     <script>
@@ -101,7 +44,7 @@
             fetch('data.txt')
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                     return response.text();
                 })
@@ -110,18 +53,18 @@
                 })
                 .catch(error => {
                     console.error('Error loading data:', error);
-                    document.getElementById('content').innerText = 'Error loading data.  Check the console.';
+                    document.getElementById('content').innerText = 'Error loading data. Check the console.';
                 });
         }
 
         function processData(data) {
             const contentDiv = document.getElementById('content');
-            const sections = data.split('\n['); // Split into sections
-            sections.shift(); // Remove the first empty element if exists
+            const sections = data.split('\n[');
+            sections.shift();
 
             sections.forEach(section => {
                 const parts = section.split(']\n');
-                const title = parts[0].trim(); // Get Title and Trim WhiteSpace
+                const title = parts[0].trim();
                 const items = parts[1].split('\n');
 
                 const sectionDiv = document.createElement('div');
@@ -136,35 +79,27 @@
                 contentArea.classList.add('section-content');
                 sectionDiv.appendChild(contentArea);
 
-                if (items.length > 1){ // series
-                    items.forEach(item =>{
-                        if (item != ''){
-                            const itemParts = item.split('|');
-                            const episodeTitle = itemParts[0].trim(); // get title and Trim WhiteSpace
-                            const youtubeLink = itemParts[1].trim(); // get link and Trim WhiteSpace
-
+                if (items.length > 1) { // Series
+                    items.forEach(item => {
+                        if (item) {
+                            const [episodeTitle, youtubeLink] = item.split('|').map(s => s.trim());
                             const episodeLink = document.createElement('a');
                             episodeLink.classList.add('episode-link');
                             episodeLink.innerText = episodeTitle;
-                            episodeLink.href = '#'; // Prevent page reload
+                            episodeLink.href = '#';
                             episodeLink.addEventListener('click', function(event) {
-                                event.preventDefault(); // Stop the default action (link click)
+                                event.preventDefault();
                                 loadVideo(youtubeLink);
                             });
                             contentArea.appendChild(episodeLink);
                         }
                     });
-                }
-                else { // single movie
-                    const youtubeLink = items[0].trim(); // Get Link and Trim WhiteSpace
-
-                    const movieButton = document.createElement('button');
-                    movieButton.innerText = "Play Movie";
-                    movieButton.addEventListener('click', function() {
-                        loadVideo(youtubeLink);
-                    });
-                    contentArea.appendChild(movieButton);
-
+                } else { // Movie
+                    const youtubeLink = items[0].trim();
+                    const playButton = document.createElement('button');
+                    playButton.innerText = "Play Movie";
+                    playButton.addEventListener('click', () => loadVideo(youtubeLink));
+                    contentArea.appendChild(playButton);
                 }
 
                 titleDiv.addEventListener('click', () => {
@@ -178,14 +113,12 @@
         function loadVideo(youtubeLink) {
             const videoId = youtubeLink.split('v=')[1];
             const ampersandPosition = videoId.indexOf('&');
-            if(ampersandPosition != -1) {
-              videoId = videoId.substring(0, ampersandPosition);
-            }
+            const videoIdClean = ampersandPosition !== -1 ? videoId.substring(0, ampersandPosition) : videoId;
+
             const playerDiv = document.getElementById('player');
-            playerDiv.innerHTML = `<iframe width="640" height="360" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+            playerDiv.innerHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoIdClean}" frameborder="0" allowfullscreen></iframe>`;
         }
 
-        // Load data when the page loads
         window.onload = loadData;
     </script>
 </body>
