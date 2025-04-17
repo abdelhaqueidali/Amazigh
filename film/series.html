@@ -6,23 +6,22 @@
 body {
   font-family: sans-serif;
   margin: 0;
-  background-color: #121212; /* Dark background */
-  color: #fff; /* White text */
-  display: flex; /* Use flexbox for layout */
+  background-color: #121212;
+  color: #fff;
+  display: flex;
   min-height: 100vh;
 }
 
-/* Left Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #212121; /* Darker sidebar */
+  background-color: #212121;
   padding: 20px;
   box-sizing: border-box;
-  overflow-y: auto; /* Scroll if content overflows */
-  height: 100vh;  /*Full height*/
+  overflow-y: auto;
+  height: 100vh;
 }
 
-.sidebar h2 {
+.sidebar h1 {
   margin-top: 0;
   color: #ddd;
 }
@@ -36,7 +35,7 @@ body {
 }
 
 .episode-list {
-  display: none; /* Initially collapsed */
+  display: none;
   padding-left: 20px;
 }
 
@@ -44,22 +43,20 @@ body {
   margin-bottom: 5px;
 }
 
-/* Main Content (Video Player) */
 .main-content {
   flex-grow: 1;
   padding: 20px;
   box-sizing: border-box;
   display: flex;
-  justify-content: center; /* Center the player horizontally */
-  align-items: center;      /* Center the player vertically */
+  justify-content: center;
+  align-items: center;
 }
 
 .video-container {
-  width: 854px; /* Adjust as needed (16:9 ratio) */
-  height: 480px; /* Adjust as needed (16:9 ratio) */
-  /* Ensure the video doesn't overflow */
-  max-width: 100%;  /* Responsive width */
-  max-height: 80vh; /* Limit height to viewport */
+  width: 854px;
+  height: 480px;
+  max-width: 100%;
+  max-height: 80vh;
 }
 
 .video-container iframe {
@@ -68,14 +65,25 @@ body {
   border: none;
 }
 
-/* Styling for links */
 a {
-    color: #90caf9; /* Light blue link color */
-    text-decoration: none; /* Remove underlines */
+  color: #90caf9;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline; /* Underline on hover */
+  text-decoration: underline;
+}
+
+/* Style for single video links in sidebar */
+.single-video-link {
+  display: block;
+  padding: 5px 0;
+  color: #90caf9;
+  text-decoration: none;
+}
+
+.single-video-link:hover {
+  text-decoration: underline;
 }
 
 </style>
@@ -91,7 +99,6 @@ a:hover {
 
 <div class="main-content">
   <div id="player" class="video-container">
-    <!-- Initial placeholder -->
     <div>Select a video to play.</div>
   </div>
 </div>
@@ -117,10 +124,9 @@ function loadAndDisplayData() {
             seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);
             currentSeriesEpisodes = []; // Reset
           }
-
           currentSection = trimmedLine.slice(1, -1);
-
-        } else if (trimmedLine.startsWith('Episode')) {
+        }
+        else if (trimmedLine.startsWith('Episode')) {
           const [episodeInfo, url] = trimmedLine.split('|');
           const episodeNumber = episodeInfo.trim();
           const videoUrl = url.trim();
@@ -132,11 +138,14 @@ function loadAndDisplayData() {
           }
         }
         else if (trimmedLine.startsWith('https://www.youtube.com')) {
-          const videoId = extractVideoId(trimmedLine);
+          const videoUrl = trimmedLine;  // Store the full URL
+          const videoId = extractVideoId(videoUrl);
           if (videoId) {
-            currentSeriesEpisodes.push({ number: "Single Video", id: videoId });
+              //Create a single line
+              seriesListHTML += `<a href="#" class="single-video-link" onclick="playVideo('${videoId}'); return false;">Single Video</a>`;
+
           } else {
-            console.warn("Invalid Video URL:", trimmedLine);
+              console.warn("Invalid Video URL:", videoUrl);
           }
         }
         else {
@@ -174,7 +183,7 @@ function extractVideoId(url) {
         const videoId = urlObject.searchParams.get('v');
         return videoId;
     } catch (e) {
-        return null; // Invalid URL
+        return null;
     }
 }
 
