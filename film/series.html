@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>YouTube Links</title>
+<title>YouTube Player</title>
 <style>
 body {
   font-family: sans-serif;
@@ -18,72 +18,105 @@ ul {
 }
 
 li {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-a {
-  text-decoration: none;
-  color: blue;
+/* Style for the video player */
+.video-container {
+  width: 640px; /* Adjust as needed */
+  height: 360px; /* Adjust as needed */
+  margin-bottom: 15px;
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 </style>
 </head>
 <body>
 
-<h1>YouTube Links</h1>
+<h1>YouTube Videos</h1>
 
 <div id="content">
-  <!-- Content will be loaded here by JavaScript -->
+  <!-- Content will be loaded here -->
 </div>
 
 <script>
-  function loadAndDisplayData() {
-    fetch('data.txt')
-      .then(response => response.text())
-      .then(data => {
-        const lines = data.split('\n');
-        let currentSection = null;
-        let outputHTML = '';
+function loadAndDisplayData() {
+  fetch('data.txt')
+    .then(response => response.text())
+    .then(data => {
+      const lines = data.split('\n');
+      let currentSection = null;
+      let outputHTML = '';
+      let currentVideoId = null; // Store the video ID for playback
 
-        for (const line of lines) {
-          const trimmedLine = line.trim();
+      for (const line of lines) {
+        const trimmedLine = line.trim();
 
-          if (!trimmedLine) continue; // Skip empty lines
+        if (!trimmedLine) continue;
 
-          if (trimmedLine.startsWith('[')) {
-            // Section Heading
-            currentSection = trimmedLine.slice(1, -1); // Remove brackets
-            outputHTML += `<h2>${currentSection}</h2><ul>`;
-          } else if (trimmedLine.startsWith('Episode')) {
-              // Extract Episode Number and URL
-              const [episodeInfo, url] = trimmedLine.split('|');
-              const episodeNumber = episodeInfo.trim();
-              const videoUrl = url.trim();
-
-              outputHTML += `<li>${episodeNumber}: <a href="${videoUrl}" target="_blank">${videoUrl}</a></li>`;
-          } else if (trimmedLine.startsWith('https://www.youtube.com')) {
-            // Single URL (boutfounast case)
-            outputHTML += `<li><a href="${trimmedLine}" target="_blank">${trimmedLine}</a></li>`;
-
-          }
-           else{
-            console.warn("Skipping line:", trimmedLine);  //Debug, handle unexpected lines
+        if (trimmedLine.startsWith('[')) {
+          currentSection = trimmedLine.slice(1, -1);
+          outputHTML += `<h2>${currentSection}</h2><ul>`;
+        } else if (trimmedLine.startsWith('Episode')) {
+          const [episodeInfo, url] = trimmedLine.split('|');
+          const episodeNumber = episodeInfo.trim();
+          const videoUrl = url.trim();
+          const videoId = extractVideoId(videoUrl); // Extract video ID
+          if (videoId) {
+              outputHTML += `<li>${episodeNumber}: <button onclick="playVideo('${videoId}')">Play</button></li>`;
+          } else {
+              outputHTML += `<li>${episodeNumber}: Invalid Video URL</li>`;
           }
         }
-
-        if (currentSection) {
-          outputHTML += '</ul>'; // Close the last list if it exists.
+        else if (trimmedLine.startsWith('https://www.youtube.com')) {
+          const videoId = extractVideoId(trimmedLine);
+          if (videoId) {
+            outputHTML += `<li> <button onclick="playVideo('${videoId}')">Play</button></li>`;
+          } else {
+            outputHTML += `<li>Invalid Video URL</li>`;
+          }
         }
+        else {
+          console.warn("Skipping line:", trimmedLine);
+        }
+      }
 
-        document.getElementById('content').innerHTML = outputHTML;
-      })
-      .catch(error => {
-        console.error('Error loading data.txt:', error);
-        document.getElementById('content').innerHTML = '<p>Error loading data. Please make sure data.txt exists and is in the same directory.</p>';
-      });
-  }
+      if (currentSection) {
+        outputHTML += '</ul>';
+      }
 
-  // Load the data when the page loads
-  window.onload = loadAndDisplayData;
+      // Add the video player container
+      outputHTML = '<div id="player" class="video-container"></div>' + outputHTML;
+      document.getElementById('content').innerHTML = outputHTML;
+    })
+    .catch(error => {
+      console.error('Error loading data.txt:', error);
+      document.getElementById('content').innerHTML = '<p>Error loading data. Please make sure data.txt exists and is in the same directory.</p>';
+    });
+}
+
+
+function extractVideoId(url) {
+    try {
+        const urlObject = new URL(url);
+        const videoId = urlObject.searchParams.get('v');
+        return videoId;
+    } catch (e) {
+        return null; // Invalid URL
+    }
+}
+
+function playVideo(videoId) {
+    const playerDiv = document.getElementById('player');
+    playerDiv.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+}
+
+
+window.onload = loadAndDisplayData;
 </script>
 
 </body>
