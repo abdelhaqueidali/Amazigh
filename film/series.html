@@ -101,7 +101,7 @@ function loadAndDisplayData() {
       let seriesListHTML = '';
       let currentSeriesEpisodes = [];
       let singleVideoUrl = null;  // Store single video URL
-
+      let singleVideoTitle = null;
 
       for (const line of lines) {
         const trimmedLine = line.trim();
@@ -111,10 +111,13 @@ function loadAndDisplayData() {
         if (trimmedLine.startsWith('[')) {
           // Close previous series, if any
           if (currentSection) {
+
             seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);
             currentSeriesEpisodes = []; // Reset
           }
+
           currentSection = trimmedLine.slice(1, -1);
+          singleVideoTitle = currentSection;  // Use series title as the single video title
 
         }
         else if (trimmedLine.startsWith('Episode')) {
@@ -140,13 +143,12 @@ function loadAndDisplayData() {
       // Close the last series
       if (currentSection) {
         if (singleVideoUrl) {
-          seriesListHTML += createSingleVideoHTML("Single Video", extractVideoId(singleVideoUrl));  // Create single video entry
+          seriesListHTML += createSingleVideoHTML(singleVideoTitle, extractVideoId(singleVideoUrl));  // Create single video entry with correct title
 
         }
-        seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);
+        seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);  //Create Standard series.
       } else if (singleVideoUrl) {
-           seriesListHTML += createSingleVideoHTML("Single Video", extractVideoId(singleVideoUrl));  // Create single video entry if there's no section
-
+           seriesListHTML += createSingleVideoHTML(singleVideoTitle, extractVideoId(singleVideoUrl));  // Create single video entry if there's no section
       }
 
       document.getElementById('series-list').innerHTML = seriesListHTML;
@@ -163,7 +165,7 @@ function loadAndDisplayData() {
     })
     .catch(error => {
       console.error('Error loading data.txt:', error);
-      document.getElementById('series-list').innerHTML = '<p>Error loading data. Please make sure data.txt exists and is in the same directory.</p>';
+      document.getElementById('series-list').innerHTML = '<p>Error loading data. Please make sure that the `data.txt` exists and is in the same directory as the html file.</p>';
     });
 }
 
@@ -196,6 +198,7 @@ function createSeriesHTML(seriesTitle, episodes) {
     </div>
   `;
 }
+
 function createSingleVideoHTML(title, videoId) {
   return `
   <div class="series">
