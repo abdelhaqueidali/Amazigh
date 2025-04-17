@@ -6,22 +6,23 @@
 body {
   font-family: sans-serif;
   margin: 0;
-  background-color: #121212;
-  color: #fff;
-  display: flex;
+  background-color: #121212; /* Dark background */
+  color: #fff; /* White text */
+  display: flex; /* Use flexbox for layout */
   min-height: 100vh;
 }
 
+/* Left Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #212121;
+  background-color: #212121; /* Darker sidebar */
   padding: 20px;
   box-sizing: border-box;
-  overflow-y: auto;
-  height: 100vh;
+  overflow-y: auto; /* Scroll if content overflows */
+  height: 100vh;  /*Full height*/
 }
 
-.sidebar h1 {
+.sidebar h2 {
   margin-top: 0;
   color: #ddd;
 }
@@ -35,7 +36,7 @@ body {
 }
 
 .episode-list {
-  display: none;
+  display: none; /* Initially collapsed */
   padding-left: 20px;
 }
 
@@ -43,20 +44,22 @@ body {
   margin-bottom: 5px;
 }
 
+/* Main Content (Video Player) */
 .main-content {
   flex-grow: 1;
   padding: 20px;
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Center the player horizontally */
+  align-items: center;      /* Center the player vertically */
 }
 
 .video-container {
-  width: 854px;
-  height: 480px;
-  max-width: 100%;
-  max-height: 80vh;
+  width: 854px; /* Adjust as needed (16:9 ratio) */
+  height: 480px; /* Adjust as needed (16:9 ratio) */
+  /* Ensure the video doesn't overflow */
+  max-width: 100%;  /* Responsive width */
+  max-height: 80vh; /* Limit height to viewport */
 }
 
 .video-container iframe {
@@ -65,13 +68,14 @@ body {
   border: none;
 }
 
+/* Styling for links */
 a {
-  color: #90caf9;
-  text-decoration: none;
+    color: #90caf9; /* Light blue link color */
+    text-decoration: none; /* Remove underlines */
 }
 
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline; /* Underline on hover */
 }
 
 </style>
@@ -87,89 +91,80 @@ a:hover {
 
 <div class="main-content">
   <div id="player" class="video-container">
+    <!-- Initial placeholder -->
     <div>Select a video to play.</div>
   </div>
 </div>
 
 <script>
 function loadAndDisplayData() {
-    fetch('data.txt')
-        .then(response => response.text())
-        .then(data => {
-            const lines = data.split('\n');
-            let currentSection = null;
-            let seriesListHTML = '';
-            let currentSeriesEpisodes = [];
-            let singleVideoUrl = null; // Store single video URL
-            let singleVideoTitle = null;
-            let hasSingleVideo = false; // Flag to track if a single video has been processed
+  fetch('data.txt')
+    .then(response => response.text())
+    .then(data => {
+      const lines = data.split('\n');
+      let currentSection = null;
+      let seriesListHTML = '';
+      let currentSeriesEpisodes = [];
 
-            for (const line of lines) {
-                const trimmedLine = line.trim();
+      for (const line of lines) {
+        const trimmedLine = line.trim();
 
-                if (!trimmedLine) continue;
+        if (!trimmedLine) continue;
 
-                if (trimmedLine.startsWith('[')) {
-                    // Close previous series, if any
-                    if (currentSection) {
-                        if (hasSingleVideo) {
-                            seriesListHTML += createSingleVideoHTML(singleVideoTitle, extractVideoId(singleVideoUrl));
-                        }
-                        seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);
-                        currentSeriesEpisodes = []; // Reset
-                        hasSingleVideo = false;      // Reset the flag
-                        singleVideoUrl = null;        //Reset
-                    }
+        if (trimmedLine.startsWith('[')) {
+          // Close previous series, if any
+          if (currentSection) {
+            seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);
+            currentSeriesEpisodes = []; // Reset
+          }
 
-                    currentSection = trimmedLine.slice(1, -1);
-                    singleVideoTitle = currentSection;  // Use series title as the single video title
+          currentSection = trimmedLine.slice(1, -1);
 
-                }
-                else if (trimmedLine.startsWith('Episode')) {
-                    const [episodeInfo, url] = trimmedLine.split('|');
-                    const episodeNumber = episodeInfo.trim();
-                    const videoUrl = url.trim();
-                    const videoId = extractVideoId(videoUrl);
-                    if (videoId) {
-                        currentSeriesEpisodes.push({ number: episodeNumber, id: videoId });
-                    } else {
-                        console.warn("Invalid Video URL:", videoUrl);
-                    }
-                }
-                else if (trimmedLine.startsWith('https://www.youtube.com')) {
-                    singleVideoUrl = trimmedLine;
-                    hasSingleVideo = true; // A single video exists
+        } else if (trimmedLine.startsWith('Episode')) {
+          const [episodeInfo, url] = trimmedLine.split('|');
+          const episodeNumber = episodeInfo.trim();
+          const videoUrl = url.trim();
+          const videoId = extractVideoId(videoUrl);
+          if (videoId) {
+              currentSeriesEpisodes.push({ number: episodeNumber, id: videoId });
+          } else {
+              console.warn("Invalid Video URL:", videoUrl);
+          }
+        }
+        else if (trimmedLine.startsWith('https://www.youtube.com')) {
+          const videoId = extractVideoId(trimmedLine);
+          if (videoId) {
+            currentSeriesEpisodes.push({ number: "Single Video", id: videoId });
+          } else {
+            console.warn("Invalid Video URL:", trimmedLine);
+          }
+        }
+        else {
+          console.warn("Skipping line:", trimmedLine);
+        }
+      }
 
-                }
-                else {
-                    console.warn("Skipping line:", trimmedLine);
-                }
-            }
+      // Close the last series
+      if (currentSection) {
+        seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);
+      }
 
-            // Process the last series
-            if (currentSection) {
-                if (hasSingleVideo) {
-                    seriesListHTML += createSingleVideoHTML(singleVideoTitle, extractVideoId(singleVideoUrl));
-                }
-                seriesListHTML += createSeriesHTML(currentSection, currentSeriesEpisodes);
-            }
+      document.getElementById('series-list').innerHTML = seriesListHTML;
 
-            document.getElementById('series-list').innerHTML = seriesListHTML;
-
-            // Add event listeners for collapsing/expanding series
-            const seriesTitles = document.querySelectorAll('.series-title');
-            seriesTitles.forEach(title => {
-                title.addEventListener('click', function () {
-                    const episodeList = this.nextElementSibling;
-                    episodeList.style.display = episodeList.style.display === 'none' ? 'block' : 'none';
-                });
-            });
-
-        })
-        .catch(error => {
-            console.error('Error loading data.txt:', error);
-            document.getElementById('series-list').innerHTML = '<p>Error loading data. Please make sure that the `data.txt` exists and is in the same directory as the html file.</p>';
+      // Add event listeners for collapsing/expanding series
+      const seriesTitles = document.querySelectorAll('.series-title');
+      seriesTitles.forEach(title => {
+        title.addEventListener('click', function() {
+          const episodeList = this.nextElementSibling;
+          episodeList.style.display = episodeList.style.display === 'none' ? 'block' : 'none';
         });
+      });
+
+    })
+    .catch(error => {
+      console.error('Error loading data.txt:', error);
+      document.getElementById('series-list').innerHTML = '<p>Error loading data. Please make sure data.txt exists and is in the same directory.</p>';
+    });
 }
 
 
@@ -179,7 +174,7 @@ function extractVideoId(url) {
         const videoId = urlObject.searchParams.get('v');
         return videoId;
     } catch (e) {
-        return null;
+        return null; // Invalid URL
     }
 }
 
@@ -189,12 +184,12 @@ function playVideo(videoId) {
 }
 
 function createSeriesHTML(seriesTitle, episodes) {
-    let episodeListHTML = '';
-    episodes.forEach(episode => {
-        episodeListHTML += `<li><a href="#" onclick="playVideo('${episode.id}'); return false;">${episode.number}</a></li>`;
-    });
+  let episodeListHTML = '';
+  episodes.forEach(episode => {
+    episodeListHTML += `<li><a href="#" onclick="playVideo('${episode.id}'); return false;">${episode.number}</a></li>`;
+  });
 
-    return `
+  return `
     <div class="series">
       <div class="series-title">${seriesTitle}</div>
       <ul class="episode-list">${episodeListHTML}</ul>
@@ -202,13 +197,6 @@ function createSeriesHTML(seriesTitle, episodes) {
   `;
 }
 
-function createSingleVideoHTML(title, videoId) {
-    return `
-  <div class="series">
-      <div class="series-title" onclick="playVideo('${videoId}')">${title}</div>
-    </div>
-  `;
-}
 
 window.onload = loadAndDisplayData;
 </script>
