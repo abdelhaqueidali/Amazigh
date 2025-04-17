@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Site</title>
+    <style>
+        .section {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            background-color: #f0f0f0;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .section-content {
+            padding: 10px;
+            display: none; /* Initially hidden */
+        }
+
+        .episode-link {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer;
+            color: blue;
+            text-decoration: none;
+        }
+
+        #player {
+            width: 640px;
+            height: 360px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Movie Site</h1>
+
+    <div id="content">
+        <!-- Content will be loaded here from data.txt -->
+    </div>
+
+    <div id="player">
+        <!-- YouTube Player will be embedded here -->
+    </div>
+
+    <script>
+        function loadData() {
+            fetch('data.txt')
+                .then(response => response.text())
+                .then(data => {
+                    processData(data);
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                    document.getElementById('content').innerText = 'Error loading data.  Check the console.';
+                });
+        }
+
+        function processData(data) {
+            const contentDiv = document.getElementById('content');
+            const sections = data.split('\n['); // Split into sections
+            sections.shift(); // Remove the first empty element if exists
+
+            sections.forEach(section => {
+                const parts = section.split(']\n');
+                const title = parts[0];
+                const items = parts[1].split('\n');
+
+                const sectionDiv = document.createElement('div');
+                sectionDiv.classList.add('section');
+
+                const titleDiv = document.createElement('div');
+                titleDiv.classList.add('section-title');
+                titleDiv.innerText = title;
+                sectionDiv.appendChild(titleDiv);
+
+                const contentArea = document.createElement('div');
+                contentArea.classList.add('section-content');
+                sectionDiv.appendChild(contentArea);
+
+                if (items.length > 1){ // series
+                    items.forEach(item =>{
+                        if (item != ''){
+                            const itemParts = item.split('|');
+                            const episodeTitle = itemParts[0];
+                            const youtubeLink = itemParts[1];
+
+                            const episodeLink = document.createElement('a');
+                            episodeLink.classList.add('episode-link');
+                            episodeLink.innerText = episodeTitle;
+                            episodeLink.href = '#'; // Prevent page reload
+                            episodeLink.addEventListener('click', function(event) {
+                                event.preventDefault(); // Stop the default action (link click)
+                                loadVideo(youtubeLink);
+                            });
+                            contentArea.appendChild(episodeLink);
+                        }
+                    });
+                }
+                else { // single movie
+                    const youtubeLink = items[0];
+
+                    const movieButton = document.createElement('button');
+                    movieButton.innerText = "Play Movie";
+                    movieButton.addEventListener('click', function() {
+                        loadVideo(youtubeLink);
+                    });
+                    contentArea.appendChild(movieButton);
+
+                }
+
+                titleDiv.addEventListener('click', () => {
+                    contentArea.style.display = contentArea.style.display === 'block' ? 'none' : 'block';
+                });
+
+                contentDiv.appendChild(sectionDiv);
+            });
+        }
+
+        function loadVideo(youtubeLink) {
+            const videoId = youtubeLink.split('v=')[1];
+            const ampersandPosition = videoId.indexOf('&');
+            if(ampersandPosition != -1) {
+              videoId = videoId.substring(0, ampersandPosition);
+            }
+            const playerDiv = document.getElementById('player');
+            playerDiv.innerHTML = `<iframe width="640" height="360" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+        }
+
+        // Load data when the page loads
+        window.onload = loadData;
+    </script>
+</body>
+</html>
