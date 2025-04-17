@@ -1,36 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Movie Site</title>
+    <title>My Movie Site</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #333;
+            color: white;
+            margin: 0;
+        }
+
+        #content {
+            width: 80%;
+            margin: 20px auto;
+        }
+
         .section {
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
         }
 
         .section-title {
-            background-color: #f0f0f0;
-            padding: 5px;
+            background-color: #555;
+            color: white;
+            padding: 10px;
             cursor: pointer;
+            border-bottom: 1px solid #ddd;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-weight: bold;
         }
 
         .section-content {
-            padding: 10px;
+            padding: 15px;
             display: none; /* Initially hidden */
         }
 
         .episode-link {
             display: block;
+            padding: 8px 12px;
             margin-bottom: 5px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
             cursor: pointer;
-            color: blue;
+            color: #337ab7; /* Blue color for links */
             text-decoration: none;
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+
+        .episode-link:hover {
+            background-color: #ddd;
         }
 
         #player {
-            width: 640px;
-            height: 360px;
-            margin-top: 20px;
+            width: 80%;
+            max-width: 800px; /* Set a maximum width */
+            margin: 20px auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #content, #player {
+                width: 95%;
+            }
+
+            #player iframe {
+                width: 100%;
+                height: auto;
+                min-height: 300px; /* Minimum height for mobile */
+            }
         }
     </style>
 </head>
@@ -65,7 +116,7 @@
 
             sections.forEach(section => {
                 const parts = section.split(']\n');
-                const title = parts[0];
+                const title = parts[0].trim(); // Get Title and Trim WhiteSpace
                 const items = parts[1].split('\n');
 
                 const sectionDiv = document.createElement('div');
@@ -84,8 +135,8 @@
                     items.forEach(item =>{
                         if (item != ''){
                             const itemParts = item.split('|');
-                            const episodeTitle = itemParts[0];
-                            const youtubeLink = itemParts[1];
+                            const episodeTitle = itemParts[0].trim(); // get title and Trim WhiteSpace
+                            const youtubeLink = itemParts[1].trim(); // get link and Trim WhiteSpace
 
                             const episodeLink = document.createElement('a');
                             episodeLink.classList.add('episode-link');
@@ -100,7 +151,7 @@
                     });
                 }
                 else { // single movie
-                    const youtubeLink = items[0];
+                    const youtubeLink = items[0].trim(); // Get Link and Trim WhiteSpace
 
                     const movieButton = document.createElement('button');
                     movieButton.innerText = "Play Movie";
