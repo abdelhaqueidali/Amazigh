@@ -1,125 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Movie Site</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+<title>YouTube Links</title>
+<style>
+body {
+  font-family: sans-serif;
+  margin: 20px;
+}
 
-        .section {
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
+h2 {
+  margin-top: 20px;
+}
 
-        .section-title {
-            cursor: pointer;
-            font-weight: bold;
-        }
+ul {
+  list-style-type: none;
+  padding: 0;
+}
 
-        .section-content {
-            display: none; /* Initially hidden */
-        }
+li {
+  margin-bottom: 5px;
+}
 
-        .episode-link {
-            display: block;
-            margin-bottom: 5px;
-        }
-    </style>
+a {
+  text-decoration: none;
+  color: blue;
+}
+</style>
 </head>
 <body>
-    <h1>My Movie Site</h1>
 
-    <div id="content">
-        <!-- Content will be loaded here from data.txt -->
-    </div>
+<h1>YouTube Links</h1>
 
-    <div id="player">
-        <!-- YouTube Player -->
-    </div>
+<div id="content">
+  <!-- Content will be loaded here by JavaScript -->
+</div>
 
-    <script>
-        function loadData() {
-            fetch('data.txt')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    processData(data);
-                })
-                .catch(error => {
-                    console.error('Error loading data:', error);
-                    document.getElementById('content').innerText = 'Error loading data. Check the console.';
-                });
+<script>
+  function loadAndDisplayData() {
+    fetch('data.txt')
+      .then(response => response.text())
+      .then(data => {
+        const lines = data.split('\n');
+        let currentSection = null;
+        let outputHTML = '';
+
+        for (const line of lines) {
+          const trimmedLine = line.trim();
+
+          if (!trimmedLine) continue; // Skip empty lines
+
+          if (trimmedLine.startsWith('[')) {
+            // Section Heading
+            currentSection = trimmedLine.slice(1, -1); // Remove brackets
+            outputHTML += `<h2>${currentSection}</h2><ul>`;
+          } else if (trimmedLine.startsWith('Episode')) {
+              // Extract Episode Number and URL
+              const [episodeInfo, url] = trimmedLine.split('|');
+              const episodeNumber = episodeInfo.trim();
+              const videoUrl = url.trim();
+
+              outputHTML += `<li>${episodeNumber}: <a href="${videoUrl}" target="_blank">${videoUrl}</a></li>`;
+          } else if (trimmedLine.startsWith('https://www.youtube.com')) {
+            // Single URL (boutfounast case)
+            outputHTML += `<li><a href="${trimmedLine}" target="_blank">${trimmedLine}</a></li>`;
+
+          }
+           else{
+            console.warn("Skipping line:", trimmedLine);  //Debug, handle unexpected lines
+          }
         }
 
-        function processData(data) {
-            const contentDiv = document.getElementById('content');
-            const sections = data.split('\n[');
-            sections.shift();
-
-            sections.forEach(section => {
-                const parts = section.split(']\n');
-                const title = parts[0].trim();
-                const items = parts[1].split('\n');
-
-                const sectionDiv = document.createElement('div');
-                sectionDiv.classList.add('section');
-
-                const titleDiv = document.createElement('div');
-                titleDiv.classList.add('section-title');
-                titleDiv.innerText = title;
-                sectionDiv.appendChild(titleDiv);
-
-                const contentArea = document.createElement('div');
-                contentArea.classList.add('section-content');
-                sectionDiv.appendChild(contentArea);
-
-                if (items.length > 1) { // Series
-                    items.forEach(item => {
-                        if (item) {
-                            const [episodeTitle, youtubeLink] = item.split('|').map(s => s.trim());
-                            const episodeLink = document.createElement('a');
-                            episodeLink.classList.add('episode-link');
-                            episodeLink.innerText = episodeTitle;
-                            episodeLink.href = '#';
-                            episodeLink.addEventListener('click', function(event) {
-                                event.preventDefault();
-                                loadVideo(youtubeLink);
-                            });
-                            contentArea.appendChild(episodeLink);
-                        }
-                    });
-                } else { // Movie
-                    const youtubeLink = items[0].trim();
-                    const playButton = document.createElement('button');
-                    playButton.innerText = "Play Movie";
-                    playButton.addEventListener('click', () => loadVideo(youtubeLink));
-                    contentArea.appendChild(playButton);
-                }
-
-                titleDiv.addEventListener('click', () => {
-                    contentArea.style.display = contentArea.style.display === 'block' ? 'none' : 'block';
-                });
-
-                contentDiv.appendChild(sectionDiv);
-            });
+        if (currentSection) {
+          outputHTML += '</ul>'; // Close the last list if it exists.
         }
 
-        function loadVideo(youtubeLink) {
-            const videoId = youtubeLink.split('v=')[1];
-            const ampersandPosition = videoId.indexOf('&');
-            const videoIdClean = ampersandPosition !== -1 ? videoId.substring(0, ampersandPosition) : videoId;
+        document.getElementById('content').innerHTML = outputHTML;
+      })
+      .catch(error => {
+        console.error('Error loading data.txt:', error);
+        document.getElementById('content').innerHTML = '<p>Error loading data. Please make sure data.txt exists and is in the same directory.</p>';
+      });
+  }
 
-            const playerDiv = document.getElementById('player');
-            playerDiv.innerHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoIdClean}" frameborder="0" allowfullscreen></iframe>`;
-        }
+  // Load the data when the page loads
+  window.onload = loadAndDisplayData;
+</script>
 
-        window.onload = loadData;
-    </script>
 </body>
 </html>
