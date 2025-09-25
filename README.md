@@ -1,6 +1,6 @@
 # Amazigh
 
-[![Generic badge](https://img.shields.io/badge/Language-Amazigh-blue.svg)](https://en.wikipedia.org/wiki/Berber_languages) [![Website](https://img.shields.io/website?url=https%3A%2F%2Fabdelhaqueidali.github.io%2FLearn-Amazigh-WEB%2F&up_message=Online&down_message=Offline&label=Website)](https://abdelhaqueidali.github.io/Amazigh)
+[![Generic badge](https://img.shields.io/badge/Language-Amazigh-blue.svg)](https://en.wikipedia.org/wiki/Berber_languages)
 
 This repository contains a collection of simple, interactive webpages designed as a comprehensive resource for learning the Amazigh (Berber) language.  The website provides a central hub with links to various learning tools and resources, including interactive lessons, a multi-lingual dictionary, a verb conjugator, a Quran translation, and general tools.  It's structured as a portal, guiding users to different sections dedicated to specific learning goals.
 
